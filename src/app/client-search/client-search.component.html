@@ -5,18 +5,5 @@
     </h2>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-6">
-    <form novalidate (ngSubmit)="onSubmit(clientSearch.value)" [formGroup]="clientSearch">
-      <div class="col-md-6" *ngIf="searchClientName">
-        <input class="form-control" formControlName="ClientName" [typeahead]="clientList" typeaheadOptionField="ClientName" typeaheadOptionsLimit="10"
-          class="form-control" placeholder="Search by client name">
-        <input type="hidden" formControlName="ClientId">
-      </div>
-      <div class="col-md-6" *ngIf="!searchClientName">
-        <input formControlName="ClientId" [typeahead]="clientList" typeaheadOptionField="ClientId" typeaheadOptionsLimit="10" class="form-control"
-          placeholder="Search by client id">
-      </div>
-    </form>
-  </div>
-</div>
+<app-id-search></app-id-search>
+<app-name-search></app-name-search>
