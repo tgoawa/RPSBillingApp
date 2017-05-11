@@ -5,10 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ClientSearchComponent } from './client-search/client-search.component';
+import { ClientSearchService } from './client-search/services/client-search.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClientSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -16,7 +19,7 @@ import { AppComponent } from './app.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ClientSearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
