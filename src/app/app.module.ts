@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
 import { ClientSearchService } from './client-search/services/client-search.service';
+import { RpsModule } from './rps/rps.module';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ClientSearchService } from './client-search/services/client-search.serv
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
+    RpsModule,
     TypeaheadModule.forRoot()
   ],
   providers: [ClientSearchService],
