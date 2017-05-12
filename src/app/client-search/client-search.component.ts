@@ -21,7 +21,7 @@ export class ClientSearchComponent implements OnInit {
   constructor(private fb: FormBuilder, private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
-    this.getClients();
+    // this.getClients();
     this.idSearchForm();
     this.nameSearchForm();
   }
@@ -36,7 +36,7 @@ export class ClientSearchComponent implements OnInit {
 
   idSearchForm() {
     this.clientIdSearch = this.fb.group({
-      ClientName: ['', Validators.required]
+      ClientId: ['', Validators.required]
     });
   }
 
