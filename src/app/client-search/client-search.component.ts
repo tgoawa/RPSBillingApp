@@ -11,21 +11,26 @@ import { Client } from '../client';
   styleUrls: ['./client-search.component.css']
 })
 export class ClientSearchComponent implements OnInit {
-  searchById = true;
-  clients: Observable<Client[]>;
+  clientId: number;
+  searchById = false;
+  clients: Client[] = [];
   clientIdSearch: FormGroup;
   clientNameSearch: FormGroup;
+  errorMessage: string;
 
   constructor(private fb: FormBuilder, private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
-
+    this.getClients();
+    this.idSearchForm();
+    this.nameSearchForm();
   }
 
   getClients() {
-    this.clients = this.clientSearchService.clients;
-    if (this.clients.toArray.length < 1) {
-      this.clientSearchService.getClients();
+    if (this.clients.length < 1) {
+      this.clientSearchService.getClients()
+      .subscribe(data => this.clients = data,
+                  error => this.errorMessage = error);
     }
   }
 
@@ -46,10 +51,18 @@ export class ClientSearchComponent implements OnInit {
   }
 
   onSubmitIdSearch(value) {
-    
+    this.clientId = value;
   }
 
-  onSubmitNameSearch(value)
- {
+  onSubmitNameSearch(value) {
+    this.clientId = this.findClientIdByName(value);
+  }
 
- }}
+  findClientIdByName(clientName: string): number {
+    for (let index = 0; index < this.clients.length; index++) {
+      if (clientName === this.clients[index].ClientName) {
+        return this.clients[index].ClientId;
+      }
+    }
+  }
+}
