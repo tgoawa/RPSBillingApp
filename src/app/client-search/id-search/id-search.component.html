@@ -1,9 +1,0 @@
-<div class="row">
-  <div class="col-md-6">
-    <form class="form-inline" novalidate (ngSubmit)="onSubmit(clientIdSearch)" [formGroup]="clientIdSearch">
-      <input class="form-control" formControlName="ClientId" [typeahead]="clients" typeaheadOptionsLimit="7" typeaheadOptionField="ClientId" typeaheadMinLength="3"
-        placeholder="Search by Client Id" class="form-control">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-</div>

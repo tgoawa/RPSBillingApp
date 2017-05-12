@@ -9,15 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
 import { ClientSearchService } from './client-search/services/client-search.service';
-import { NameSearchComponent } from './client-search/name-search/name-search.component';
-import { IdSearchComponent } from './client-search/id-search/id-search.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientSearchComponent,
-    NameSearchComponent,
-    IdSearchComponent
+    ClientSearchComponent
   ],
   imports: [
     BrowserModule,
