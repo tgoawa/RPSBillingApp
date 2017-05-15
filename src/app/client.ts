@@ -6,6 +6,7 @@ export class Client {
 export class RpsClient {
     ClientId: number;
     ClientName: string;
+    MaintenanceFee: number;
     Year: number;
     Quarter: number;
     NumberParticipants: number;
@@ -21,5 +22,8 @@ export class RpsClient {
     NumberDistributions: number;
     DollarPerDistribution: number;
     DistributionDollars: number;
+    Assets: number;
+    BasisPointFee: number;
+    Credits: number;
 }
 

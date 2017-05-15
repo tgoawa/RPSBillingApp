@@ -23,6 +23,7 @@ export class RpsFormComponent implements OnInit {
     this.rpsForm = this.fb.group({
       ClientId: [this.rpsClient.ClientId, Validators.required],
       ClientName: [this.rpsClient.ClientName, Validators.required],
+      MaintenanceFee: [this.rpsClient.MaintenanceFee],
       Year: [this.rpsClient.Year, Validators.required],
       Quarter: [this.rpsClient.Quarter, Validators.required],
       NumberParticipants: [this.rpsClient.NumberParticipants, CustomValidators.number],
@@ -37,7 +38,10 @@ export class RpsFormComponent implements OnInit {
       SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars, CustomValidators.number],
       NumberDistributions: [this.rpsClient.NumberDistributions, CustomValidators.number],
       DollarPerDistribution: [this.rpsClient.DollarPerDistribution, CustomValidators.number],
-      DistributionDollars: [this.rpsClient.DistributionDollars, CustomValidators.number]
+      DistributionDollars: [this.rpsClient.DistributionDollars, CustomValidators.number],
+      Assets: [this.rpsClient.Assets, CustomValidators.number],
+      BasisPointFee: [this.rpsClient.BasisPointFee, CustomValidators.number],
+      Credits: [this.rpsClient.Credits, CustomValidators.number]
     });
   }
 
@@ -72,6 +76,11 @@ export class RpsFormComponent implements OnInit {
         DistributionDollars: numberOfDistributions.value * dollars.value
       });
     }
+  }
+
+  calculateBasisPointFee() {
+    const assets = this.rpsForm.get('Assets');
+
   }
 
   onSubmit(formValue) {

@@ -10,6 +10,7 @@ export class RPSDataComponent implements OnInit {
   client: RpsClient = {
     ClientId: 1,
     ClientName: 'test name',
+    MaintenanceFee: 200,
     Year: 2017,
     Quarter: 1,
     NumberParticipants: 0,
@@ -25,6 +26,9 @@ export class RPSDataComponent implements OnInit {
     NumberDistributions: 0,
     DollarPerDistribution: 0,
     DistributionDollars: 0,
+    Assets: 0,
+    BasisPointFee: 0,
+    Credits: 0
 };
   constructor() { }
 

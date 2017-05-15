@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-md-12">
   <form novalidate (ngSubmit)="onSubmit(rpsForm)" [formGroup]="rpsForm">
-    <h2>Client</h2>
+    <h2>{{rpsClient.ClientName}}</h2>
     <div class="form-group row">
-      <label class="col-md-2 col-form-label">Client Name</label>
-      <div class="col-md-4">
-        <input type="text" class="form-control" formControlName="ClientName" readonly>
+      <label class="col-md-2 col-form-label">Maintenance Fee $</label>
+      <div class="col-md-2">
+        <input type="text" class="form-control" formControlName="MaintenanceFee" readonly>
       </div>
       <label class="col-md-1 col-form-label">Year</label>
       <div class="col-md-2">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <h2>Annual Participant Count</h2>
+    <h3>Annual Participant Count</h3>
     <div class="form-group row">
       <label class="col-md-2 col-form-label"># Participants</label>
       <div class="col-md-2">
@@ -41,7 +41,7 @@
       </div>
     </div>
     
-    <h2>Number of Loans</h2>
+    <h3>Number of Loans</h3>
     <div class="form-group row">
       <label class="col-md-2 col-form-label">Total Loans</label>
       <div class="col-md-2">
@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <h2>Forms 5500/8955, etc</h2>
+    <h3>Forms 5500/8955, etc</h3>
     <div class="form-group row">
       <label class="col-md-2 col-form-label">5500</label>
       <div class="col-md-2">
@@ -77,7 +77,7 @@
       </div>
     </div>
 
-    <h2>Special Fees</h2>
+    <h3>Special Fees</h3>
     <div class="form-group row">
       <label class="col-md-3 col-form-label">Amendments prepared, if any, describe as will be on invoice</label>
       <div class="col-md-6">
@@ -102,6 +102,25 @@
         <input class="form-control" type="number" formControlName="DistributionDollars" readonly>
       </div>
     </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">Assests</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="Assets" (change)="calculateBasisPointFee()">
+      </div>
+      <label class="col-md-2 col-form-label">Basis Point Fee $</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="BasisPointFee" readonly>
+      </div>
+    </div>
+
+    <h3>Credits</h3>
+    <div class="form-group row">
+      <label class="col-md-1 col-form-label">Credits</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="Credits">
+      </div>
+    </div>
+    
     <div class="row">
       <div class="col-md-3">
         <button class="btn btn-success" type="submit" [disabled]="rpsForm.invalid">Submit</button>
