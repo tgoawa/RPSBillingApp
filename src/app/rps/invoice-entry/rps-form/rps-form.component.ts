@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
 
 import { RpsClient } from 'app/client';
 
@@ -24,19 +25,19 @@ export class RpsFormComponent implements OnInit {
       ClientName: [this.rpsClient.ClientName, Validators.required],
       Year: [this.rpsClient.Year, Validators.required],
       Quarter: [this.rpsClient.Quarter, Validators.required],
-      NumberParticipants: [this.rpsClient.NumberParticipants],
-      DollarPerParticipant: [this.rpsClient.DollarPerParticipant],
-      ParticipantDollars: [this.rpsClient.ParticipantDollars],
-      NumberLoans: [this.rpsClient.NumberLoans],
-      DollarPerLoan: [this.rpsClient.DollarPerLoan],
-      LoanDollars: [this.rpsClient.LoanDollars],
+      NumberParticipants: [this.rpsClient.NumberParticipants, CustomValidators.number],
+      DollarPerParticipant: [this.rpsClient.DollarPerParticipant, CustomValidators.number],
+      ParticipantDollars: [this.rpsClient.ParticipantDollars, CustomValidators.number],
+      NumberLoans: [this.rpsClient.NumberLoans, CustomValidators.number],
+      DollarPerLoan: [this.rpsClient.DollarPerLoan, CustomValidators.number],
+      LoanDollars: [this.rpsClient.LoanDollars, CustomValidators.number],
       Form5500: [this.rpsClient.Form5500],
       Form8955: [this.rpsClient.Form8955],
-      SpecialFeesText: [this.rpsClient.SpecialFeesText],
-      SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars],
-      NumberDistributions: [this.rpsClient.NumberDistributions],
-      DollarPerDistribution: [this.rpsClient.DollarPerDistribution],
-      DistributionDollars: [this.rpsClient.DistributionDollars]
+      SpecialFeesText: [this.rpsClient.SpecialFeesText, CustomValidators.number],
+      SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars, CustomValidators.number],
+      NumberDistributions: [this.rpsClient.NumberDistributions, CustomValidators.number],
+      DollarPerDistribution: [this.rpsClient.DollarPerDistribution, CustomValidators.number],
+      DistributionDollars: [this.rpsClient.DistributionDollars, CustomValidators.number]
     });
   }
 
