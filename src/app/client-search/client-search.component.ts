@@ -23,7 +23,7 @@ export class ClientSearchComponent implements OnInit {
   constructor(private fb: FormBuilder, private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
-    // this.getClients();
+    this.getClients();
     this.idSearchForm();
     this.nameSearchForm();
   }
@@ -31,7 +31,9 @@ export class ClientSearchComponent implements OnInit {
   getClients() {
     if (this.clients.length < 1) {
       this.clientSearchService.getClients()
-      .subscribe(data => this.clients = data,
+      .subscribe(data => {
+        this.clients = data;
+      },
                   error => this.errorMessage = error);
     }
   }
@@ -52,13 +54,13 @@ export class ClientSearchComponent implements OnInit {
     this.searchById = !this.searchById;
   }
 
-  onSubmitIdSearch(value) {
-    this.clientId = value;
+  onSubmitIdSearch(form: Client) {
+    this.clientId = form.ClientId;
     this.change.emit(this.clientId);
   }
 
-  onSubmitNameSearch(value) {
-    this.clientId = this.findClientIdByName(value);
+  onSubmitNameSearch(form: Client) {
+    this.clientId = this.findClientIdByName(form.ClientName);
     this.change.emit(this.clientId);
   }
 
