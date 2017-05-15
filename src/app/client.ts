@@ -3,3 +3,8 @@ export class Client {
     ClientName: string;
 }
 
+export class RpsClient {
+    ClientId: number;
+    ClientName: string;
+}
+

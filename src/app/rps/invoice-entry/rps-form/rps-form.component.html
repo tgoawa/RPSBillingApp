@@ -1,0 +1,105 @@
+<div class="row">
+  <form novalidate (ngSubmit)="onSubmit(rpsForm)" [formGroup]="rpsForm">
+    <div class="form-group row">
+      <label class="col-md-1 col-form-label">Year</label>
+      <div class="col-md-3">
+        <select formControlName="Year" class="form-control">
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+        </select>
+      </div>
+      <label class="col-md-1 col-form-label">Quarter</label>
+      <div class="col-md-2">
+        <select class="form-control" formControlName="Quarter">
+          <option value="1">Q1</option>
+          <option value="2">Q2</option>
+          <option value="3">Q3</option>
+          <option value="4">Q4</option>
+        </select>
+      </div>
+    </div>
+
+    <h2>Annual Participant Count</h2>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label"># Participants</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="NumberParticipants" (change)="calculateParticipantDollars()">
+      </div>
+      <label class="col-md-2 col-form-label">$ per Participant</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="DollarPerParticipant" (change)="calculateParticipantDollars()">
+      </div>
+      <label class="col-md-2 col-form-label">Total Amount $</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="ParticipantDollars" readonly>
+      </div>
+    </div>
+    
+    <h2>Number of Loans</h2>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">Total Loans</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="NumberLoans" (change)="calculateLoanDollars()">
+      </div>
+      <label class="col-md-2 col-form-label">$ per Loan</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="DollarPerLoan" (change)="calculateLoanDollars()">
+      </div>
+      <label class="col-md-2 col-form-label">Total Amount $</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="LoanDollars" readonly>
+      </div>
+    </div>
+
+    <h2>Forms 5500/8955, etc</h2>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">5500</label>
+      <div class="col-md-2">
+        <select class="form-control" formControlName="Form5500">
+        <option value="0">0</option>
+        <option value="375">375</option>
+        <option value="750">750</option>
+        <option value="1000">1000</option>
+      </select>
+      </div>
+      <label class="col-md-2 col-form-label">8955</label>
+      <div class="col-md-2">
+        <select class="form-control" formControlName="Form8955">
+          <option value="0">0</option>
+          <option value="75">75</option>
+        </select>
+      </div>
+    </div>
+
+    <h2>Special Fees</h2>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label">Amendments prepared, if any, describe as will be on invoice</label>
+      <div class="col-md-6">
+        <textarea class="form-control" formControlName="SpecialFeesText"></textarea>
+      </div>
+      <label class="col-md-1 col-form-label">$</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="SpecialFeesDollars">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">Distributions #</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="NumberDistributions" (change)="calculateDistributionDollars()">
+      </div>
+      <label class="col-md-2 col-form-label">$ per Distribution</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="DollarPerDistribution" (change)="calculateDistributionDollars()">
+      </div>
+      <label class="col-md-2 col-form-label">Total Amount $</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="DistributionDollars" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <button class="btn btn-success" type="submit" [disabled]="billingInformation.invalid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { RpsRoutingModule } from './rps-routing.module';
 import { RpsComponent } from './rps.component';
-import { InvoiceEntryComponent } from './invoice-entry/invoice-entry.component';
+import { RPSDataComponent } from './invoice-entry/rps-data.component';
 import { ClientSearchModule } from 'app/client-search/client-search.module';
+import { RpsFormComponent } from './invoice-entry/rps-form/rps-form.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ClientSearchModule } from 'app/client-search/client-search.module';
   ],
   declarations: [
     RpsComponent,
-    InvoiceEntryComponent,
+    RPSDataComponent,
+    RpsFormComponent,
     ]
 })
 export class RpsModule { }

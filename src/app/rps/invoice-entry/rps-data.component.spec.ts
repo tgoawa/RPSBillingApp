@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InvoiceEntryComponent } from './invoice-entry.component';
+import { RPSDataComponent } from './rps-data.component';
 
 describe('InvoiceEntryComponent', () => {
-  let component: InvoiceEntryComponent;
-  let fixture: ComponentFixture<InvoiceEntryComponent>;
+  let component: RPSDataComponent;
+  let fixture: ComponentFixture<RPSDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InvoiceEntryComponent ]
+      declarations: [ RPSDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InvoiceEntryComponent);
+    fixture = TestBed.createComponent(RPSDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

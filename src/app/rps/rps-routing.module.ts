@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RpsComponent } from './rps.component';
-import { InvoiceEntryComponent } from './invoice-entry/invoice-entry.component';
+import { RPSDataComponent } from './invoice-entry/rps-data.component';
 
 const routes: Routes = [
   {
     path: 'rps',
     component: RpsComponent,
     children: [
-      {path: '', component: InvoiceEntryComponent}
+      {path: '', component: RPSDataComponent}
     ]
   }
 ];
