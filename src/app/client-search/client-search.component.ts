@@ -58,6 +58,7 @@ export class ClientSearchComponent implements OnInit {
 
   onSubmitNameSearch(value) {
     this.clientId = this.findClientIdByName(value);
+    this.change.emit(this.clientId);
   }
 
   findClientIdByName(clientName: string): number {
