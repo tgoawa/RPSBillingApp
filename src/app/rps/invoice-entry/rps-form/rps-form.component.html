@@ -1,4 +1,5 @@
 <div class="row">
+  <div class="col-md-12">
   <form novalidate (ngSubmit)="onSubmit(rpsForm)" [formGroup]="rpsForm">
     <div class="form-group row">
       <label class="col-md-1 col-form-label">Year</label>
@@ -98,8 +99,9 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-        <button class="btn btn-success" type="submit" [disabled]="billingInformation.invalid">Submit</button>
+        <button class="btn btn-success" type="submit" [disabled]="rpsForm.invalid">Submit</button>
       </div>
     </div>
   </form>
+  </div>
 </div>

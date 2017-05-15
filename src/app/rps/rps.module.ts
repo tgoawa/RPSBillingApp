@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RpsRoutingModule } from './rps-routing.module';
 import { RpsComponent } from './rps.component';
 import { RPSDataComponent } from './invoice-entry/rps-data.component';
@@ -12,7 +12,8 @@ import { RpsFormComponent } from './invoice-entry/rps-form/rps-form.component';
   imports: [
     CommonModule,
     RpsRoutingModule,
-    ClientSearchModule
+    ClientSearchModule,
+    ReactiveFormsModule
   ],
   declarations: [
     RpsComponent,
