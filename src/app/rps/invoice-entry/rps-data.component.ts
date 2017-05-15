@@ -11,7 +11,7 @@ export class RPSDataComponent implements OnInit {
     ClientId: 1,
     ClientName: 'test name',
     Year: 2017,
-    Quarter: 'Q4',
+    Quarter: 1,
     NumberParticipants: 0,
     DollarPerParticipant: 0,
     ParticipantDollars: 0,

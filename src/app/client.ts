@@ -7,7 +7,7 @@ export class RpsClient {
     ClientId: number;
     ClientName: string;
     Year: number;
-    Quarter: string;
+    Quarter: number;
     NumberParticipants: number;
     DollarPerParticipant: number;
     ParticipantDollars: number;

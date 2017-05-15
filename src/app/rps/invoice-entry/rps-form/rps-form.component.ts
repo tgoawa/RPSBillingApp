@@ -40,6 +40,39 @@ export class RpsFormComponent implements OnInit {
     });
   }
 
+  calculateParticipantDollars() {
+    const participants = this.rpsForm.get('NumberParticipants');
+    const dollars = this.rpsForm.get('DollarPerParticipant');
+
+    if (participants !== undefined && dollars !== undefined) {
+      this.rpsForm.patchValue({
+        ParticipantDollars: participants.value * dollars.value
+      });
+    }
+  }
+
+  calculateLoanDollars() {
+    const numberOfLoans = this.rpsForm.get('NumberLoans');
+    const dollars = this.rpsForm.get('DollarPerLoan');
+
+    if (numberOfLoans !== undefined && dollars !== undefined) {
+      this.rpsForm.patchValue({
+        LoanDollars: numberOfLoans.value * dollars.value
+      });
+    }
+  }
+
+  calculateDistributionDollars() {
+    const numberOfDistributions = this.rpsForm.get('NumberDistributions');
+    const dollars = this.rpsForm.get('DollarPerDistribution');
+
+    if (numberOfDistributions !== undefined && dollars !== undefined) {
+      this.rpsForm.patchValue({
+        DistributionDollars: numberOfDistributions.value * dollars.value
+      });
+    }
+  }
+
   onSubmit(formValue) {
     //push form value
   }
