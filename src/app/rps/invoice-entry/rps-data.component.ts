@@ -7,6 +7,8 @@ import { RpsClient } from 'app/client';
   styleUrls: ['./rps-data.component.css']
 })
 export class RPSDataComponent implements OnInit {
+  private clientId: number;
+
   client: RpsClient = {
     ClientId: 1,
     ClientName: 'test name',
@@ -35,4 +37,7 @@ export class RPSDataComponent implements OnInit {
   ngOnInit() {
   }
 
+  clientSearch(event) {
+    this.clientId = event;
+  }
 }

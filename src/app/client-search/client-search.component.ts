@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { ClientSearchService } from './services/client-search.service';
@@ -11,6 +11,7 @@ import { Client } from '../client';
   styleUrls: ['./client-search.component.css']
 })
 export class ClientSearchComponent implements OnInit {
+  @Output() change: EventEmitter<number> = new EventEmitter<number>();
   clientId: number;
   searchById = false;
   clients: Client[] = [];
@@ -52,6 +53,7 @@ export class ClientSearchComponent implements OnInit {
 
   onSubmitIdSearch(value) {
     this.clientId = value;
+    this.change.emit(this.clientId);
   }
 
   onSubmitNameSearch(value) {
