@@ -5,8 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RpsRoutingModule } from './rps-routing.module';
 import { RpsComponent } from './rps.component';
 import { RPSDataComponent } from './invoice-entry/rps-data.component';
-import { ClientSearchModule } from 'app/client-search/client-search.module';
 import { RpsFormComponent } from './invoice-entry/rps-form/rps-form.component';
+import { ClientSearchModule } from 'app/client-search/client-search.module';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { RpsFormComponent } from './invoice-entry/rps-form/rps-form.component';
   declarations: [
     RpsComponent,
     RPSDataComponent,
-    RpsFormComponent,
+    RpsFormComponent
     ]
 })
 export class RpsModule { }

@@ -12,6 +12,7 @@ import { Client } from '../client';
 })
 export class ClientSearchComponent implements OnInit {
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
+
   clientId: number;
   searchById = false;
   clients: Client[] = [];

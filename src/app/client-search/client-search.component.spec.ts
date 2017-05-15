@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientSearchComponent } from './client-search.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TypeaheadModule } from 'ngx-bootstrap';
+import { ClientSearchService } from 'app/client-search/services/client-search.service';
+import { HttpModule } from '@angular/http';
 
 describe('ClientSearchComponent', () => {
   let component: ClientSearchComponent;
@@ -8,7 +12,9 @@ describe('ClientSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClientSearchComponent ]
+      imports: [ReactiveFormsModule, FormsModule, TypeaheadModule, HttpModule],
+      declarations: [ ClientSearchComponent ],
+      providers: [ClientSearchService]
     })
     .compileComponents();
   }));
@@ -22,4 +28,13 @@ describe('ClientSearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create client id search form', () => {
+    expect(component.idSearchForm).toBeTruthy();
+  });
+
+  it('should create client name search form', () => {
+    expect(component.nameSearchForm).toBeTruthy();
+  });
+
 });

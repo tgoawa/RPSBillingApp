@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Http } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TypeaheadModule } from 'ngx-bootstrap';
@@ -12,7 +12,8 @@ import { ClientSearchService } from './services/client-search.service';
     CommonModule,
     TypeaheadModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   exports: [
     ClientSearchComponent

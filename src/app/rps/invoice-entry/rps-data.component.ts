@@ -39,5 +39,6 @@ export class RPSDataComponent implements OnInit {
 
   clientSearch(event) {
     this.clientId = event;
+    // call service for rps client data
   }
 }
