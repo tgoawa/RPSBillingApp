@@ -80,6 +80,13 @@ export class RpsFormComponent implements OnInit {
 
   calculateBasisPointFee() {
     const assets = this.rpsForm.get('Assets');
+    const multiplier = 0.0003 / 4;
+
+    if (assets !== undefined) {
+      this.rpsForm.patchValue({
+        BasisPointFee: (assets.value * multiplier).toFixed(2)
+      });
+    }
 
   }
 
