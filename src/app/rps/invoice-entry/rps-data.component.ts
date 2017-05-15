@@ -23,7 +23,6 @@ export class RPSDataComponent implements OnInit {
   }
 
   getRPSCurrentBill() {
-    console.log(this.clientId);
     this.rpsService.getRPSCurrentBill(this.clientId)
     .subscribe(data => this.client = data);
   }

@@ -13,7 +13,7 @@ export class RpsService {
   getRPSCurrentBill(clientId: number) {
     const url = 'http://webdev.schencksolutions.com:1016/RPSBillingService/';
 
-    return this.http.get(url + 'GetRPSCurrentBill/', clientId)
+    return this.http.get(url + 'GetRPSCurrentBill/' + clientId)
     .map(response => response.json(), error => console.log(error));
   }
 }

@@ -11,7 +11,7 @@ import { Client } from '../client';
   styleUrls: ['./client-search.component.css']
 })
 export class ClientSearchComponent implements OnInit {
-  @Output() change: EventEmitter<number> = new EventEmitter<number>();
+  @Output() rpsBillClientId: EventEmitter<number> = new EventEmitter<number>();
 
   clientId: number;
   searchById = false;
@@ -56,12 +56,12 @@ export class ClientSearchComponent implements OnInit {
 
   onSubmitIdSearch(form: Client) {
     this.clientId = form.ClientId;
-    this.change.emit(this.clientId);
+    this.rpsBillClientId.emit(this.clientId);
   }
 
   onSubmitNameSearch(form: Client) {
     this.clientId = this.findClientIdByName(form.ClientName);
-    this.change.emit(this.clientId);
+    this.rpsBillClientId.emit(this.clientId);
   }
 
   findClientIdByName(clientName: string): number {
