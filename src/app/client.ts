@@ -47,5 +47,5 @@ export class RpsCurrentBill {
     Quarter: number;
     SpecialFeesDollars: number;
     SpecialFeesText: string;
-    year: number;
+    Year: number;
 };

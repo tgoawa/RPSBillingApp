@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 
-import { RpsClient } from 'app/client';
+import { RpsClient, RpsCurrentBill } from 'app/client';
+import { RpsService } from '../services/rps.service';
 
 @Component({
   selector: 'app-rps-form',
@@ -10,17 +11,18 @@ import { RpsClient } from 'app/client';
   styleUrls: ['./rps-form.component.css']
 })
 export class RpsFormComponent implements OnInit {
-  @Input() rpsCurrentBill: RpsClient;
+  @Input() rpsClient: RpsClient;
 
   rpsForm: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  private currentBill = new RpsCurrentBill();
+  constructor(private fb: FormBuilder, private rpsService: RpsService) { }
 
   ngOnInit() {
     this.createForm();
   }
 
   calculateParticipantDollars() {
-    const participants = this.rpsForm.get('NumberParticipants');
+    const participants = this.rpsForm.get('NumParticipants');
     const dollars = this.rpsForm.get('DollarPerParticipant');
 
     if (participants !== undefined && dollars !== undefined) {
@@ -31,7 +33,7 @@ export class RpsFormComponent implements OnInit {
   }
 
   calculateLoanDollars() {
-    const numberOfLoans = this.rpsForm.get('NumberLoans');
+    const numberOfLoans = this.rpsForm.get('NumLoans');
     const dollars = this.rpsForm.get('DollarPerLoan');
 
     if (numberOfLoans !== undefined && dollars !== undefined) {
@@ -42,7 +44,7 @@ export class RpsFormComponent implements OnInit {
   }
 
   calculateDistributionDollars() {
-    const numberOfDistributions = this.rpsForm.get('NumberDistributions');
+    const numberOfDistributions = this.rpsForm.get('NumDistributions');
     const dollars = this.rpsForm.get('DollarPerDistribution');
 
     if (numberOfDistributions !== undefined && dollars !== undefined) {
@@ -65,28 +67,57 @@ export class RpsFormComponent implements OnInit {
   }
 
   onSubmit(formValue) {
-    //push form value
+    this.mapFormToCurrentBill(formValue);
+    this.saveInvoice();
   }
 
   createForm() {
     this.rpsForm = this.fb.group({
-      ClientId: [this.rpsCurrentBill.ClientId, Validators.required],
-      NumberParticipants: [this.rpsCurrentBill.NumberParticipants, CustomValidators.number],
-      DollarPerParticipant: [this.rpsCurrentBill.DollarPerParticipant, CustomValidators.number],
-      ParticipantDollars: [this.rpsCurrentBill.ParticipantDollars, CustomValidators.number],
-      NumberLoans: [this.rpsCurrentBill.NumberLoans, CustomValidators.number],
-      DollarPerLoan: [this.rpsCurrentBill.DollarPerLoan, CustomValidators.number],
-      LoanDollars: [this.rpsCurrentBill.LoanDollars, CustomValidators.number],
-      Form5500: [this.rpsCurrentBill.Form5500],
-      Form8955: [this.rpsCurrentBill.Form8955],
-      SpecialFeesText: [this.rpsCurrentBill.SpecialFeesText, CustomValidators.number],
-      SpecialFeesDollars: [this.rpsCurrentBill.SpecialFeesDollars, CustomValidators.number],
-      NumberDistributions: [this.rpsCurrentBill.NumberDistributions, CustomValidators.number],
-      DollarPerDistribution: [this.rpsCurrentBill.DollarPerDistribution, CustomValidators.number],
-      DistributionDollars: [this.rpsCurrentBill.DistributionDollars, CustomValidators.number],
-      Assets: [this.rpsCurrentBill.Assets, CustomValidators.number],
-      BasisPointFee: [this.rpsCurrentBill.BasisPointFee, CustomValidators.number],
-      Credits: [this.rpsCurrentBill.Credits, CustomValidators.number]
+      NumParticipants: [this.rpsClient.NumberParticipants, CustomValidators.number],
+      DollarPerParticipant: [this.rpsClient.DollarPerParticipant, CustomValidators.number],
+      ParticipantDollars: [this.rpsClient.ParticipantDollars, CustomValidators.number],
+      NumLoans: [this.rpsClient.NumberLoans, CustomValidators.number],
+      DollarPerLoan: [this.rpsClient.DollarPerLoan, CustomValidators.number],
+      LoanDollars: [this.rpsClient.LoanDollars, CustomValidators.number],
+      Form5500: [this.rpsClient.Form5500],
+      Form8955: [this.rpsClient.Form8955],
+      SpecialFeesText: [this.rpsClient.SpecialFeesText, CustomValidators.number],
+      SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars, CustomValidators.number],
+      NumDistributions: [this.rpsClient.NumberDistributions, CustomValidators.number],
+      DollarPerDistribution: [this.rpsClient.DollarPerDistribution, CustomValidators.number],
+      DistributionDollars: [this.rpsClient.DistributionDollars, CustomValidators.number],
+      Assets: [this.rpsClient.Assets, CustomValidators.number],
+      BasisPointFee: [this.rpsClient.BasisPointFee, CustomValidators.number],
+      Credits: [this.rpsClient.Credits, CustomValidators.number]
+    });
+  }
+
+  mapFormToCurrentBill(formvalue) {
+    this.currentBill.Assets = formvalue.Assets;
+    this.currentBill.BasisPointFee = formvalue.BasisPointFee;
+    this.currentBill.ClientId = this.rpsClient.ClientId;
+    this.currentBill.Credits = formvalue.Credits;
+    this.currentBill.DistributionDollars = formvalue.DistributionDollars;
+    this.currentBill.DollarPerParticipant = formvalue.DollarPerParticipant;
+    this.currentBill.Form5500 = formvalue.Form5500;
+    this.currentBill.Form8955 = formvalue.Form8955;
+    this.currentBill.Id = this.rpsClient.Id;
+    this.currentBill.LoanDollars = formvalue.LoanDollars;
+    this.currentBill.MaintenanceFees = formvalue.MaintenanceFees;
+    this.currentBill.NumDistributions = formvalue.NumDistributions;
+    this.currentBill.NumLoans = formvalue.NumLoans;
+    this.currentBill.NumParticipants = formvalue.NumParticipants;
+    this.currentBill.ParticipantDollars = formvalue.ParticipantDollars;
+    this.currentBill.Quarter = this.rpsClient.Quarter;
+    this.currentBill.SpecialFeesDollars = formvalue.SpecialFeesDollars;
+    this.currentBill.SpecialFeesText = formvalue.SpecialFeesText;
+    this.currentBill.Year = this.rpsClient.Year;
+  }
+
+  saveInvoice() {
+    this.rpsService.saveRPSInvoice(this.currentBill)
+    .subscribe(data => {
+    }, error => {
     });
   }
 }
