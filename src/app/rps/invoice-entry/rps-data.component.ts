@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RpsService } from './services/rps.service';
-import { RpsClient } from 'app/client';
+import { RpsClient, Client } from 'app/client';
 
 @Component({
   selector: 'app-rps-data',
@@ -9,8 +9,8 @@ import { RpsClient } from 'app/client';
   styleUrls: ['./rps-data.component.css']
 })
 export class RPSDataComponent implements OnInit {
-  client: RpsClient;
-  private clientId: number;
+  rpsClient: RpsClient;
+  private client: Client;
 
   constructor(private rpsService: RpsService) { }
 
@@ -18,12 +18,15 @@ export class RPSDataComponent implements OnInit {
   }
 
   clientSearch(event) {
-    this.clientId = event;
+    this.client = event;
     this.getRPSCurrentBill();
   }
 
   getRPSCurrentBill() {
-    this.rpsService.getRPSCurrentBill(this.clientId)
-    .subscribe(data => this.client = data);
+    this.rpsService.getRPSCurrentBill(this.client.ClientId)
+    .subscribe(data => {
+      this.rpsClient.ClientName = this.client.ClientName;
+      this.rpsClient = data;
+    });
   }
 }
