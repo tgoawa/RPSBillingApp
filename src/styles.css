@@ -2,3 +2,16 @@
 .row {
     margin-top: 20px;
 }
+
+.btn {
+    font-size: 14px;
+    font-weight: 700 !important;
+}
+
+.btn-schenck {
+    background-color: #00AFED;
+    color: #fff;
+}
+.btn-schenck:hover {
+    background-color: #007EBA
+}

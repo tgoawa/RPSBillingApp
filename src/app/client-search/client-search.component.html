@@ -7,7 +7,7 @@
 </div>
 <div class="row">
   <div class="col-md-3">
-    <button type="button" class="btn btn-success" (click)="toggleSearchType()">Toggle Search Type</button>
+    <button type="button" class="btn btn-schenck" (click)="toggleSearchType()">Toggle Search Type</button>
   </div>
 </div>
 <div class="row" [hidden]="searchById">
@@ -15,7 +15,7 @@
     <form class="form-inline" novalidate (ngSubmit)="onSubmitIdSearch(clientIdSearch.value)" [formGroup]="clientIdSearch">
       <input class="form-control" formControlName="ClientId" [typeahead]="clients" typeaheadOptionsLimit="7" typeaheadOptionField="ClientId" typeaheadMinLength="3"
         placeholder="Search by Client Id" class="form-control">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
     </form>
   </div>
 </div>
@@ -24,7 +24,7 @@
     <form class="form-inline" novalidate (ngSubmit)="onSubmitNameSearch(clientNameSearch.value)" [formGroup]="clientNameSearch">
       <input class="form-control" formControlName="ClientName" [typeahead]="clients" typeaheadOptionsLimit="7" typeaheadOptionField="ClientName" typeaheadMinLength="3"
         placeholder="Search by Client Name" class="form-control">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
     </form>
   </div>
 </div>
