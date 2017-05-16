@@ -11,9 +11,9 @@ import { Client } from '../client';
   styleUrls: ['./client-search.component.css']
 })
 export class ClientSearchComponent implements OnInit {
-  @Output() rpsBillClientId: EventEmitter<number> = new EventEmitter<number>();
+  @Output() rpsBillClient: EventEmitter<Client> = new EventEmitter<Client>();
 
-  clientId: number;
+  client: Client;
   searchById = false;
   clients: Client[] = [];
   clientIdSearch: FormGroup;
@@ -55,19 +55,28 @@ export class ClientSearchComponent implements OnInit {
   }
 
   onSubmitIdSearch(form: Client) {
-    this.clientId = form.ClientId;
-    this.rpsBillClientId.emit(this.clientId);
+    this.client = this.findClientById(form.ClientId);
+    this.rpsBillClient.emit(this.client);
   }
 
   onSubmitNameSearch(form: Client) {
-    this.clientId = this.findClientIdByName(form.ClientName);
-    this.rpsBillClientId.emit(this.clientId);
+    this.client = this.findClientByName(form.ClientName);
+    console.log(this.client);
+    this.rpsBillClient.emit(this.client);
   }
 
-  findClientIdByName(clientName: string): number {
+  findClientByName(clientName: string): Client {
     for (let index = 0; index < this.clients.length; index++) {
       if (clientName === this.clients[index].ClientName) {
-        return this.clients[index].ClientId;
+        return this.clients[index];
+      }
+    }
+  }
+
+  findClientById(clientId: number): Client {
+    for (let index = 0; index < this.clients.length; index++) {
+      if (+clientId === this.clients[index].ClientId) {
+        return this.clients[index];
       }
     }
   }
