@@ -4,9 +4,10 @@ export class Client {
 }
 
 export class RpsClient {
+    Id: number;
     ClientId: number;
     ClientName: string;
-    MaintenanceFee: number;
+    MaintenanceFees: number;
     Year: number;
     Quarter: number;
     NumberParticipants: number;

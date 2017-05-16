@@ -23,7 +23,6 @@ export class RpsFormComponent implements OnInit {
     this.rpsForm = this.fb.group({
       ClientId: [this.rpsClient.ClientId, Validators.required],
       ClientName: [this.rpsClient.ClientName, Validators.required],
-      MaintenanceFee: [this.rpsClient.MaintenanceFee],
       Year: [this.rpsClient.Year, Validators.required],
       Quarter: [this.rpsClient.Quarter, Validators.required],
       NumberParticipants: [this.rpsClient.NumberParticipants, CustomValidators.number],

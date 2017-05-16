@@ -3,10 +3,7 @@
   <form novalidate (ngSubmit)="onSubmit(rpsForm)" [formGroup]="rpsForm">
     <h2>{{rpsClient.ClientName}}</h2>
     <div class="form-group row">
-      <label class="col-md-2 col-form-label">Maintenance Fee $</label>
-      <div class="col-md-2">
-        <input type="text" class="form-control" formControlName="MaintenanceFee" readonly>
-      </div>
+      <label class="col-md-3 col-form-label">Maintenance Fee: {{rpsClient.MaintenanceFees | currency: 'USD':true: '.2-2'}}</label>
       <label class="col-md-1 col-form-label">Year</label>
       <div class="col-md-2">
         <select formControlName="Year" class="form-control">

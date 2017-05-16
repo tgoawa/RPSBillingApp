@@ -10,6 +10,7 @@ import { RpsClient, Client } from 'app/client';
 })
 export class RPSDataComponent implements OnInit {
   rpsClient: RpsClient;
+  isLoading = false;
   private client: Client;
 
   constructor(private rpsService: RpsService) { }
@@ -23,10 +24,12 @@ export class RPSDataComponent implements OnInit {
   }
 
   getRPSCurrentBill() {
+    this.isLoading = true;
     this.rpsService.getRPSCurrentBill(this.client.ClientId)
     .subscribe(data => {
-      this.rpsClient.ClientName = this.client.ClientName;
+      this.isLoading = false;
       this.rpsClient = data;
+      this.rpsClient.ClientName = this.client.ClientName;
     });
   }
 }

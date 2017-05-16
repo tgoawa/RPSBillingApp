@@ -1,4 +1,8 @@
 <app-client-search (rpsBillClient)="clientSearch($event)"></app-client-search>
-<ng-template *ngIf="client">
+<div class="row" *ngIf="isLoading">
+loading...
+</div>
+<div *ngIf="rpsClient">
 <app-rps-form [rpsClient]="rpsClient"></app-rps-form>
-</ng-template>
+</div>
+
