@@ -1,8 +1,8 @@
 <app-client-search (rpsBillClient)="clientSearch($event)"></app-client-search>
 <div class="row" *ngIf="isLoading">
-loading...
+    <div class="col-md-2 offset-md-5"><i fa class="fa fa-spinner fa-5x fa-spin" aria-hidden="true"></i>
+    </div>
 </div>
 <div *ngIf="rpsClient">
-<app-rps-form [rpsCurrentBill]="rpsClient"></app-rps-form>
+    <app-rps-form [rpsCurrentBill]="rpsClient"></app-rps-form>
 </div>
-
