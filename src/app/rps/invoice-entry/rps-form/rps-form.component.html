@@ -1,25 +1,11 @@
 <div class="row">
   <div class="col-md-12">
   <form novalidate (ngSubmit)="onSubmit(rpsForm)" [formGroup]="rpsForm">
-    <h2>{{rpsClient.ClientName}}</h2>
+    <h2>{{rpsCurrentBill.ClientName}}</h2>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label">Maintenance Fee: {{rpsClient.MaintenanceFees | currency: 'USD':true: '.2-2'}}</label>
-      <label class="col-md-1 col-form-label">Year</label>
-      <div class="col-md-2">
-        <select formControlName="Year" class="form-control">
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-        </select>
-      </div>
-      <label class="col-md-1 col-form-label">Quarter</label>
-      <div class="col-md-2">
-        <select class="form-control" formControlName="Quarter">
-          <option value="1">Q1</option>
-          <option value="2">Q2</option>
-          <option value="3">Q3</option>
-          <option value="4">Q4</option>
-        </select>
-      </div>
+      <label class="col-md-3 col-form-label">Maintenance Fee: {{rpsCurrentBill.MaintenanceFees | currency: 'USD':true: '.2-2'}}</label>
+      <label class="col-md-2 col-form-label">Year: {{rpsCurrentBill.Year}}</label>
+      <label class="col-md-2 col-form-label">Quarter: {{rpsCurrentBill.Quarter}}</label>
     </div>
 
     <h3>Annual Participant Count</h3>

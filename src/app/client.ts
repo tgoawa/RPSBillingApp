@@ -4,7 +4,6 @@ export class Client {
 }
 
 export class RpsClient {
-    Id: number;
     ClientId: number;
     ClientName: string;
     MaintenanceFees: number;
@@ -18,7 +17,7 @@ export class RpsClient {
     LoanDollars: number;
     Form5500: number;
     Form8955: number;
-    SpecialFeesText: number;
+    SpecialFeesText: string;
     SpecialFeesDollars: number;
     NumberDistributions: number;
     DollarPerDistribution: number;
@@ -26,5 +25,27 @@ export class RpsClient {
     Assets: number;
     BasisPointFee: number;
     Credits: number;
+    Id: number;
 }
 
+export class RpsCurrentBill {
+    Assets: number;
+    BasisPointFee: number;
+    ClientId: number;
+    Credits: number;
+    DistributionDollars: number;
+    DollarPerParticipant: number;
+    Form5500: number;
+    Form8955: number;
+    Id: number;
+    LoanDollars: number;
+    MaintenanceFees: number;
+    NumDistributions: number;
+    NumLoans: number;
+    NumParticipants: number;
+    ParticipantDollars: number;
+    Quarter: number;
+    SpecialFeesDollars: number;
+    SpecialFeesText: string;
+    year: number;
+};

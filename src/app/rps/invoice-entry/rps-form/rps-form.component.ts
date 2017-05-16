@@ -10,7 +10,7 @@ import { RpsClient } from 'app/client';
   styleUrls: ['./rps-form.component.css']
 })
 export class RpsFormComponent implements OnInit {
-  @Input() rpsClient: RpsClient;
+  @Input() rpsCurrentBill: RpsClient;
 
   rpsForm: FormGroup;
   constructor(private fb: FormBuilder) { }
@@ -21,26 +21,23 @@ export class RpsFormComponent implements OnInit {
 
   createForm() {
     this.rpsForm = this.fb.group({
-      ClientId: [this.rpsClient.ClientId, Validators.required],
-      ClientName: [this.rpsClient.ClientName, Validators.required],
-      Year: [this.rpsClient.Year, Validators.required],
-      Quarter: [this.rpsClient.Quarter, Validators.required],
-      NumberParticipants: [this.rpsClient.NumberParticipants, CustomValidators.number],
-      DollarPerParticipant: [this.rpsClient.DollarPerParticipant, CustomValidators.number],
-      ParticipantDollars: [this.rpsClient.ParticipantDollars, CustomValidators.number],
-      NumberLoans: [this.rpsClient.NumberLoans, CustomValidators.number],
-      DollarPerLoan: [this.rpsClient.DollarPerLoan, CustomValidators.number],
-      LoanDollars: [this.rpsClient.LoanDollars, CustomValidators.number],
-      Form5500: [this.rpsClient.Form5500],
-      Form8955: [this.rpsClient.Form8955],
-      SpecialFeesText: [this.rpsClient.SpecialFeesText, CustomValidators.number],
-      SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars, CustomValidators.number],
-      NumberDistributions: [this.rpsClient.NumberDistributions, CustomValidators.number],
-      DollarPerDistribution: [this.rpsClient.DollarPerDistribution, CustomValidators.number],
-      DistributionDollars: [this.rpsClient.DistributionDollars, CustomValidators.number],
-      Assets: [this.rpsClient.Assets, CustomValidators.number],
-      BasisPointFee: [this.rpsClient.BasisPointFee, CustomValidators.number],
-      Credits: [this.rpsClient.Credits, CustomValidators.number]
+      ClientId: [this.rpsCurrentBill.ClientId, Validators.required],
+      NumberParticipants: [this.rpsCurrentBill.NumberParticipants, CustomValidators.number],
+      DollarPerParticipant: [this.rpsCurrentBill.DollarPerParticipant, CustomValidators.number],
+      ParticipantDollars: [this.rpsCurrentBill.ParticipantDollars, CustomValidators.number],
+      NumberLoans: [this.rpsCurrentBill.NumberLoans, CustomValidators.number],
+      DollarPerLoan: [this.rpsCurrentBill.DollarPerLoan, CustomValidators.number],
+      LoanDollars: [this.rpsCurrentBill.LoanDollars, CustomValidators.number],
+      Form5500: [this.rpsCurrentBill.Form5500],
+      Form8955: [this.rpsCurrentBill.Form8955],
+      SpecialFeesText: [this.rpsCurrentBill.SpecialFeesText, CustomValidators.number],
+      SpecialFeesDollars: [this.rpsCurrentBill.SpecialFeesDollars, CustomValidators.number],
+      NumberDistributions: [this.rpsCurrentBill.NumberDistributions, CustomValidators.number],
+      DollarPerDistribution: [this.rpsCurrentBill.DollarPerDistribution, CustomValidators.number],
+      DistributionDollars: [this.rpsCurrentBill.DistributionDollars, CustomValidators.number],
+      Assets: [this.rpsCurrentBill.Assets, CustomValidators.number],
+      BasisPointFee: [this.rpsCurrentBill.BasisPointFee, CustomValidators.number],
+      Credits: [this.rpsCurrentBill.Credits, CustomValidators.number]
     });
   }
 

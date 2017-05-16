@@ -28,6 +28,7 @@ export class RPSDataComponent implements OnInit {
     this.rpsService.getRPSCurrentBill(this.client.ClientId)
     .subscribe(data => {
       this.isLoading = false;
+      console.log(data);
       this.rpsClient = data;
       this.rpsClient.ClientName = this.client.ClientName;
     });
