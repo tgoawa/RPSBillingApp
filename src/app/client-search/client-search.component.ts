@@ -61,7 +61,6 @@ export class ClientSearchComponent implements OnInit {
 
   onSubmitNameSearch(form: Client) {
     this.client = this.findClientByName(form.ClientName);
-    console.log(this.client);
     this.rpsBillClient.emit(this.client);
   }
 
