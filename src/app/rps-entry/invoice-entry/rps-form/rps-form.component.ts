@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 
@@ -12,6 +12,7 @@ import { RpsService } from '../services/rps.service';
 })
 export class RpsFormComponent implements OnInit {
   @Input() rpsClient: RpsClient;
+  @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   rpsForm: FormGroup;
   private currentBill = new RpsCurrentBill();
@@ -119,5 +120,9 @@ export class RpsFormComponent implements OnInit {
     .subscribe(data => {
     }, error => {
     });
+  }
+
+  formIsSaved() {
+    this.isSaved.emit(true);
   }
 }

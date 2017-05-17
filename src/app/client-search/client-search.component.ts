@@ -57,11 +57,13 @@ export class ClientSearchComponent implements OnInit {
   onSubmitIdSearch(form: Client) {
     this.client = this.findClientById(form.ClientId);
     this.rpsBillClient.emit(this.client);
+    this.clientIdSearch.reset();
   }
 
   onSubmitNameSearch(form: Client) {
     this.client = this.findClientByName(form.ClientName);
     this.rpsBillClient.emit(this.client);
+    this.clientNameSearch.reset()
   }
 
   findClientByName(clientName: string): Client {
@@ -79,4 +81,5 @@ export class ClientSearchComponent implements OnInit {
       }
     }
   }
+
 }

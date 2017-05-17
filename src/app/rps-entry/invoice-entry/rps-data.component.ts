@@ -32,4 +32,8 @@ export class RPSDataComponent implements OnInit {
       this.rpsClient.ClientName = this.client.ClientName;
     });
   }
+
+  destroyClient(event) {
+    this.rpsClient = null;
+  }
 }
