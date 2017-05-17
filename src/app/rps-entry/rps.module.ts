@@ -7,7 +7,7 @@ import { RpsComponent } from './rps.component';
 import { RPSDataComponent } from './invoice-entry/rps-data.component';
 import { RpsFormComponent } from './invoice-entry/rps-form/rps-form.component';
 import { ClientSearchModule } from 'app/client-search/client-search.module';
-import { RpsService } from 'app/rps/invoice-entry/services/rps.service';
+import { RpsService } from 'app/rps-entry/invoice-entry/services/rps.service';
 
 
 
