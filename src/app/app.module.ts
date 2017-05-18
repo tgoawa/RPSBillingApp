@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
+import { CollapseModule } from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +27,8 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
     AppRoutingModule,
     RpsModule,
     MaintenanceModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    CollapseModule.forRoot()
   ],
   providers: [ClientSearchService],
   bootstrap: [AppComponent]
