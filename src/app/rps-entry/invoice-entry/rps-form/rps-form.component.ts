@@ -19,6 +19,8 @@ export class RpsFormComponent implements OnInit {
   @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   rpsForm: FormGroup;
+  private saveErrorMessage: 'Error trying to save, please try again or contact help desk if issue persists';
+  private saveErrorMessageTitle: 'Error saving invoice!';
   private currentBill = new RpsCurrentBill();
   constructor(private fb: FormBuilder, private rpsService: RpsService, private toastrService: ToastrService) { }
 
@@ -134,8 +136,6 @@ export class RpsFormComponent implements OnInit {
   }
 
   showFailedSave() {
-    this.toastrService.error('Error trying to save, please try again or contact help desk if issue persists',
-      'Error saving invoice!',
-      toastConfig);
+    this.toastrService.error(this.saveErrorMessage, this.saveErrorMessageTitle, toastConfig);
   }
 }
