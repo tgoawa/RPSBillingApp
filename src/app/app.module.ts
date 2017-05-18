@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
+import { ToastrModule } from 'ngx-toastr';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
@@ -20,6 +22,7 @@ import { NavComponent } from './nav/nav.component';
     HttpModule,
     AppRoutingModule,
     RpsModule,
+    ToastrModule.forRoot()
   ],
   providers: [ClientSearchService],
   bootstrap: [AppComponent]

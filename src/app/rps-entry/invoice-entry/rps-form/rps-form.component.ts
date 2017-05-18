@@ -1,9 +1,13 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
+
+import { ToastrService, ToastConfig } from 'ngx-toastr';
 
 import { RpsClient, RpsCurrentBill } from 'app/client';
 import { RpsService } from '../services/rps.service';
+
+const toastConfig: ToastConfig = { timeOut: 2000 };
 
 @Component({
   selector: 'app-rps-form',
@@ -16,7 +20,7 @@ export class RpsFormComponent implements OnInit {
 
   rpsForm: FormGroup;
   private currentBill = new RpsCurrentBill();
-  constructor(private fb: FormBuilder, private rpsService: RpsService) { }
+  constructor(private fb: FormBuilder, private rpsService: RpsService, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.createForm();
@@ -117,12 +121,21 @@ export class RpsFormComponent implements OnInit {
 
   saveInvoice() {
     this.rpsService.saveRPSInvoice(this.currentBill)
-    .subscribe(data => {
-    }, error => {
-    });
+      .subscribe(data => {
+        if (data.isSuccessful) {
+
+        }
+      }, error => {
+      });
   }
 
   formIsSaved() {
     this.isSaved.emit(true);
+  }
+
+  showFailedSave() {
+    this.toastrService.error('Error trying to save, please try again or contact help desk if issue persists',
+      'Error saving invoice!',
+      toastConfig);
   }
 }
