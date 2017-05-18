@@ -7,7 +7,9 @@ import { ToastrService, ToastConfig } from 'ngx-toastr';
 import { RpsClient, RpsCurrentBill } from 'app/client';
 import { RpsService } from '../services/rps.service';
 
-const toastConfig: ToastConfig = { timeOut: 2000 };
+const toastConfig: ToastConfig = { positionClass: 'toast-top-full-width',
+                                    timeOut: 10000,
+                                    closeButton: true };
 
 @Component({
   selector: 'app-rps-form',
@@ -19,8 +21,6 @@ export class RpsFormComponent implements OnInit {
   @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   rpsForm: FormGroup;
-  private saveErrorMessage: 'Error trying to save, please try again or contact help desk if issue persists';
-  private saveErrorMessageTitle: 'Error saving invoice!';
   private currentBill = new RpsCurrentBill();
   constructor(private fb: FormBuilder, private rpsService: RpsService, private toastrService: ToastrService) { }
 
@@ -126,8 +126,11 @@ export class RpsFormComponent implements OnInit {
       .subscribe(data => {
         if (data.isSuccessful) {
 
+        } else {
+          this.showFailedSave();
         }
       }, error => {
+        this.showFailedSave();
       });
   }
 
@@ -136,6 +139,8 @@ export class RpsFormComponent implements OnInit {
   }
 
   showFailedSave() {
-    this.toastrService.error(this.saveErrorMessage, this.saveErrorMessageTitle, toastConfig);
+    this.toastrService.error('Error trying to save, please try again or contact help desk if issue persists',
+    'Error saving invoice!',
+    toastConfig);
   }
 }

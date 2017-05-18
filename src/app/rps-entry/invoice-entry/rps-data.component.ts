@@ -5,7 +5,11 @@ import { ToastrService, ToastConfig } from 'ngx-toastr';
 import { RpsService } from './services/rps.service';
 import { RpsClient, Client } from 'app/client';
 
-const toastConfig: ToastConfig = { timeOut: 2000 };
+const toastConfig: ToastConfig = {
+  positionClass: 'toast-top-full-width',
+  timeOut: 10000,
+  closeButton: true
+};
 
 @Component({
   selector: 'app-rps-data',
@@ -32,8 +36,12 @@ export class RPSDataComponent implements OnInit {
     this.rpsService.getRPSCurrentBill(this.client.ClientId)
       .subscribe(data => {
         this.isLoading = false;
-        this.rpsClient = data;
-        this.rpsClient.ClientName = this.client.ClientName;
+        if (data.IsSuccessful) {
+          this.rpsClient = data;
+          this.rpsClient.ClientName = this.client.ClientName;
+        }
+      }, error => {
+        this.showFailedSearch();
       });
   }
 
@@ -44,5 +52,11 @@ export class RPSDataComponent implements OnInit {
 
   showSuccessfulSave() {
     this.toastrService.success('Invoice was saved successfully', 'Invoice saved!', toastConfig);
+  }
+
+  showFailedSearch() {
+    this.toastrService.error('Error finding client data, please try again or contact help desk if issue persists',
+      'Error finding client data!',
+      toastConfig);
   }
 }

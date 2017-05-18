@@ -1,9 +1,16 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { ToastrService, ToastConfig } from 'ngx-toastr';
+
 import { Observable } from 'rxjs/Observable';
 import { ClientSearchService } from './services/client-search.service';
 
 import { Client } from '../client';
+
+const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
+                                    timeOut: 10000,
+                                    closeButton: true };
 
 @Component({
   selector: 'app-client-search',
@@ -18,9 +25,10 @@ export class ClientSearchComponent implements OnInit {
   clients: Client[] = [];
   clientIdSearch: FormGroup;
   clientNameSearch: FormGroup;
-  errorMessage: string;
 
-  constructor(private fb: FormBuilder, private clientSearchService: ClientSearchService) { }
+  constructor(private fb: FormBuilder,
+  private clientSearchService: ClientSearchService,
+  private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getClients();
@@ -32,9 +40,15 @@ export class ClientSearchComponent implements OnInit {
     if (this.clients.length < 1) {
       this.clientSearchService.getClients()
       .subscribe(data => {
-        this.clients = data;
+        console.log(data);
+        if (data.IsSuccessful) {
+          this.clients = data.data;
+        }
       },
-                  error => this.errorMessage = error);
+      error => {
+        console.log(error);
+        this.showFailedSearch();
+      });
     }
   }
 
@@ -63,7 +77,7 @@ export class ClientSearchComponent implements OnInit {
   onSubmitNameSearch(form: Client) {
     this.client = this.findClientByName(form.ClientName);
     this.rpsBillClient.emit(this.client);
-    this.clientNameSearch.reset()
+    this.clientNameSearch.reset();
   }
 
   findClientByName(clientName: string): Client {
@@ -80,6 +94,12 @@ export class ClientSearchComponent implements OnInit {
         return this.clients[index];
       }
     }
+  }
+
+  showFailedSearch() {
+    this.toastrService.error('Error finding client list. Please try refreshing page or contact help desk at Ext: 1187 if issue persists',
+    'Error finding client list!',
+    toastConfig);
   }
 
 }

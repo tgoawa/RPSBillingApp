@@ -11,7 +11,7 @@ export class ClientSearchService {
   constructor(private http: Http) {
   }
 
-  getClients(): Observable<Client[]> {
+  getClients() {
     const url = 'http://webdev.schencksolutions.com:1016/RPSBillingService/';
 
     return this.http.get(url + 'GetRPSClients/')
