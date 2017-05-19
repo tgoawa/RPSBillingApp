@@ -12,7 +12,6 @@ import { ClientSearchComponent } from './client-search/client-search.component';
 import { ClientSearchService } from './client-search/services/client-search.service';
 import { RpsModule } from './rps-entry/rps.module';
 import { NavComponent } from './nav/nav.component';
-import { MaintenanceModule } from './maintenance/maintenance.module';
 
 
 @NgModule({
@@ -26,7 +25,6 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
     HttpModule,
     AppRoutingModule,
     RpsModule,
-    MaintenanceModule,
     ToastrModule.forRoot(),
     CollapseModule.forRoot()
   ],
