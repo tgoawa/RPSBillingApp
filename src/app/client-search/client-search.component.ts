@@ -41,9 +41,7 @@ export class ClientSearchComponent implements OnInit {
       this.clientSearchService.getClients()
       .subscribe(data => {
         console.log(data);
-        if (data.IsSuccessful) {
-          this.clients = data.data;
-        }
+          this.clients = data;
       },
       error => {
         console.log(error);

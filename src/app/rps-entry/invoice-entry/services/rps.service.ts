@@ -3,23 +3,24 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
+import { environment } from '../../../../environments/environment';
 import { RpsClient, RpsCurrentBill } from '../../../client';
 
+const api = environment.envApi;
 @Injectable()
 export class RpsService {
-  private url = 'http://webdev.schencksolutions.com:1016/RPSBillingService/';
 
   constructor(private http: Http) { }
 
   getRPSCurrentBill(clientId: number) {
 
-    return this.http.get(this.url + 'GetRPSCurrentBill/' + clientId)
+    return this.http.get(api + 'GetRPSCurrentBill/' + clientId)
     .map(response => response.json(), error => console.log(error));
   }
 
   saveRPSInvoice(invoice: RpsCurrentBill) {
 
-    return this.http.post(this.url + 'saveRPSInvoice/', invoice)
+    return this.http.post(api + 'saveRPSInvoice/', invoice)
     .map(response => response.json(), error => console.log(error));
   }
 }
