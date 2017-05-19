@@ -40,7 +40,6 @@ export class ClientSearchComponent implements OnInit {
     if (this.clients.length < 1) {
       this.clientSearchService.getClients()
       .subscribe(data => {
-        console.log(data);
           this.clients = data;
       },
       error => {

@@ -7,7 +7,7 @@ import { ToastrService, ToastConfig } from 'ngx-toastr';
 import { RpsClient, RpsCurrentBill } from 'app/client';
 import { RpsService } from '../services/rps.service';
 
-const toastConfig: ToastConfig = { positionClass: 'toast-top-full-width',
+const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
                                     timeOut: 10000,
                                     closeButton: true };
 
@@ -41,7 +41,7 @@ export class RpsFormComponent implements OnInit {
 
   calculateLoanDollars() {
     const numberOfLoans = this.rpsForm.get('NumLoans');
-    const dollars = this.rpsForm.get('DollarPerLoan');
+    const dollars = this.rpsForm.get('DollarsPerLoan');
 
     if (numberOfLoans !== undefined && dollars !== undefined) {
       this.rpsForm.patchValue({
@@ -52,7 +52,7 @@ export class RpsFormComponent implements OnInit {
 
   calculateDistributionDollars() {
     const numberOfDistributions = this.rpsForm.get('NumDistributions');
-    const dollars = this.rpsForm.get('DollarPerDistribution');
+    const dollars = this.rpsForm.get('DollarsPerDistribution');
 
     if (numberOfDistributions !== undefined && dollars !== undefined) {
       this.rpsForm.patchValue({
@@ -80,18 +80,18 @@ export class RpsFormComponent implements OnInit {
 
   createForm() {
     this.rpsForm = this.fb.group({
-      NumParticipants: [this.rpsClient.NumberParticipants, CustomValidators.number],
+      NumParticipants: [this.rpsClient.NumParticipants, CustomValidators.number],
       DollarPerParticipant: [this.rpsClient.DollarPerParticipant, CustomValidators.number],
       ParticipantDollars: [this.rpsClient.ParticipantDollars, CustomValidators.number],
-      NumLoans: [this.rpsClient.NumberLoans, CustomValidators.number],
-      DollarPerLoan: [this.rpsClient.DollarPerLoan, CustomValidators.number],
+      NumLoans: [this.rpsClient.NumLoans, CustomValidators.number],
+      DollarsPerLoan: [this.rpsClient.DollarsPerLoan, CustomValidators.number],
       LoanDollars: [this.rpsClient.LoanDollars, CustomValidators.number],
       Form5500: [this.rpsClient.Form5500],
       Form8955: [this.rpsClient.Form8955],
-      SpecialFeesText: [this.rpsClient.SpecialFeesText, CustomValidators.number],
+      SpecialFeesText: [this.rpsClient.SpecialFeesText],
       SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars, CustomValidators.number],
-      NumDistributions: [this.rpsClient.NumberDistributions, CustomValidators.number],
-      DollarPerDistribution: [this.rpsClient.DollarPerDistribution, CustomValidators.number],
+      NumDistributions: [this.rpsClient.NumDistributions , CustomValidators.number],
+      DollarsPerDistribution: [this.rpsClient.DollarsPerDistribution, CustomValidators.number],
       DistributionDollars: [this.rpsClient.DistributionDollars, CustomValidators.number],
       Assets: [this.rpsClient.Assets, CustomValidators.number],
       BasisPointFee: [this.rpsClient.BasisPointFee, CustomValidators.number],
@@ -110,7 +110,7 @@ export class RpsFormComponent implements OnInit {
     this.currentBill.Form8955 = formvalue.Form8955;
     this.currentBill.Id = this.rpsClient.Id;
     this.currentBill.LoanDollars = formvalue.LoanDollars;
-    this.currentBill.MaintenanceFees = formvalue.MaintenanceFees;
+    this.currentBill.MaintenanceFees = this.rpsClient.MaintenanceFees;
     this.currentBill.NumDistributions = formvalue.NumDistributions;
     this.currentBill.NumLoans = formvalue.NumLoans;
     this.currentBill.NumParticipants = formvalue.NumParticipants;
@@ -124,12 +124,9 @@ export class RpsFormComponent implements OnInit {
   saveInvoice() {
     this.rpsService.saveRPSInvoice(this.currentBill)
       .subscribe(data => {
-        if (data.isSuccessful) {
-
-        } else {
-          this.showFailedSave();
-        }
+        this.formIsSaved();
       }, error => {
+        console.log(error);
         this.showFailedSave();
       });
   }

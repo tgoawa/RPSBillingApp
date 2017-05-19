@@ -20,7 +20,7 @@ export class RpsService {
 
   saveRPSInvoice(invoice: RpsCurrentBill) {
 
-    return this.http.post(api + 'saveRPSInvoice/', invoice)
+    return this.http.put(api + 'updateRPSInvoice/', invoice)
     .map(response => response.json(), error => console.log(error));
   }
 }

@@ -6,7 +6,7 @@ import { RpsService } from './services/rps.service';
 import { RpsClient, Client } from 'app/client';
 
 const toastConfig: ToastConfig = {
-  positionClass: 'toast-top-full-width',
+  positionClass: 'toast-center-center',
   timeOut: 10000,
   closeButton: true
 };
@@ -36,12 +36,12 @@ export class RPSDataComponent implements OnInit {
     this.rpsService.getRPSCurrentBill(this.client.ClientId)
       .subscribe(data => {
         this.isLoading = false;
-        if (data.IsSuccessful) {
           this.rpsClient = data;
           this.rpsClient.ClientName = this.client.ClientName;
-        }
       }, error => {
+        console.log(error);
         this.showFailedSearch();
+        this.isLoading = false;
       });
   }
 
