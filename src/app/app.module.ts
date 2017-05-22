@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { CollapseModule } from 'ngx-bootstrap';
@@ -28,7 +29,10 @@ import { NavComponent } from './nav/nav.component';
     ToastrModule.forRoot(),
     CollapseModule.forRoot()
   ],
-  providers: [ClientSearchService],
+  providers: [
+    ClientSearchService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
