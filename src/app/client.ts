@@ -35,6 +35,8 @@ export class RpsCurrentBill {
     Credits: number;
     DistributionDollars: number;
     DollarPerParticipant: number;
+    DollarsPerLoan: number;
+    DollarsPerDistribution: number;
     Form5500: number;
     Form8955: number;
     Id: number;

@@ -106,6 +106,8 @@ export class RpsFormComponent implements OnInit {
     this.currentBill.Credits = formvalue.Credits;
     this.currentBill.DistributionDollars = formvalue.DistributionDollars;
     this.currentBill.DollarPerParticipant = formvalue.DollarPerParticipant;
+    this.currentBill.DollarsPerLoan = formvalue.DollarsPerLoan;
+    this.currentBill.DollarsPerDistribution = formvalue.DollarsPerDistribution;
     this.currentBill.Form5500 = formvalue.Form5500;
     this.currentBill.Form8955 = formvalue.Form8955;
     this.currentBill.Id = this.rpsClient.Id;
