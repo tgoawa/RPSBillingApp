@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ToastrService, ToastConfig } from 'ngx-toastr';
+import { ModalDirective } from 'ngx-bootstrap';
 
 import { RpsService } from './services/rps.service';
 import { RpsClient, Client } from 'app/client';
@@ -17,6 +18,7 @@ const toastConfig: ToastConfig = {
   styleUrls: ['./rps-data.component.css']
 })
 export class RPSDataComponent implements OnInit {
+  @ViewChild('confirmModal') public confirmModal: ModalDirective;
   rpsClient: RpsClient;
   isLoading = false;
   private client: Client;
@@ -27,9 +29,12 @@ export class RPSDataComponent implements OnInit {
   }
 
   clientSearch(event) {
-    this.rpsClient = undefined;
+    if (this.rpsClient !== undefined) {
+      this.showConfirmModal();
+    } else {
     this.client = event;
     this.getRPSCurrentBill();
+    }
   }
 
   getRPSCurrentBill() {
@@ -47,7 +52,7 @@ export class RPSDataComponent implements OnInit {
   }
 
   destroyClient(event) {
-    this.rpsClient = null;
+    this.rpsClient = undefined;
     this.showSuccessfulSave();
   }
 
@@ -59,5 +64,18 @@ export class RPSDataComponent implements OnInit {
     this.toastrService.error('Error finding client data, please try again or contact help desk if issue persists',
       'Error finding client data!',
       toastConfig);
+  }
+
+  showConfirmModal() {
+    this.confirmModal.show();
+  }
+
+  hideConfirmModal() {
+    this.confirmModal.hide();
+  }
+
+  onConfirm() {
+    this.rpsClient = undefined;
+    this.hideConfirmModal();
   }
 }

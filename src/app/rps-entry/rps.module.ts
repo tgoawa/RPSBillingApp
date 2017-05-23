@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ModalModule } from 'ngx-bootstrap';
+
 import { RpsRoutingModule } from './rps-routing.module';
 import { RpsComponent } from './rps.component';
 import { RPSDataComponent } from './invoice-entry/rps-data.component';
@@ -17,6 +19,7 @@ import { RpsService } from 'app/rps-entry/invoice-entry/services/rps.service';
     RpsRoutingModule,
     ClientSearchModule,
     ReactiveFormsModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     RpsComponent,

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
-import { CollapseModule } from 'ngx-bootstrap';
+import { CollapseModule, ModalModule } from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
