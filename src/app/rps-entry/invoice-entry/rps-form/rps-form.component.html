@@ -12,11 +12,11 @@
     <div class="form-group row">
       <label class="col-md-2 col-form-label"># Participants</label>
       <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="NumParticipants" (change)="calculateParticipantDollars()">
+        <input class="form-control" type="number" formControlName="NumParticipants" (keyup)="calculateParticipantDollars()">
       </div>
       <label class="col-md-2 col-form-label">$ per Participant</label>
       <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="DollarPerParticipant" (change)="calculateParticipantDollars()">
+        <input class="form-control" type="number" formControlName="DollarPerParticipant" (keyup)="calculateParticipantDollars()">
       </div>
       <label class="col-md-2 col-form-label">Total Amount $</label>
       <div class="col-md-2">
@@ -28,11 +28,11 @@
     <div class="form-group row">
       <label class="col-md-2 col-form-label">Total Loans</label>
       <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="NumLoans" (change)="calculateLoanDollars()">
+        <input class="form-control" type="number" formControlName="NumLoans" (keyup)="calculateLoanDollars()">
       </div>
       <label class="col-md-2 col-form-label">$ per Loan</label>
       <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="DollarsPerLoan" (change)="calculateLoanDollars()">
+        <input class="form-control" type="number" formControlName="DollarsPerLoan" (keyup)="calculateLoanDollars()">
       </div>
       <label class="col-md-2 col-form-label">Total Amount $</label>
       <div class="col-md-2">
@@ -74,11 +74,11 @@
     <div class="form-group row">
       <label class="col-md-2 col-form-label">Distributions #</label>
       <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="NumDistributions" (change)="calculateDistributionDollars()">
+        <input class="form-control" type="number" formControlName="NumDistributions" (keyup)="calculateDistributionDollars()">
       </div>
       <label class="col-md-2 col-form-label">$ per Distribution</label>
       <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="DollarsPerDistribution" (change)="calculateDistributionDollars()">
+        <input class="form-control" type="number" formControlName="DollarsPerDistribution" (keyup)="calculateDistributionDollars()">
       </div>
       <label class="col-md-2 col-form-label">Total Amount $</label>
       <div class="col-md-2">
@@ -88,7 +88,7 @@
     <div class="form-group row">
       <label class="col-md-2 col-form-label">Assets</label>
       <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="Assets" (change)="calculateBasisPointFee()">
+        <input class="form-control" type="number" formControlName="Assets" (keyup)="calculateBasisPointFee()">
       </div>
       <label class="col-md-2 col-form-label">Basis Point Fee $</label>
       <div class="col-md-2">
