@@ -27,6 +27,7 @@ export class RPSDataComponent implements OnInit {
   }
 
   clientSearch(event) {
+    this.rpsClient = undefined;
     this.client = event;
     this.getRPSCurrentBill();
   }

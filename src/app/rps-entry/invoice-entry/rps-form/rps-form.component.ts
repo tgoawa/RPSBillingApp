@@ -79,7 +79,7 @@ export class RpsFormComponent implements OnInit {
   }
 
   createForm() {
-    this.rpsForm = this.fb.group({
+      this.rpsForm = this.fb.group({
       NumParticipants: [this.rpsClient.NumParticipants, CustomValidators.number],
       DollarPerParticipant: [this.rpsClient.DollarPerParticipant, CustomValidators.number],
       ParticipantDollars: [this.rpsClient.ParticipantDollars, CustomValidators.number],
