@@ -30,6 +30,7 @@ export class RPSDataComponent implements OnInit {
 
   clientSearch(event) {
     if (this.rpsClient !== undefined) {
+      this.client = event;
       this.showConfirmModal();
     } else {
     this.client = event;
@@ -77,5 +78,6 @@ export class RPSDataComponent implements OnInit {
   onConfirm() {
     this.rpsClient = undefined;
     this.hideConfirmModal();
+    this.getRPSCurrentBill();
   }
 }
