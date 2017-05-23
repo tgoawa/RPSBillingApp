@@ -1,5 +1,6 @@
 <nav class="navbar navbar-toggleable-md">
-  <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isCollapsed = !isCollapsed"  aria-label="Toggle navigation">
+  <div class="container">
+  <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isCollapsed = !isCollapsed"  data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="fa fa-bars" aria-hidden="true"></span>
   </button>
   <a class="navbar-brand" href="" [routerLink]="['']"><img src="../assets/images/schenck-logo.png"></a>
@@ -7,5 +8,6 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="#" [routerLink]="['/rps']" routerLinkActive="active">RPS Invoice</a>
     </div>
+  </div>
   </div>
 </nav>
