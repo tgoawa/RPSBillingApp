@@ -30,7 +30,7 @@ export class MaintenanceFormComponent implements OnInit {
   createForm() {
     this.maintenanceForm = this.fb.group({
       ClientId: this.rpsClientFee.ClientId,
-      Fee: [this.rpsClientFee.Fee],
+      Fee: [this.rpsClientFee.Fee.toFixed(2)],
       IsDeleted: [this.rpsClientFee.IsDeleted],
       MaintenanceFeeId: this.rpsClientFee.MaintenanceFeeId
     });
