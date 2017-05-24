@@ -27,6 +27,7 @@ export class MaintenanceEntryComponent implements OnInit {
   }
 
   clientFeeSearch(event) {
+    this.rpsClientFee = undefined;
     this.client = event;
     this.getRPSFee();
   }
