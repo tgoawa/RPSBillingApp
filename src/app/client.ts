@@ -51,3 +51,11 @@ export class RpsCurrentBill {
     SpecialFeesText: string;
     Year: number;
 };
+
+export class RpsClientFee {
+    ClientId: number;
+    ClientName: string;
+    Fee: number;
+    MaintenanceFeeId: number;
+    IsDeleted: boolean;
+}

@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Maintenance Fee</h1>
+  </div>
+</div>
+<app-client-search (rpsBillClient)="clientFeeSearch($event)"></app-client-search>
+<div class="row" *ngIf="isLoading">
+    <div class="col-md-2 offset-md-5"><i fa class="fa fa-spinner fa-5x fa-spin" aria-hidden="true"></i>
+    </div>
+</div>
