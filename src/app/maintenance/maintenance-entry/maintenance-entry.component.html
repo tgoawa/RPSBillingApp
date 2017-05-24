@@ -9,5 +9,5 @@
     </div>
 </div>
 <div *ngIf="rpsClientFee">
-<app-maintenance-form [rpsClientFee]="rpsClientFee"></app-maintenance-form>
+<app-maintenance-form [rpsClientFee]="rpsClientFee" (isSaved)="destroyForm($event)"></app-maintenance-form>
 </div>

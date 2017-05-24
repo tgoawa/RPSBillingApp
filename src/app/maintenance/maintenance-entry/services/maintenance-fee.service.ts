@@ -18,4 +18,9 @@ export class MaintenanceFeeService {
     .map(response => response.json(), error => console.log(error));
   }
 
+  updateRPSFee(rpsClientFee: RpsClientFee) {
+    return this.http.put(api + 'updateRPSFee/', rpsClientFee)
+    .map(response => response.json(), error => console.log(error));
+  }
+
 }

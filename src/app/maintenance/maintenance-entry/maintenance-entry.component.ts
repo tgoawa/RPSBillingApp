@@ -45,10 +45,19 @@ export class MaintenanceEntryComponent implements OnInit {
     });
   }
 
+  destroyForm(event) {
+    this.rpsClientFee = undefined;
+    this.showSuccessfulSave();
+  }
+
   showFailedSearch() {
     this.toastrService.error('Error finding client, please try again or contact help desk if issue persists',
     'Error finding client!',
     toastConfig);
+  }
+
+  showSuccessfulSave() {
+    this.toastrService.success('Maintenance Fee was updated successfully', 'Maintenance Fee Updated!', toastConfig);
   }
 
 }
