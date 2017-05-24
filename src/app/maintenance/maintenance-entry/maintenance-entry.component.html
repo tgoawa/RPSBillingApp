@@ -8,4 +8,6 @@
     <div class="col-md-2 offset-md-5"><i fa class="fa fa-spinner fa-5x fa-spin" aria-hidden="true"></i>
     </div>
 </div>
-<app-maintenance-form></app-maintenance-form>
+<div *ngIf="rpsClientFee">
+<app-maintenance-form [rpsClientFee]="rpsClientFee"></app-maintenance-form>
+</div>

@@ -1,13 +1,17 @@
 <div class="row">
   <div class="col-md-12">
-    <form novalidate class="form-inline">
-      <h2></h2>
+    <h2>{{rpsClientFee.ClientName}}</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form novalidate class="form-inline" (ngSubmit)="onSubmit(maintenanceForm.value)" [formGroup]="maintenanceForm">
       <label class="mr-sm-3">Maintenance Fee:</label>
-      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0">
+      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" formControlName="Fee">
 
       <div class="form-check mb-2 mr-sm-2 mb-sm-0">
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox">Delete RPS Client?
+          <input class="form-check-input" type="checkbox" formControlName="IsDeleted">Delete RPS Client?
         </label>
       </div>
 

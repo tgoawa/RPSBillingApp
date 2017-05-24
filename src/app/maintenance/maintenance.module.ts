@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaintenanceRoutingModule } from './maintenance-routing.module';
 import { MaintenanceComponent } from './maintenance.component';
@@ -12,7 +13,8 @@ import { MaintenanceFormComponent } from './maintenance-entry/maintenance-form/m
   imports: [
     CommonModule,
     MaintenanceRoutingModule,
-    ClientSearchModule
+    ClientSearchModule,
+    ReactiveFormsModule
   ],
   declarations: [MaintenanceComponent,
     MaintenanceEntryComponent,
