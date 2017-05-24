@@ -5,6 +5,7 @@ import { MaintenanceRoutingModule } from './maintenance-routing.module';
 import { MaintenanceComponent } from './maintenance.component';
 import { MaintenanceEntryComponent } from './maintenance-entry/maintenance-entry.component';
 import { ClientSearchModule } from 'app/client-search/client-search.module';
+import { MaintenanceFeeService } from './maintenance-entry/services/maintenance-fee.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ClientSearchModule } from 'app/client-search/client-search.module';
   declarations: [MaintenanceComponent,
     MaintenanceEntryComponent
   ],
-  providers: [ ]
+  providers: [ MaintenanceFeeService ]
 })
 export class MaintenanceModule { }
