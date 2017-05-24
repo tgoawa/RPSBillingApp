@@ -14,6 +14,7 @@ import { ClientSearchService } from './client-search/services/client-search.serv
 import { RpsModule } from './rps-entry/rps.module';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
+import { MaintenanceModule } from './maintenance/maintenance.module';
 
 
 @NgModule({
@@ -28,13 +29,14 @@ import { HomeComponent } from './home/home.component';
     HttpModule,
     AppRoutingModule,
     RpsModule,
+    MaintenanceModule,
     ToastrModule.forRoot(),
     CollapseModule.forRoot()
   ],
   providers: [
     ClientSearchService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
-    ],
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
