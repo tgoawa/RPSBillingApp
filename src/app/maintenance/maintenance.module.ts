@@ -6,6 +6,7 @@ import { MaintenanceComponent } from './maintenance.component';
 import { MaintenanceEntryComponent } from './maintenance-entry/maintenance-entry.component';
 import { ClientSearchModule } from 'app/client-search/client-search.module';
 import { MaintenanceFeeService } from './maintenance-entry/services/maintenance-fee.service';
+import { MaintenanceFormComponent } from './maintenance-entry/maintenance-form/maintenance-form.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { MaintenanceFeeService } from './maintenance-entry/services/maintenance-
     ClientSearchModule
   ],
   declarations: [MaintenanceComponent,
-    MaintenanceEntryComponent
+    MaintenanceEntryComponent,
+    MaintenanceFormComponent
   ],
   providers: [ MaintenanceFeeService ]
 })
