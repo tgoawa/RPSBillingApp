@@ -29,11 +29,10 @@ export class RPSDataComponent implements OnInit {
   }
 
   clientSearch(event) {
+    this.client = event;
     if (this.rpsClient !== undefined) {
-      this.client = event;
       this.showConfirmModal();
     } else {
-    this.client = event;
     this.getRPSCurrentBill();
     }
   }
