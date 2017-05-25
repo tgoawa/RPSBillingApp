@@ -1,7 +1,7 @@
 <div class="row" style="margin-bottom: 30px">
   <div class="col-md-12">
   <form novalidate (ngSubmit)="onSubmit(rpsForm.value)" [formGroup]="rpsForm">
-    <h2>{{rpsClient.ClientName}}</h2>
+    <h4 class="client-name">{{rpsClient.ClientName}}</h4>
     <div class="form-group row">
       <label class="col-md-3 col-form-label">Maintenance Fee: {{rpsClient.MaintenanceFees | currency: 'USD':true: '.2-2'}}</label>
       <label class="col-md-2 col-form-label">Year: {{rpsClient.Year}}</label>
@@ -9,7 +9,7 @@
     </div>
 
     <h3>Annual Participant Count</h3>
-    <div class="form-group row">
+    <div class="form-group row border-bottom">
       <label class="col-md-2 col-form-label"># Participants</label>
       <div class="col-md-2">
         <input class="form-control" type="number" formControlName="NumParticipants" (keyup)="calculateParticipantDollars()">
@@ -25,7 +25,7 @@
     </div>
     
     <h3>Number of Loans</h3>
-    <div class="form-group row">
+    <div class="form-group row border-bottom">
       <label class="col-md-2 col-form-label">Total Loans</label>
       <div class="col-md-2">
         <input class="form-control" type="number" formControlName="NumLoans" (keyup)="calculateLoanDollars()">
@@ -41,7 +41,7 @@
     </div>
 
     <h3>Forms 5500/8955, etc</h3>
-    <div class="form-group row">
+    <div class="form-group row border-bottom">
       <label class="col-md-2 col-form-label">5500</label>
       <div class="col-md-2">
         <select class="form-control" formControlName="Form5500">
@@ -61,7 +61,7 @@
     </div>
 
     <h3>Special Fees</h3>
-    <div class="form-group row">
+    <div class="form-group row border-bottom">
       <label class="col-md-3 col-form-label">Amendments prepared, if any, describe as will be on invoice</label>
       <div class="col-md-6">
         <textarea class="form-control" formControlName="SpecialFeesText"></textarea>
@@ -71,7 +71,7 @@
         <input class="form-control" type="number" formControlName="SpecialFeesDollars">
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row border-bottom">
       <label class="col-md-2 col-form-label">Distributions #</label>
       <div class="col-md-2">
         <input class="form-control" type="number" formControlName="NumDistributions" (keyup)="calculateDistributionDollars()">
@@ -85,7 +85,7 @@
         <input class="form-control" type="number" formControlName="DistributionDollars" readonly>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row border-bottom">
       <label class="col-md-2 col-form-label">Assets</label>
       <div class="col-md-2">
         <input class="form-control" type="number" formControlName="Assets" (keyup)="calculateBasisPointFee()">
@@ -97,7 +97,7 @@
     </div>
 
     <h3>Credits</h3>
-    <div class="form-group row">
+    <div class="form-group row border-bottom">
       <label class="col-md-1 col-form-label">Credits</label>
       <div class="col-md-2">
         <input class="form-control" type="number" formControlName="Credits">
