@@ -21,7 +21,20 @@ export class RpsFormComponent implements OnInit {
   @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   rpsForm: FormGroup;
+  invoiceSubtotal = 0;
+  invoiceTotal = 0;
+  creditDifference: number;
+  adjustedCredit = 0;
+
   private currentBill = new RpsCurrentBill();
+  private calculatedParticipantDollars = 0;
+  private calculatedLoanDollars = 0;
+  private calculatedDistributionDollars = 0;
+  private calculatedBasisPointFee = 0;
+  private calculatedForm5500 = 0;
+  private calculatedForm8955 = 0;
+  private specialFees = 0;
+
   constructor(private fb: FormBuilder, private rpsService: RpsService, private toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -33,9 +46,11 @@ export class RpsFormComponent implements OnInit {
     const dollars = this.rpsForm.get('DollarPerParticipant');
 
     if (participants !== undefined && dollars !== undefined) {
+      this.calculatedParticipantDollars = participants.value * dollars.value;
       this.rpsForm.patchValue({
-        ParticipantDollars: participants.value * dollars.value
+        ParticipantDollars: this.calculatedParticipantDollars
       });
+      this.calculateSubTotal();
     }
   }
 
@@ -44,9 +59,11 @@ export class RpsFormComponent implements OnInit {
     const dollars = this.rpsForm.get('DollarsPerLoan');
 
     if (numberOfLoans !== undefined && dollars !== undefined) {
+      this.calculatedLoanDollars = numberOfLoans.value * dollars.value;
       this.rpsForm.patchValue({
-        LoanDollars: numberOfLoans.value * dollars.value
+        LoanDollars: this.calculatedLoanDollars
       });
+      this.calculateSubTotal();
     }
   }
 
@@ -55,9 +72,11 @@ export class RpsFormComponent implements OnInit {
     const dollars = this.rpsForm.get('DollarsPerDistribution');
 
     if (numberOfDistributions !== undefined && dollars !== undefined) {
+      this.calculatedDistributionDollars = numberOfDistributions.value * dollars.value;
       this.rpsForm.patchValue({
-        DistributionDollars: numberOfDistributions.value * dollars.value
+        DistributionDollars: this.calculatedDistributionDollars
       });
+      this.calculateSubTotal();
     }
   }
 
@@ -66,10 +85,69 @@ export class RpsFormComponent implements OnInit {
     const multiplier = 0.0003 / 4;
 
     if (assets !== undefined) {
+      this.calculatedBasisPointFee = +(assets.value * multiplier).toFixed(2);
       this.rpsForm.patchValue({
-        BasisPointFee: (assets.value * multiplier).toFixed(2)
+        BasisPointFee: this.calculateBasisPointFee
       });
+      this.calculateSubTotal();
     }
+
+  }
+
+  calculateForm5500() {
+    const form5500 = this.rpsForm.get('Form5500');
+
+    if (form5500 !== undefined) {
+      this.calculatedForm5500 = +form5500.value;
+      this.calculateSubTotal();
+    }
+  }
+
+  calculateForm8955() {
+    const form8955 = this.rpsForm.get('Form8955');
+
+    if (form8955 !== undefined) {
+      this.calculatedForm8955 = +form8955.value;
+      this.calculateSubTotal();
+    }
+  }
+
+  calculateSpecialFees() {
+    const specFee = this.rpsForm.get('SpecialFeesDollars');
+
+    if (specFee !== undefined) {
+      this.specialFees = specFee.value;
+      this.calculateSubTotal();
+    }
+  }
+
+  calculateSubTotal() {
+
+    this.invoiceSubtotal = this.calculatedParticipantDollars
+                            + this.calculatedLoanDollars
+                            + this.calculatedDistributionDollars
+                            + this.calculatedBasisPointFee
+                            + this.specialFees
+                            + this.calculatedForm5500
+                            + this.calculatedForm8955;
+  }
+
+  calculateCredit() {
+    const enteredCredit = this.rpsForm.get('Credits');
+    const result = this.invoiceSubtotal - enteredCredit.value;
+
+    if (result >= 0) {
+      this.adjustedCredit = enteredCredit.value;
+      this.invoiceTotal = result;
+    } else {
+      this.calculateAdjustedCredit(this.invoiceSubtotal, enteredCredit.value);
+    }
+  }
+
+  calculateAdjustedCredit(invoiceSubtotal, enteredCredit) {
+    this.creditDifference = Math.abs(invoiceSubtotal - enteredCredit);
+    this.adjustedCredit = enteredCredit - this.creditDifference;
+    this.invoiceTotal = invoiceSubtotal - this.adjustedCredit;
 
   }
 
