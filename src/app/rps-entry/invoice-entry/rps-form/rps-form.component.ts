@@ -85,9 +85,10 @@ export class RpsFormComponent implements OnInit {
     const multiplier = 0.0003 / 4;
 
     if (assets !== undefined) {
-      this.calculatedBasisPointFee = +(assets.value * multiplier).toFixed(2);
+      const result = (assets.value * multiplier).toFixed(2);
+      this.calculatedBasisPointFee = parseFloat(result);
       this.rpsForm.patchValue({
-        BasisPointFee: this.calculateBasisPointFee
+        BasisPointFee: this.calculatedBasisPointFee
       });
       this.calculateSubTotal();
     }
