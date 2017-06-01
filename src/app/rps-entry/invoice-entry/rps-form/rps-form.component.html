@@ -90,6 +90,10 @@
       <div class="col-md-2">
         <input class="form-control" type="number" formControlName="Assets" (keyup)="calculateBasisPointFee()">
       </div>
+      <label class="col-md-2 col-form-label">Basis Point</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" formControlName="BasisPoint" (keyup)="calculateBasisPointFee()">
+      </div>
       <label class="col-md-2 col-form-label">Basis Point Fee $</label>
       <div class="col-md-2">
         <input class="form-control" type="number" formControlName="BasisPointFee" readonly>
@@ -118,7 +122,7 @@
             </tr>
             <tr *ngIf="creditDifference">
               <th scope="row">Credit Adjustment:</th>
-              <td><span style="color: red">{{creditDifference}}</span></td>
+              <td><span style="color: red">({{creditDifference}})</span></td>
             </tr>
             <tr>
               <th scope="row">Invoice Total:</th>

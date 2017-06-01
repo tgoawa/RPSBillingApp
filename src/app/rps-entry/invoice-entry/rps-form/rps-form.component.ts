@@ -81,7 +81,8 @@ export class RpsFormComponent implements OnInit {
 
   calculateBasisPointFee() {
     const assets = this.rpsForm.get('Assets');
-    const multiplier = 0.0003 / 4;
+    const points = this.rpsForm.get('BasisPoint').value / 10000;
+    const multiplier = points / 4;
     let calculatedBasisPointFee = 0;
 
     if (assets !== undefined) {
@@ -142,6 +143,7 @@ export class RpsFormComponent implements OnInit {
     if (result >= 0) {
       this.adjustedCredit = enteredCredit.value;
       this.invoiceTotal = result;
+      this.creditDifference = 0;
     } else {
       this.calculateAdjustedCredit(this.invoiceSubtotal, enteredCredit.value);
     }
@@ -175,6 +177,7 @@ export class RpsFormComponent implements OnInit {
       DollarsPerDistribution: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
       DistributionDollars: [this.rpsClient.DistributionDollars, [Validators.required, CustomValidators.number]],
       Assets: [this.rpsClient.Assets, [Validators.required, CustomValidators.number]],
+      BasisPoint: 0,
       BasisPointFee: [this.rpsClient.BasisPointFee, [Validators.required, CustomValidators.number]],
       Credits: [this.rpsClient.Credits, [Validators.required, CustomValidators.number]]
     });
