@@ -185,7 +185,7 @@ export class RpsFormComponent implements OnInit {
 
   mapFormToCurrentBill(formvalue) {
     this.currentBill.Assets = formvalue.Assets;
-    this.currentBill.AssetBasePoint = formvalue.AssetBasePoint;
+    this.currentBill.AssetBasePoint = formvalue.BasisPoint;
     this.currentBill.BasisPointFee = formvalue.BasisPointFee;
     this.currentBill.ClientId = this.rpsClient.ClientId;
     this.currentBill.Credits = formvalue.Credits;
