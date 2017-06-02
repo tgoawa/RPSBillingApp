@@ -23,6 +23,7 @@ export class RpsClient {
     DollarsPerDistribution: number;
     DistributionDollars: number;
     Assets: number;
+    AssetBasePoint: number;
     BasisPointFee: number;
     Credits: number;
     Id: number;
@@ -30,6 +31,7 @@ export class RpsClient {
 
 export class RpsCurrentBill {
     Assets: number;
+    AssetBasePoint: number;
     BasisPointFee: number;
     ClientId: number;
     Credits: number;

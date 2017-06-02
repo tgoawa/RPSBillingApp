@@ -177,7 +177,7 @@ export class RpsFormComponent implements OnInit {
       DollarsPerDistribution: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
       DistributionDollars: [this.rpsClient.DistributionDollars, [Validators.required, CustomValidators.number]],
       Assets: [this.rpsClient.Assets, [Validators.required, CustomValidators.number]],
-      BasisPoint: 0,
+      BasisPoint: [this.rpsClient.AssetBasePoint],
       BasisPointFee: [this.rpsClient.BasisPointFee, [Validators.required, CustomValidators.number]],
       Credits: [this.rpsClient.Credits, [Validators.required, CustomValidators.number]]
     });
@@ -185,6 +185,7 @@ export class RpsFormComponent implements OnInit {
 
   mapFormToCurrentBill(formvalue) {
     this.currentBill.Assets = formvalue.Assets;
+    this.currentBill.AssetBasePoint = formvalue.AssetBasePoint;
     this.currentBill.BasisPointFee = formvalue.BasisPointFee;
     this.currentBill.ClientId = this.rpsClient.ClientId;
     this.currentBill.Credits = formvalue.Credits;
