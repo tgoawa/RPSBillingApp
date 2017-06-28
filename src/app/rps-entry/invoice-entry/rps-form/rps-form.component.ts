@@ -133,7 +133,7 @@ export class RpsFormComponent implements OnInit {
     const distributionDollars = this.rpsForm.get('DistributionDollars').value;
     const basisPointFee = this.rpsForm.get('BasisPointFee').value;
 
-    this.invoiceSubtotal = participantDollars + loanDollars + form5500 + form8955 + specialFees + distributionDollars + basisPointFee;
+    this.invoiceSubtotal = this.rpsClient.MaintenanceFees + participantDollars + loanDollars + form5500 + form8955 + specialFees + distributionDollars + basisPointFee;
   }
 
   calculateCredit() {
