@@ -45,17 +45,13 @@
       <label class="col-md-2 col-form-label">5500</label>
       <div class="col-md-2">
         <select class="form-control" formControlName="Form5500" (change)="calculateForm5500()">
-        <option value="0">0</option>
-        <option value="375">375</option>
-        <option value="750">750</option>
-        <option value="1000">1000</option>
+          <option *ngFor="let item of form5500List" [value]="item" [selected]="item === rpsClient.Form5500">{{item}}</option>
       </select>
       </div>
       <label class="col-md-2 col-form-label">8955</label>
       <div class="col-md-2">
         <select class="form-control" formControlName="Form8955" (change)="calculateForm8955()">
-          <option value="0">0</option>
-          <option value="75">75</option>
+          <option *ngFor="let item of form8955List" [value]="item" [selected]="item === rpsClient.Form8955">{{item}}</option>
         </select>
       </div>
     </div>
