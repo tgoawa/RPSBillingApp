@@ -25,6 +25,8 @@ export class RpsFormComponent implements OnInit {
   invoiceTotal = 0;
   creditDifference: number;
   adjustedCredit = 0;
+  form5500List = [0, 375, 750, 1000];
+  form8955List = [0, 75];
 
   private currentBill = new RpsCurrentBill();
   private calculatedForm5500 = 0;
@@ -100,7 +102,9 @@ export class RpsFormComponent implements OnInit {
     const form5500 = this.rpsForm.get('Form5500');
 
     if (form5500 !== undefined) {
-      this.calculatedForm5500 = +form5500.value;
+      this.rpsForm.patchValue({
+        Form5500: +form5500.value
+      });
       this.calculateSubTotal();
     }
   }
@@ -109,7 +113,9 @@ export class RpsFormComponent implements OnInit {
     const form8955 = this.rpsForm.get('Form8955');
 
     if (form8955 !== undefined) {
-      this.calculatedForm8955 = +form8955.value;
+      this.rpsForm.patchValue({
+        Form8955: +form8955.value
+      });
       this.calculateSubTotal();
     }
   }
@@ -158,6 +164,8 @@ export class RpsFormComponent implements OnInit {
 
   onSubmit(formValue) {
     this.mapFormToCurrentBill(formValue);
+    console.log(this.currentBill);
+    console.log(this.rpsForm.value);
     this.saveInvoice();
   }
 
@@ -193,8 +201,8 @@ export class RpsFormComponent implements OnInit {
     this.currentBill.DollarPerParticipant = formvalue.DollarPerParticipant;
     this.currentBill.DollarsPerLoan = formvalue.DollarsPerLoan;
     this.currentBill.DollarsPerDistribution = formvalue.DollarsPerDistribution;
-    this.currentBill.Form5500 = this.calculatedForm5500;
-    this.currentBill.Form8955 = this.calculatedForm8955;
+    this.currentBill.Form5500 = formvalue.Form5500;
+    this.currentBill.Form8955 = formvalue.Form8955;
     this.currentBill.Id = this.rpsClient.Id;
     this.currentBill.LoanDollars = formvalue.LoanDollars;
     this.currentBill.MaintenanceFees = this.rpsClient.MaintenanceFees;
