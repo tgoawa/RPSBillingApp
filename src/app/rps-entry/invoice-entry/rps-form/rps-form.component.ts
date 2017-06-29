@@ -158,7 +158,9 @@ export class RpsFormComponent implements OnInit {
 
   onSubmit(formValue) {
     this.mapFormToCurrentBill(formValue);
-    this.saveInvoice();
+    console.log(this.currentBill);
+    console.log(this.rpsForm);
+    // this.saveInvoice();
   }
 
   createForm() {
