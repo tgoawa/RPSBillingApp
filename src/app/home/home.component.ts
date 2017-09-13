@@ -19,6 +19,7 @@ const toastConfig: ToastConfig = {
 })
 export class HomeComponent implements OnInit {
   @ViewChild('csvErrorModal') public csvErrorModal: ModalDirective;
+  @ViewChild('fileImport') public fileImport: any;
   ErrorMsg: string;
   ErrorList: string[][] = [];
   DuplicateMsg: string;
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
   hideModal() {
     this.csvErrorModal.hide();
     this.ErrorMsg = '';
+    this.resetFile();
   }
 
   onUpload() {
@@ -121,6 +123,10 @@ export class HomeComponent implements OnInit {
 
   private showFailImport() {
     this.toastrService.error('Error importing CSV, try again or call help desk if contines', 'Error importing CSV!', toastConfig);
+  }
+
+  private resetFile() {
+    this.fileImport.nativeElement.value = '';
   }
 
 }
