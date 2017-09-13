@@ -28,11 +28,14 @@
   <div class="col-md-4">
     <input type="file" class="form-control" (change)="onCsvImport($event)" />
   </div>
+  <div class="col-md-4">
+    <button type="button" class="btn btn-schenck btn-lg btn-block" (click)="onUpload()" [disabled]="disableImport">Upload CSV</button>
+  </div>
 </div>
 
 <div class="modal fade" bsModal #csvErrorModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">CSV Upload Error</h4>
@@ -41,7 +44,18 @@
    </button>
       </div>
       <div class="modal-body">
-        {{ErrorMsg}}
+        <div *ngIf="ErrorList.length > 0">
+          {{ErrorMsg}}
+          <ul *ngFor="let item of ErrorList">
+            <li>{{item}}</li>
+          </ul>
+        </div>
+        <div *ngIf="DuplicateList.length > 0">
+          {{DuplicateMsg}}
+          <ul *ngFor="let item of DuplicateList">
+            <li>{{item}}</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

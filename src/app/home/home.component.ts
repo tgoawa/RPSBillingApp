@@ -1,9 +1,17 @@
-import { ClientCredit } from './client-credit';
+import { RpsService } from '../rps-entry/invoice-entry/services/rps.service';
+import { RPSCreditModel } from './client-credit';
 import { all } from 'codelyzer/util/function';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { ToastrService, ToastConfig } from 'ngx-toastr';
+
 import { ModalDirective } from 'ngx-bootstrap';
 
+const toastConfig: ToastConfig = {
+  positionClass: 'toast-center-center',
+  timeOut: 10000,
+  closeButton: true
+};
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,10 +20,13 @@ import { ModalDirective } from 'ngx-bootstrap';
 export class HomeComponent implements OnInit {
   @ViewChild('csvErrorModal') public csvErrorModal: ModalDirective;
   ErrorMsg: string;
-  CreditData: ClientCredit[] = [];
-  duplicateClient: number;
+  ErrorList: string[][] = [];
+  DuplicateMsg: string;
+  DuplicateList: RPSCreditModel[] = [];
+  CreditData: RPSCreditModel[] = [];
+  disableImport = true;
 
-  constructor() { }
+  constructor(private rpsService: RpsService, private toastrService: ToastrService) { }
 
   ngOnInit() {
   }
@@ -37,6 +48,16 @@ export class HomeComponent implements OnInit {
     this.ErrorMsg = '';
   }
 
+  onUpload() {
+    this.rpsService.saveCSV(this.CreditData)
+      .subscribe(data => {
+        this.showSuccessImport();
+      }, error => {
+        this.showFailImport();
+        console.log(error);
+      });
+  }
+
   private showErrorModal() {
     this.csvErrorModal.show();
   }
@@ -47,50 +68,59 @@ export class HomeComponent implements OnInit {
     const allTextLines = csvData.split(/\r\n|\n/);
 
     for (let x = 0; x < allTextLines.length; x++) {
-      const credit = new ClientCredit;
+      const credit = new RPSCreditModel;
       const allData = allTextLines[x].split(',');
-      credit.ClientId = this.mapToClientId(allData[0]);
-      credit.Credit = this.mapToClientCredit(allData[1]);
+
+      if (isNaN(parseInt(allData[0], 10))) {
+        this.ErrorList.push(allData);
+        continue;
+      }
+
+      if (isNaN(parseFloat(allData[1]))) {
+        this.ErrorList.push(allData);
+        continue;
+      }
+
+      credit.ClientId = parseInt(allData[0], 10);
+      credit.Credit = parseFloat(allData[1]);
+
       if (this.checkForDuplicates(credit)) {
-        this.showErrorModal();
-        this.ErrorMsg = 'Client Id of ' + this.duplicateClient + ' is duplicated!';
-      } else {
-        this.CreditData.push(credit);
+        this.DuplicateList.push(credit);
+        continue;
       }
+
+      this.CreditData.push(credit);
     }
+
+    if (this.ErrorList.length > 0) {
+      this.ErrorMsg = 'These values are not formatted properly';
+      this.showErrorModal();
+    }
+
+    if (this.DuplicateList.length > 0) {
+      this.DuplicateMsg = 'The following are duplicate Client Ids!';
+      this.showErrorModal();
+    }
+
     console.log(this.CreditData);
+    console.log(this.ErrorList);
   }
 
-  private mapToClientId(data): number {
-    if (isNaN(parseInt(data, 10))) {
-      this.showErrorModal();
-      this.ErrorMsg = 'Value for Client Id is not a number!';
-      return;
-    } else {
-      return parseInt(data, 10);
-    }
-  }
-
-  private mapToClientCredit(data): number {
-    if (isNaN(parseFloat(data))) {
-      this.showErrorModal();
-      this.ErrorMsg = 'Value for Client Credit is not a number!';
-      return;
-    } else {
-      return parseFloat(data);
-    }
-  }
-
-  private checkForDuplicates(data: ClientCredit): boolean {
-    this.duplicateClient = undefined;
+  private checkForDuplicates(data: RPSCreditModel): boolean {
     for (let x = 0; x < this.CreditData.length; x++) {
-      if (data.ClientId === this.CreditData[x].ClientId) {
-        this.duplicateClient = data.ClientId;
+      if (this.CreditData[x].ClientId === data.ClientId) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     }
+  }
+
+  private showSuccessImport() {
+    this.toastrService.success(null, 'Success importing CSV!', toastConfig);
+  }
+
+  private showFailImport() {
+    this.toastrService.error('Error importing CSV, try again or call help desk if contines', 'Error importing CSV!', toastConfig);
   }
 
 }

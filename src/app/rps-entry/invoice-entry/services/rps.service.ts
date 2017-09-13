@@ -1,3 +1,4 @@
+import { ArrayOfRPSCreditModel, RPSCreditModel } from '../../../home/client-credit';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -21,6 +22,13 @@ export class RpsService {
   saveRPSInvoice(invoice: RpsCurrentBill) {
 
     return this.http.put(api + 'updateRPSInvoice/', invoice)
+    .map(response => response.json(), error => console.log(error));
+  }
+
+  saveCSV(credit: RPSCreditModel[]) {
+    const ArrayOfRPSCreditModel = credit;
+
+    return this.http.post(api + 'LoadCredits/', ArrayOfRPSCreditModel)
     .map(response => response.json(), error => console.log(error));
   }
 }

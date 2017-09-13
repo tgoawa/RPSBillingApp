@@ -21,7 +21,7 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
