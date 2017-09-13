@@ -1,4 +1,4 @@
-export interface ClientCredit {
+export class ClientCredit {
   ClientId: number;
   Credit: number;
 }

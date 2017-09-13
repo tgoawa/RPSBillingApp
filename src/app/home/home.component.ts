@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   displayCSVError: boolean;
-  CreditData: ClientCredit[];
+  CreditData: ClientCredit[] = [];
 
   constructor() { }
 
@@ -32,14 +32,15 @@ export class HomeComponent implements OnInit {
 
     const csvData = data;
     const allTextLines = csvData.split(/\r\n|\n/);
-    const headers = allTextLines[0].split(',');
-    const lines = [];
 
     for (let x = 0; x < allTextLines.length; x++) {
+      const credit = new ClientCredit;
       const allData = allTextLines[x].split(',');
-      lines.push(allData);
+      credit.ClientId = this.mapToClientId(allData[0]);
+      credit.Credit = this.mapToClientCredit(allData[1]);
+      this.CreditData.push(credit);
     }
-    console.log(lines);
+    console.log(this.CreditData);
   }
 
   private mapToClientId(data): number {
