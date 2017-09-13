@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-  <h1>Schenck RPS</h1>
+    <h1>Schenck RPS</h1>
   </div>
 </div>
 <div class="row">
@@ -26,6 +26,23 @@
 </div>
 <div class="row">
   <div class="col-md-4">
-      <input type="file" class="form-control" (change)="onCsvImport($event)"/>
+    <input type="file" class="form-control" (change)="onCsvImport($event)" />
+  </div>
+</div>
+
+<div class="modal fade" bsModal #csvErrorModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">CSV Upload Error</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+     <span aria-hidden="true">&times;</span>
+   </button>
+      </div>
+      <div class="modal-body">
+        {{ErrorMsg}}
+      </div>
+    </div>
   </div>
 </div>

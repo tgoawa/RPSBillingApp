@@ -1,6 +1,8 @@
 import { ClientCredit } from './client-credit';
 import { all } from 'codelyzer/util/function';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +10,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  displayCSVError: boolean;
+  @ViewChild('csvErrorModal') public csvErrorModal: ModalDirective;
+  ErrorMsg: string;
   CreditData: ClientCredit[] = [];
+  duplicateClient: number;
 
   constructor() { }
 
@@ -28,6 +32,15 @@ export class HomeComponent implements OnInit {
     };
   }
 
+  hideModal() {
+    this.csvErrorModal.hide();
+    this.ErrorMsg = '';
+  }
+
+  private showErrorModal() {
+    this.csvErrorModal.show();
+  }
+
   private extractData(data) {
 
     const csvData = data;
@@ -38,14 +51,20 @@ export class HomeComponent implements OnInit {
       const allData = allTextLines[x].split(',');
       credit.ClientId = this.mapToClientId(allData[0]);
       credit.Credit = this.mapToClientCredit(allData[1]);
-      this.CreditData.push(credit);
+      if (this.checkForDuplicates(credit)) {
+        this.showErrorModal();
+        this.ErrorMsg = 'Client Id of ' + this.duplicateClient + ' is duplicated!';
+      } else {
+        this.CreditData.push(credit);
+      }
     }
     console.log(this.CreditData);
   }
 
   private mapToClientId(data): number {
     if (isNaN(parseInt(data, 10))) {
-      this.displayCSVError = true;
+      this.showErrorModal();
+      this.ErrorMsg = 'Value for Client Id is not a number!';
       return;
     } else {
       return parseInt(data, 10);
@@ -54,10 +73,23 @@ export class HomeComponent implements OnInit {
 
   private mapToClientCredit(data): number {
     if (isNaN(parseFloat(data))) {
-      this.displayCSVError = true;
+      this.showErrorModal();
+      this.ErrorMsg = 'Value for Client Credit is not a number!';
       return;
     } else {
       return parseFloat(data);
+    }
+  }
+
+  private checkForDuplicates(data: ClientCredit): boolean {
+    this.duplicateClient = undefined;
+    for (let x = 0; x < this.CreditData.length; x++) {
+      if (data.ClientId === this.CreditData[x].ClientId) {
+        this.duplicateClient = data.ClientId;
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 

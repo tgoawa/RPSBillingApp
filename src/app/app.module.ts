@@ -31,7 +31,8 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
     RpsModule,
     MaintenanceModule,
     ToastrModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     ClientSearchService,
