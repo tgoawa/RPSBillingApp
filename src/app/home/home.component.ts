@@ -1,3 +1,5 @@
+import { ClientCredit } from './client-credit';
+import { all } from 'codelyzer/util/function';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  displayCSVError: boolean;
+  CreditData: ClientCredit[];
 
   constructor() { }
 
@@ -19,7 +23,6 @@ export class HomeComponent implements OnInit {
 
     reader.readAsText(file);
     reader.onload = (event: any) => {
-      console.log(event);
       const csv = event.target.result;
       this.extractData(csv);
     };
@@ -32,18 +35,29 @@ export class HomeComponent implements OnInit {
     const headers = allTextLines[0].split(',');
     const lines = [];
 
-    for (let i = 1; i < allTextLines.length; i++) {
-      // split content based on comma
-      const allData = allTextLines[i].split(',');
-      if (allData.length === headers.length) {
-        const tarr = [];
-        for (let j = 0; j < headers.length; j++) {
-          tarr.push(allData[j]);
-        }
-        lines.push(tarr);
-      }
+    for (let x = 0; x < allTextLines.length; x++) {
+      const allData = allTextLines[x].split(',');
+      lines.push(allData);
     }
     console.log(lines);
+  }
+
+  private mapToClientId(data): number {
+    if (isNaN(parseInt(data, 10))) {
+      this.displayCSVError = true;
+      return;
+    } else {
+      return parseInt(data, 10);
+    }
+  }
+
+  private mapToClientCredit(data): number {
+    if (isNaN(parseFloat(data))) {
+      this.displayCSVError = true;
+      return;
+    } else {
+      return parseFloat(data);
+    }
   }
 
 }
