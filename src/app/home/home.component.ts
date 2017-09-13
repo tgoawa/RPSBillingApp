@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   DuplicateList: RPSCreditModel[] = [];
   CreditData: RPSCreditModel[] = [];
   disableImport = true;
+  hasErrors: boolean;
 
   constructor(private rpsService: RpsService, private toastrService: ToastrService) { }
 
@@ -45,15 +46,14 @@ export class HomeComponent implements OnInit {
   }
 
   hideModal() {
-    this.csvErrorModal.hide();
-    this.ErrorMsg = '';
-    this.resetFile();
+    this.resetState();
   }
 
   onUpload() {
     this.rpsService.saveCSV(this.CreditData)
       .subscribe(data => {
         this.showSuccessImport();
+        this.resetState();
       }, error => {
         this.showFailImport();
         console.log(error);
@@ -75,11 +75,13 @@ export class HomeComponent implements OnInit {
 
       if (isNaN(parseInt(allData[0], 10))) {
         this.ErrorList.push(allData);
+        this.hasErrors = true;
         continue;
       }
 
       if (isNaN(parseFloat(allData[1]))) {
         this.ErrorList.push(allData);
+        this.hasErrors = true;
         continue;
       }
 
@@ -88,24 +90,14 @@ export class HomeComponent implements OnInit {
 
       if (this.checkForDuplicates(credit)) {
         this.DuplicateList.push(credit);
+        this.hasErrors = true;
         continue;
       }
 
       this.CreditData.push(credit);
-    }
 
-    if (this.ErrorList.length > 0) {
-      this.ErrorMsg = 'These values are not formatted properly';
-      this.showErrorModal();
     }
-
-    if (this.DuplicateList.length > 0) {
-      this.DuplicateMsg = 'The following are duplicate Client Ids!';
-      this.showErrorModal();
-    }
-
-    console.log(this.CreditData);
-    console.log(this.ErrorList);
+    this.checkForErrors();
   }
 
   private checkForDuplicates(data: RPSCreditModel): boolean {
@@ -114,6 +106,30 @@ export class HomeComponent implements OnInit {
         return true;
       }
       return false;
+    }
+  }
+
+  private checkForErrors() {
+    if (this.hasErrors) {
+      this.checkErrorList();
+      this.checkDuplicateList();
+    } else {
+      this.disableImport = false;
+    }
+  }
+
+  private checkErrorList() {
+    if (this.ErrorList.length > 0) {
+      this.ErrorMsg = 'These values are not formatted properly';
+      this.showErrorModal();
+    }
+    return;
+  }
+
+  private checkDuplicateList() {
+    if (this.DuplicateList.length > 0) {
+      this.DuplicateMsg = 'The following has duplicate Client Ids!';
+      this.showErrorModal();
     }
   }
 
@@ -127,6 +143,16 @@ export class HomeComponent implements OnInit {
 
   private resetFile() {
     this.fileImport.nativeElement.value = '';
+  }
+
+  private resetState() {
+    this.csvErrorModal.hide();
+    this.ErrorMsg = '';
+    this.ErrorList = [];
+    this.DuplicateList = [];
+    this.CreditData = [];
+    this.resetFile();
+    this.hasErrors = false;
   }
 
 }
