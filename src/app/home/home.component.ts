@@ -150,6 +150,7 @@ export class HomeComponent implements OnInit {
 
   private resetState() {
     this.csvErrorModal.hide();
+    this.alreadyInDB = [];
     this.ErrorList = [];
     this.DuplicateList = [];
     this.CreditData = [];
