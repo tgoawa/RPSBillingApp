@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
         this.resetState();
       }, error => {
         this.showFailImport();
+        this.resetState();
         console.log(error);
       });
   }
