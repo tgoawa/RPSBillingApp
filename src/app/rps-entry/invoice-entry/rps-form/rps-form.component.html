@@ -101,20 +101,8 @@
         <table class="table table-sm">
           <tbody>
             <tr>
-              <th scope="row">Invoice Subtotal:</th>
-              <td>{{invoiceSubtotal | currency: 'USD':true}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Credits:</th>
-              <td>{{adjustedCredit | currency: 'USD':true}}</td>
-            </tr>
-            <tr *ngIf="creditDifference">
-              <th scope="row">Credit Adjustment:</th>
-              <td><span style="color: red">({{creditDifference}})</span></td>
-            </tr>
-            <tr>
               <th scope="row">Invoice Total:</th>
-              <td>{{invoiceTotal | currency: 'USD':true}}</td>
+              <td>{{invoiceSubtotal | currency: 'USD':true}}</td>
             </tr>
           </tbody>
         </table>
