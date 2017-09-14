@@ -78,20 +78,20 @@ export class HomeComponent implements OnInit {
       const credit = new RPSCreditModel;
       const allData = allTextLines[x].split(',');
 
-      if (isNaN(parseInt(allData[0], 10))) {
+      if (isNaN(Number(allData[0]))) {
         this.ErrorList.push(allData);
         this.hasErrors = true;
         continue;
       }
 
-      if (isNaN(parseFloat(allData[1]))) {
+      if (isNaN(Number(allData[1]))) {
         this.ErrorList.push(allData);
         this.hasErrors = true;
         continue;
       }
 
-      credit.ClientId = parseInt(allData[0], 10);
-      credit.Credit = parseFloat(allData[1]);
+      credit.ClientId = Number(allData[0]);
+      credit.Credit = Number(allData[1]);
 
       if (this.checkForDuplicates(credit)) {
         this.DuplicateList.push(credit);
