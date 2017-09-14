@@ -46,7 +46,7 @@
       </div>
       <div class="modal-body">
         <div *ngIf="ErrorList.length > 0">
-          These values are not formatted properly!
+          These items have a formatting error!
           <ul *ngFor="let item of ErrorList">
             <li style="color: red">{{item}}</li>
           </ul>
