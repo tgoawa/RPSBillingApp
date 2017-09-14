@@ -20,9 +20,8 @@ const toastConfig: ToastConfig = {
 export class HomeComponent implements OnInit {
   @ViewChild('csvErrorModal') public csvErrorModal: ModalDirective;
   @ViewChild('fileImport') public fileImport: any;
-  ErrorMsg: string;
+  alreadyInDB: RPSCreditModel[] = [];
   ErrorList: string[][] = [];
-  DuplicateMsg: string;
   DuplicateList: RPSCreditModel[] = [];
   CreditData: RPSCreditModel[] = [];
   disableImport = true;
@@ -52,8 +51,13 @@ export class HomeComponent implements OnInit {
   onUpload() {
     this.rpsService.saveCSV(this.CreditData)
       .subscribe(data => {
-        this.showSuccessImport();
-        this.resetState();
+        if (data.length < 1) {
+          this.showSuccessImport();
+          this.resetState();
+        } else {
+          this.alreadyInDB = data;
+          this.showErrorModal();
+        }
       }, error => {
         this.showFailImport();
         this.resetState();
@@ -121,7 +125,6 @@ export class HomeComponent implements OnInit {
 
   private checkErrorList() {
     if (this.ErrorList.length > 0) {
-      this.ErrorMsg = 'These values are not formatted properly';
       this.showErrorModal();
     }
     return;
@@ -129,7 +132,6 @@ export class HomeComponent implements OnInit {
 
   private checkDuplicateList() {
     if (this.DuplicateList.length > 0) {
-      this.DuplicateMsg = 'The following has duplicate Client Ids!';
       this.showErrorModal();
     }
   }
@@ -148,7 +150,6 @@ export class HomeComponent implements OnInit {
 
   private resetState() {
     this.csvErrorModal.hide();
-    this.ErrorMsg = '';
     this.ErrorList = [];
     this.DuplicateList = [];
     this.CreditData = [];
