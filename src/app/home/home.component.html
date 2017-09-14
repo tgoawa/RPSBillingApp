@@ -20,19 +20,20 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-4">
-    Import Client Credit Data
+  <div class="col-md-12 text-center">
+    <h3>Import Client Credit Data</h3>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4 offset-md-4">
     <input #fileImport type="file" class="form-control" (change)="onCsvImport($event)" />
   </div>
-  <div class="col-md-4">
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
     <button type="button" class="btn btn-schenck btn-lg btn-block" (click)="onUpload()" [disabled]="disableImport">Upload CSV</button>
   </div>
 </div>
-
 <div class="modal fade" bsModal #csvErrorModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
