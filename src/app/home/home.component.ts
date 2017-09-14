@@ -156,6 +156,7 @@ export class HomeComponent implements OnInit {
     this.CreditData = [];
     this.resetFile();
     this.hasErrors = false;
+    this.disableImport = true;
   }
 
 }
