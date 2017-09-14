@@ -23,7 +23,7 @@
         <input class="form-control" type="number" formControlName="ParticipantDollars" readonly>
       </div>
     </div>
-    
+
     <h3>Number of Loans</h3>
     <div class="form-group row border-bottom">
       <label class="col-md-2 col-form-label">Total Loans</label>
@@ -96,14 +96,6 @@
       </div>
     </div>
 
-    <h3>Credits</h3>
-    <div class="form-group row border-bottom">
-      <label class="col-md-1 col-form-label">Credits</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="Credits" (keyup)="calculateCredit()">
-      </div>
-    </div>
-
     <div class="row">
       <div class="col-md-4 offset-md-8">
         <table class="table table-sm">
@@ -129,7 +121,7 @@
       </div>
     </div>
 
-    
+
     <div class="row">
       <div class="col-md-3">
         <button class="btn btn-success btn-block" type="submit" [disabled]="rpsForm.invalid">Submit</button>
