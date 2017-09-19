@@ -54,13 +54,13 @@
         <div *ngIf="DuplicateList.length > 0">
           The following Clients are in the csv multiple times. Please remove duplicate client id's and re-import data.
           <ul *ngFor="let item of DuplicateList" class="list-unstyled">
-            <li style="color: red">{{item.ClientId}}</li>
+            <li style="color: red">Client Id: {{item.ClientId}}</li>
           </ul>
         </div>
         <div *ngIf="alreadyInDB.length > 0">
           The following Clients already have credit data! Import did not complete. Please remove the following clients and re-import file.
           <ul *ngFor="let item of alreadyInDB" class="list-unstyled">
-            <li style="color: red">{{item?.ClientId}}</li>
+            <li style="color: red">Client Id:  {{item?.ClientId}}</li>
           </ul>
         </div>
       </div>
