@@ -1,0 +1,76 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$md-schenckblue: (
+  50 : #e0f0f7,
+  100 : #b3d8ea,
+  200 : #80bfdd,
+  300 : #4da5cf,
+  400 : #2691c4,
+  500 : #007eba,
+  600 : #0076b3,
+  700 : #006bab,
+  800 : #0061a3,
+  900 : #004e94,
+  A100 : #bfddff,
+  A200 : #8cc1ff,
+  A400 : #59a5ff,
+  A700 : #4098ff,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$md-schenckgreen: (
+  50 : #ecf7e9,
+  100 : #cfebc8,
+  200 : #afdda3,
+  300 : #8fcf7e,
+  400 : #77c562,
+  500 : #5fbb46,
+  600 : #57b53f,
+  700 : #4dac37,
+  800 : #43a42f,
+  900 : #329620,
+  A100 : #d7ffd1,
+  A200 : #abff9e,
+  A400 : #7fff6b,
+  A700 : #69ff52,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #fff,
+      600 : #000000,
+      700 : #000000,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #fff,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$my-app-primary: mat-palette($md-schenckblue, 500, 900, A200);
+$my-app-accent:  mat-palette($md-schenckgreen, 500, 900, A100);
+$my-app-warn:    mat-palette($mat-red);
+
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+@include angular-material-theme($my-app-theme);
