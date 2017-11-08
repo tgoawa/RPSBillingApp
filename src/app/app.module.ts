@@ -12,20 +12,20 @@ import { AppComponent } from './app.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
 import { ClientSearchService } from './client-search/services/client-search.service';
 import { RpsModule } from './rps-entry/rps.module';
-import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { MaintenanceModule } from './maintenance/maintenance.module';
+import { CoreModule } from 'app/core/core.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     HomeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CoreModule,
     HttpModule,
     AppRoutingModule,
     RpsModule,
