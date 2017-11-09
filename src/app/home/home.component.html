@@ -1,70 +1,3 @@
-<!-- <div class="row">
-  <div class="col-md-12">
-    <h1>Schenck RPS</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h2 class="display-4">What do you need to do?</h2>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <a href="" [routerLink]="['/rps']" class="btn btn-schenck btn-lg btn-block">Enter Invoice Data</a>
-  </div>
-  <div class="col-md-6">
-    <a href="#" [routerLink]="['/maintenance']" class="btn btn-schenck btn-lg btn-block">Maintenance</a>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h3>Import Client Credit Data</h3>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 offset-md-4">
-    <input #fileImport type="file" class="form-control" (change)="onCsvImport($event)" />
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 offset-md-4">
-    <button type="button" class="btn btn-schenck btn-lg btn-block" (click)="onUpload()" [disabled]="disableImport">Upload CSV</button>
-  </div>
-</div>
-<div class="modal fade" bsModal #csvErrorModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">CSV Upload Error</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
-     <span aria-hidden="true">&times;</span>
-   </button>
-      </div>
-      <div class="modal-body">
-        <div *ngIf="ErrorList.length > 0">
-          These items have a formatting error!
-          <ul *ngFor="let item of ErrorList" class="list-unstyled">
-            <li style="color: red">{{item}}</li>
-          </ul>
-        </div>
-        <div *ngIf="DuplicateList.length > 0">
-          The following Clients are in the csv multiple times. Please remove duplicate client id's and re-import data.
-          <ul *ngFor="let item of DuplicateList" class="list-unstyled">
-            <li style="color: red">Client Id: {{item.ClientId}}</li>
-          </ul>
-        </div>
-        <div *ngIf="alreadyInDB.length > 0">
-          The following Clients already have credit data! Import did not complete. Please remove the following clients and re-import file.
-          <ul *ngFor="let item of alreadyInDB" class="list-unstyled">
-            <li style="color: red">Client Id:  {{item?.ClientId}}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div fxLayout="column" fxLayoutAlign="start">
   <h1>Schenck RPS</h1>
 </div>
@@ -74,6 +7,9 @@
     <a mat-raised-button color="primary" routerLink="/rps">Enter Invoice Data</a>
   </p>
   <p>
-    <a mat-raised-button color="primary" routerLink="/maintenance">Maintenance</a>
+    <a mat-raised-button color="primary" routerLink="/maintenance">Update Maintenance Fees</a>
   </p>
+  <section fxFill>
+    <app-client-credit-import></app-client-credit-import>
+  </section>
 </div>
