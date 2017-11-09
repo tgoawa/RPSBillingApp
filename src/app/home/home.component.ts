@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { all } from 'codelyzer/util/function';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
