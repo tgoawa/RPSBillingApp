@@ -22,9 +22,7 @@ export class ClientCreditImportComponent implements OnInit {
   constructor(private rpsService: RpsService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.csvImport = this.fb.group({
-      requiredfile: [{ value: undefined, disabled: false }, [Validators.required]],
-    });
+    this.setForm();
   }
 
   onCsvImport(evt) {
@@ -116,7 +114,7 @@ export class ClientCreditImportComponent implements OnInit {
       }
 
       private resetFile() {
-        this.fileImport.nativeElement.value = '';
+        this.setForm();
       }
 
       private resetState() {
@@ -128,6 +126,12 @@ export class ClientCreditImportComponent implements OnInit {
         this.resetFile();
         this.hasErrors = false;
         this.disableImport = true;
+      }
+
+      private setForm() {
+        this.csvImport = this.fb.group({
+          requiredfile: [{ value: undefined, disabled: false }, [Validators.required]],
+        });
       }
 
 }

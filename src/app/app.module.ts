@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout'
 
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatInputModule } from '@angular/material';
 
 import { CollapseModule, ModalModule } from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
@@ -39,6 +39,7 @@ import { InputFileComponent } from './client-credit-import/input-file/input-file
     FlexLayoutModule,
     MatButtonModule,
     MatIconModule,
+    MatInputModule,
     RpsModule,
     ReactiveFormsModule,
     MaintenanceModule,

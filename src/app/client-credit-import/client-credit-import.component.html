@@ -1,15 +1,15 @@
 <!-- <button type="button" mat-raised-button color="primary" (click)="fileImport.click()">Choose a CSV</button>
 <input hidden type="file" #fileImport (change)="onCsvImport($event)"/> -->
-<form [formGroup]="csvImport" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="csvImport" (ngSubmit)="onSubmit()" novalidate>
 
-    <mat-form-field>
-        <app-input-file formControlName="requiredfile" placeholder="Required input" valuePlaceholder="No file selected" required></app-input-file>
-        <mat-icon matSuffix>folder</mat-icon>
-        <mat-error *ngIf="csvImport.get('requiredfile').hasError('required')">
-          Please select a file
-        </mat-error>
-      </mat-form-field>>
-  <p>
+      <mat-form-field>
+          <app-input-file formControlName="requiredfile" placeholder="Required input" valuePlaceholder="No file selected" required></app-input-file>
+          <mat-icon matSuffix>folder</mat-icon>
+          <mat-error *ngIf="csvImport.get('requiredfile').hasError('required')">
+            Please select a file
+          </mat-error>
+        </mat-form-field>
+    <p>
       <button type="submit" [disabled]="csvImport.invalid" mat-raised-button color="primary">Upload CSV</button>
-  </p>
-</form>
+    </p>
+  </form>
