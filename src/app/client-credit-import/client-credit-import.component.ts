@@ -25,8 +25,8 @@ export class ClientCreditImportComponent implements OnInit {
     this.setForm();
   }
 
-  onCsvImport(evt) {
-    const files = evt.target.files;
+  onCsvImport(csvFile) {
+    const files = csvFile.requiredfile._files;
     const file = files[0];
     const reader = new FileReader();
 
@@ -38,20 +38,22 @@ export class ClientCreditImportComponent implements OnInit {
   }
 
   onSubmit() {
-    this.rpsService.saveCSV(this.CreditData)
-      .subscribe(data => {
-        if (data.length < 1) {
-          // this.showSuccessImport();
-          this.resetState();
-        } else {
-          this.alreadyInDB = data;
-          // this.showErrorModal();
-        }
-      }, error => {
-        // this.showFailImport();
-        this.resetState();
-        console.log(error);
-      });
+    console.log(this.csvImport.value);
+    this.onCsvImport(this.csvImport.value);
+    // this.rpsService.saveCSV(this.CreditData)
+    //   .subscribe(data => {
+    //     if (data.length < 1) {
+    //       // this.showSuccessImport();
+    //       this.resetState();
+    //     } else {
+    //       this.alreadyInDB = data;
+    //       // this.showErrorModal();
+    //     }
+    //   }, error => {
+    //     // this.showFailImport();
+    //     this.resetState();
+    //     console.log(error);
+    //   });
   }
 
   private extractData(data) {
@@ -79,6 +81,7 @@ export class ClientCreditImportComponent implements OnInit {
           }
           this.CreditData.push(credit);
         }
+        console.log(this.CreditData);
         this.checkForErrors();
       }
 
@@ -103,6 +106,7 @@ export class ClientCreditImportComponent implements OnInit {
       private checkErrorList() {
         if (this.ErrorList.length > 0) {
           // this.showErrorModal();
+          console.log('error!');
         }
         return;
       }
@@ -110,6 +114,7 @@ export class ClientCreditImportComponent implements OnInit {
       private checkDuplicateList() {
         if (this.DuplicateList.length > 0) {
           // this.showErrorModal();
+          console.log('error!');
         }
       }
 
