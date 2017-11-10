@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { ClientSearchService } from './services/client-search.service';
@@ -13,76 +13,59 @@ import { Client } from '../client';
 })
 export class ClientSearchComponent implements OnInit {
   @Output() rpsBillClient: EventEmitter<Client> = new EventEmitter<Client>();
-
-  client: Client;
-  searchById = false;
-  clients: Client[] = [];
-  clientIdSearch: FormGroup;
-  clientNameSearch: FormGroup;
+  @ViewChild('auto') auto: ElementRef;
+  clients: Client[];
+  clientListControl: FormControl = new FormControl();
+  filteredClients: Observable<Client[]>;
 
   constructor(private fb: FormBuilder,
   private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
     this.getClients();
-    this.idSearchForm();
-    this.nameSearchForm();
   }
 
-  getClients() {
-    if (this.clients.length < 1) {
+  displayName(client: Client) {
+    return client ? client.ClientName : client;
+  }
+
+  getClientInvoice() {
+    this.rpsBillClient.emit(this.clientListControl.value);
+    console.log(this.clientListControl.value);
+  }
+
+  private getClients() {
       this.clientSearchService.getClients()
       .subscribe(data => {
           this.clients = data;
+          this.addIdToName(this.clients);
+          this.setClientAutoComplete();
       },
       error => {
         console.log(error);
       });
     }
-  }
 
-  idSearchForm() {
-    this.clientIdSearch = this.fb.group({
-      ClientId: ['', Validators.required]
-    });
-  }
-
-  nameSearchForm() {
-    this.clientNameSearch = this.fb.group({
-      ClientName: ['', Validators.required]
-    });
-  }
-
-  toggleSearchType() {
-    this.searchById = !this.searchById;
-  }
-
-  onSubmitIdSearch(form: Client) {
-    this.client = this.findClientById(form.ClientId);
-    this.rpsBillClient.emit(this.client);
-    this.clientIdSearch.reset();
-  }
-
-  onSubmitNameSearch(form: Client) {
-    this.client = this.findClientByName(form.ClientName);
-    this.rpsBillClient.emit(this.client);
-    this.clientNameSearch.reset();
-  }
-
-  findClientByName(clientName: string): Client {
-    for (let index = 0; index < this.clients.length; index++) {
-      if (clientName === this.clients[index].ClientName) {
-        return this.clients[index];
+    private addIdToName(data: Client[]) {
+      for (let x = 0; x < data.length; x++) {
+        data[x].ClientName = data[x].ClientId + ' - ' + data[x].ClientName;
       }
     }
-  }
 
-  findClientById(clientId: number): Client {
-    for (let index = 0; index < this.clients.length; index++) {
-      if (+clientId === this.clients[index].ClientId) {
-        return this.clients[index];
-      }
+    private filterClients(name: string): Client[] {
+      return this.clients.filter(client =>
+        client.ClientName.toLowerCase().includes(name.toLowerCase()));
+    }
+
+    private setClientAutoComplete() {
+      this.filteredClients = this.clientListControl.valueChanges
+      .map(client => client && typeof client === 'object' ? client.ClientName : client)
+      .map(val => {
+          if (val.length > 2) {
+            return this.filterClients(val);
+          } else {
+            return;
+          }
+        });
     }
   }
-
-}
