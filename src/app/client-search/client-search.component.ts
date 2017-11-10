@@ -1,16 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ToastrService, ToastConfig } from 'ngx-toastr';
-
 import { Observable } from 'rxjs/Observable';
 import { ClientSearchService } from './services/client-search.service';
 
 import { Client } from '../client';
-
-const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
-                                    timeOut: 10000,
-                                    closeButton: true };
 
 @Component({
   selector: 'app-client-search',
@@ -27,8 +21,7 @@ export class ClientSearchComponent implements OnInit {
   clientNameSearch: FormGroup;
 
   constructor(private fb: FormBuilder,
-  private clientSearchService: ClientSearchService,
-  private toastrService: ToastrService) { }
+  private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
     this.getClients();
@@ -44,7 +37,6 @@ export class ClientSearchComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.showFailedSearch();
       });
     }
   }
@@ -91,12 +83,6 @@ export class ClientSearchComponent implements OnInit {
         return this.clients[index];
       }
     }
-  }
-
-  showFailedSearch() {
-    this.toastrService.error('Error finding client list. Please try refreshing page or contact help desk at Ext: 1187 if issue persists',
-    'Error finding client list!',
-    toastConfig);
   }
 
 }
