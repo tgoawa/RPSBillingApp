@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RPSCreditModel } from './client-credit';
 import { RpsService } from '../rps-entry/invoice-entry/services/rps.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ErrorListDialogComponent } from './error-list-dialog/error-list-dialog.component';
 import { DuplicateListDialogComponent } from './duplicate-list-dialog/duplicate-list-dialog.component';
 
@@ -15,14 +15,16 @@ import { DuplicateListDialogComponent } from './duplicate-list-dialog/duplicate-
 export class ClientCreditImportComponent implements OnInit {
   @ViewChild('fileImport') public fileImport: any;
   csvImport: FormGroup;
-  alreadyInDB: RPSCreditModel[] = [];
   CreditData: RPSCreditModel[] = [];
   DuplicateList: RPSCreditModel[] = [];
   ErrorList: string[][] = [];
-  disableImport = true;
   hasErrors: boolean;
 
-  constructor(private rpsService: RpsService, private fb: FormBuilder, public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private rpsService: RpsService,
+    private fb: FormBuilder,
+    ) { }
 
   ngOnInit() {
     this.setForm();
@@ -42,20 +44,20 @@ export class ClientCreditImportComponent implements OnInit {
 
   onSubmit() {
     this.onCsvImport(this.csvImport.value);
-    // this.rpsService.saveCSV(this.CreditData)
-    //   .subscribe(data => {
-    //     if (data.length < 1) {
-    //       // this.showSuccessImport();
-    //       this.resetState();
-    //     } else {
-    //       this.alreadyInDB = data;
-    //       // this.showErrorModal();
-    //     }
-    //   }, error => {
-    //     // this.showFailImport();
-    //     this.resetState();
-    //     console.log(error);
-    //   });
+    this.rpsService.saveCSV(this.CreditData)
+      .subscribe(data => {
+        if (data.length < 1) {
+          this.openSnackBar('CSV Data uploaded successfully!');
+          this.resetState();
+        } else {
+          this.DuplicateList = data;
+          this.showDuplicateModal();
+        }
+      }, error => {
+        this.openSnackBar('Error while uploading CSV data!');
+        this.resetState();
+        console.log(error);
+      });
   }
 
   private extractData(data) {
@@ -99,8 +101,6 @@ export class ClientCreditImportComponent implements OnInit {
         if (this.hasErrors) {
           this.checkErrorList();
           this.checkDuplicateList();
-        } else {
-          this.disableImport = false;
         }
       }
 
@@ -117,6 +117,12 @@ export class ClientCreditImportComponent implements OnInit {
           this.showDuplicateModal();
           console.log('error!');
         }
+      }
+
+      private openSnackBar(message: string) {
+        this.snackBar.open(message, '', {
+          duration: 2000
+        });
       }
 
       private showErrorModal() {
@@ -148,14 +154,11 @@ export class ClientCreditImportComponent implements OnInit {
       }
 
       private resetState() {
-        // this.csvErrorModal.hide();
-        this.alreadyInDB = [];
         this.ErrorList = [];
         this.DuplicateList = [];
         this.CreditData = [];
         this.resetFile();
         this.hasErrors = false;
-        this.disableImport = true;
       }
 
       private setForm() {

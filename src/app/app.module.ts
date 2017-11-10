@@ -9,7 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatButtonModule,
   MatDialogModule,
   MatIconModule,
-  MatInputModule } from '@angular/material';
+  MatInputModule,
+  MatSnackBarModule } from '@angular/material';
 
 import { CollapseModule, ModalModule } from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
@@ -48,6 +49,7 @@ import { DuplicateListDialogComponent } from './client-credit-import/duplicate-l
     MatDialogModule,
     MatIconModule,
     MatInputModule,
+    MatSnackBarModule,
     RpsModule,
     ReactiveFormsModule,
     MaintenanceModule,
