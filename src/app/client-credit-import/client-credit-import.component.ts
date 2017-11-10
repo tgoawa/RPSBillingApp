@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RPSCreditModel } from './client-credit';
 import { RpsService } from '../rps-entry/invoice-entry/services/rps.service';
+import { MatDialog } from '@angular/material';
+import { ErrorListDialogComponent } from './error-list-dialog/error-list-dialog.component';
+import { DuplicateListDialogComponent } from './duplicate-list-dialog/duplicate-list-dialog.component';
 
 
 @Component({
@@ -19,7 +22,7 @@ export class ClientCreditImportComponent implements OnInit {
   disableImport = true;
   hasErrors: boolean;
 
-  constructor(private rpsService: RpsService, private fb: FormBuilder) { }
+  constructor(private rpsService: RpsService, private fb: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.setForm();
@@ -38,7 +41,6 @@ export class ClientCreditImportComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.csvImport.value);
     this.onCsvImport(this.csvImport.value);
     // this.rpsService.saveCSV(this.CreditData)
     //   .subscribe(data => {
@@ -75,13 +77,13 @@ export class ClientCreditImportComponent implements OnInit {
           credit.ClientId = Number(allData[0]);
           credit.Credit = Number(allData[1]);
           if (this.checkForDuplicates(credit)) {
+            console.log(credit)
             this.DuplicateList.push(credit);
             this.hasErrors = true;
             continue;
           }
           this.CreditData.push(credit);
         }
-        console.log(this.CreditData);
         this.checkForErrors();
       }
 
@@ -90,7 +92,6 @@ export class ClientCreditImportComponent implements OnInit {
           if (this.CreditData[x].ClientId === data.ClientId) {
             return true;
           }
-          return false;
         }
       }
 
@@ -105,7 +106,7 @@ export class ClientCreditImportComponent implements OnInit {
 
       private checkErrorList() {
         if (this.ErrorList.length > 0) {
-          // this.showErrorModal();
+          this.showErrorModal();
           console.log('error!');
         }
         return;
@@ -113,9 +114,33 @@ export class ClientCreditImportComponent implements OnInit {
 
       private checkDuplicateList() {
         if (this.DuplicateList.length > 0) {
-          // this.showErrorModal();
+          this.showDuplicateModal();
           console.log('error!');
         }
+      }
+
+      private showErrorModal() {
+        const dialogRef = this.dialog.open(ErrorListDialogComponent, {
+          width: '600px',
+          data: this.ErrorList
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.ErrorList = [];
+          this.resetFile();
+        });
+      }
+
+      private showDuplicateModal() {
+        const dialogRef = this.dialog.open(DuplicateListDialogComponent, {
+          width: '600px',
+          data: this.DuplicateList
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.DuplicateList = [];
+          this.resetFile();
+        });
       }
 
       private resetFile() {

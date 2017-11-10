@@ -6,7 +6,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout'
 
-import { MatButtonModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatButtonModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule } from '@angular/material';
 
 import { CollapseModule, ModalModule } from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
@@ -21,6 +24,8 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
 import { CoreModule } from 'app/core/core.module';
 import { ClientCreditImportComponent } from './client-credit-import/client-credit-import.component';
 import { InputFileComponent } from './client-credit-import/input-file/input-file.component';
+import { ErrorListDialogComponent } from './client-credit-import/error-list-dialog/error-list-dialog.component';
+import { DuplicateListDialogComponent } from './client-credit-import/duplicate-list-dialog/duplicate-list-dialog.component';
 
 
 @NgModule({
@@ -28,7 +33,9 @@ import { InputFileComponent } from './client-credit-import/input-file/input-file
     AppComponent,
     HomeComponent,
     ClientCreditImportComponent,
-    InputFileComponent
+    InputFileComponent,
+    ErrorListDialogComponent,
+    DuplicateListDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +45,7 @@ import { InputFileComponent } from './client-credit-import/input-file/input-file
     AppRoutingModule,
     FlexLayoutModule,
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     MatInputModule,
     RpsModule,
@@ -46,6 +54,10 @@ import { InputFileComponent } from './client-credit-import/input-file/input-file
     ToastrModule.forRoot(),
     CollapseModule.forRoot(),
     ModalModule.forRoot()
+  ],
+  entryComponents: [
+        ErrorListDialogComponent,
+        DuplicateListDialogComponent
   ],
   providers: [
     ClientSearchService,
