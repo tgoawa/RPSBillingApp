@@ -7,7 +7,6 @@ import { MatButtonModule,
 
 import { throwIfAlreadyLoaded } from 'app/core/module-import.guard';
 import { LoggerService } from 'app/core/services/logger.service';
-import { ClientDropdownService } from 'app/core/services/client-dropdown';
 import { HeaderComponent } from './header/header.component';
 
 
@@ -21,8 +20,7 @@ import { HeaderComponent } from './header/header.component';
   exports: [ HeaderComponent ],
   declarations: [ HeaderComponent ],
   providers: [
-    LoggerService,
-    ClientDropdownService
+    LoggerService
   ]
 })
 export class CoreModule {
