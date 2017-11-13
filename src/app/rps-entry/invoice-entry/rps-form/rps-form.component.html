@@ -1,23 +1,14 @@
-<!-- <div class="row" style="margin-bottom: 30px">
-    <div class="row">
-      <div class="col-md-3">
-        <button class="btn btn-success btn-block" type="submit" [disabled]="rpsForm.invalid">Submit</button>
-      </div>
-    </div>
-  </form>
-  </div>
-</div> -->
 <mat-card>
   <mat-card-content>
     <form novalidate (ngSubmit)="onSubmit(rpsForm.value)" [formGroup]="rpsForm">
       <mat-form-field>
-        <input matInput placeholder="Maintenance Fee" disabled value="{{rpsClient.MaintenanceFees | currency: 'USD':true: '.2-2'}}">
+        <input matInput placeholder="Maintenance Fee" formControlName="MaintenanceFees">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Year" disabled value="{{rpsClient.Year}}">
+        <input matInput placeholder="Year" formControlName="Year">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Quarter" disabled value="{{rpsClient.Quarter}}">
+        <input matInput placeholder="Quarter" formControlName="Quarter">
       </mat-form-field>
       <section fxLayout="column" fxLayoutAlign="space-between">
         <h3>Annual Participant Count</h3>
@@ -73,7 +64,7 @@
       <section fxLayout="column" fxLayoutAlign="space-between">
         <h3>Special Fees</h3>
         <div fxLayout="row" fxLayoutGap="10px">
-          <mat-form-field fxFlex="66">
+          <mat-form-field fxFlex="67">
             <textarea matInput placeholder="Amendments prepared, if any, describe as will be on invoice" matTextareaAutosize matAutosizeMinRows="1"
               matAutosizeMaxRows="5" formControlName="SpecialFeesText"></textarea>
           </mat-form-field>

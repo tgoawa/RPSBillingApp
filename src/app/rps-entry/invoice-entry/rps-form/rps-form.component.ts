@@ -6,6 +6,7 @@ import { ToastrService, ToastConfig } from 'ngx-toastr';
 
 import { RpsClient, RpsCurrentBill } from 'app/client';
 import { RpsService } from '../services/rps.service';
+import { DISABLED } from '@angular/forms/src/model';
 
 const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
                                     timeOut: 10000,
@@ -171,6 +172,9 @@ export class RpsFormComponent implements OnInit {
 
   createForm() {
       this.rpsForm = this.fb.group({
+      MaintenanceFees: [{value: this.rpsClient.MaintenanceFees, disabled: true}],
+      Year: [{value: this.rpsClient.Year, disabled: true}],
+      Quarter: [{value: this.rpsClient.Quarter, disabled: true}],
       NumParticipants: [this.rpsClient.NumParticipants, [Validators.required, CustomValidators.number]],
       DollarPerParticipant: [this.rpsClient.DollarPerParticipant, [Validators.required, CustomValidators.number]],
       ParticipantDollars: [this.rpsClient.ParticipantDollars, [Validators.required, CustomValidators.number]],

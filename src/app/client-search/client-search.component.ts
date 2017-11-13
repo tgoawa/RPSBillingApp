@@ -25,13 +25,16 @@ export class ClientSearchComponent implements OnInit {
     this.getClients();
   }
 
+  clear() {
+    this.clientListControl.setValue('');
+  }
+
   displayName(client: Client) {
     return client ? client.ClientName : client;
   }
 
   getClientInvoice() {
     this.rpsBillClient.emit(this.clientListControl.value);
-    console.log(this.clientListControl.value);
   }
 
   private getClients() {
