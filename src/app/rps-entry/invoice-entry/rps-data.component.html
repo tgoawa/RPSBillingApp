@@ -1,18 +1,14 @@
-<div class="row">
-  <div class="col-md-12">
-    <h1>RPS Invoice</h1>
+<div fxLayout="column" fxLayoutAlign="space-between start">
+  <h1>RPS Invoice Entry</h1>
+  <div fxFill>
+    <app-client-search (rpsBillClient)="clientSearch($event)"></app-client-search>
+    <ng-container *ngIf="rpsClient">
+      <app-rps-form fxFill [rpsClient]="rpsClient" (isSaved)="destroyClient($event)"></app-rps-form>
+    </ng-container>
   </div>
 </div>
-<app-client-search (rpsBillClient)="clientSearch($event)"></app-client-search>
-<div class="row" *ngIf="isLoading">
-    <div class="col-md-2 offset-md-5"><i fa class="fa fa-spinner fa-5x fa-spin" aria-hidden="true"></i>
-    </div>
-</div>
-<div *ngIf="rpsClient">
-    <app-rps-form [rpsClient]="rpsClient" (isSaved)="destroyClient($event)"></app-rps-form>
-</div>
 
-<div bsModal #confirmModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<!-- <div bsModal #confirmModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -30,4 +26,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { MatButtonModule,
+  MatCardModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatSelectModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { RpsRoutingModule } from './rps-routing.module';
@@ -16,9 +22,15 @@ import { RpsService } from 'app/rps-entry/invoice-entry/services/rps.service';
 @NgModule({
   imports: [
     CommonModule,
+    FlexLayoutModule,
     RpsRoutingModule,
     ClientSearchModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
     ModalModule.forRoot()
   ],
   declarations: [

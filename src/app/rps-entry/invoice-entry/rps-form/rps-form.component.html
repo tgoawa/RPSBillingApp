@@ -1,115 +1,4 @@
-<div class="row" style="margin-bottom: 30px">
-  <div class="col-md-12">
-  <form novalidate (ngSubmit)="onSubmit(rpsForm.value)" [formGroup]="rpsForm">
-    <h4 class="client-name">{{rpsClient.ClientName}}</h4>
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label">Maintenance Fee: {{rpsClient.MaintenanceFees | currency: 'USD':true: '.2-2'}}</label>
-      <label class="col-md-2 col-form-label">Year: {{rpsClient.Year}}</label>
-      <label class="col-md-2 col-form-label">Quarter: {{rpsClient.Quarter}}</label>
-    </div>
-
-    <h3>Annual Participant Count</h3>
-    <div class="form-group row border-bottom">
-      <label class="col-md-2 col-form-label"># Participants</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="NumParticipants" (keyup)="calculateParticipantDollars()">
-      </div>
-      <label class="col-md-2 col-form-label">$ per Participant</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="DollarPerParticipant" (keyup)="calculateParticipantDollars()">
-      </div>
-      <label class="col-md-2 col-form-label">Total Amount $</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="ParticipantDollars" readonly>
-      </div>
-    </div>
-
-    <h3>Number of Loans</h3>
-    <div class="form-group row border-bottom">
-      <label class="col-md-2 col-form-label">Total Loans</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="NumLoans" (keyup)="calculateLoanDollars()">
-      </div>
-      <label class="col-md-2 col-form-label">$ per Loan</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="DollarsPerLoan" (keyup)="calculateLoanDollars()">
-      </div>
-      <label class="col-md-2 col-form-label">Total Amount $</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="LoanDollars" readonly>
-      </div>
-    </div>
-
-    <h3>Forms 5500/8955, etc</h3>
-    <div class="form-group row border-bottom">
-      <label class="col-md-2 col-form-label">5500</label>
-      <div class="col-md-2">
-        <select class="form-control" formControlName="Form5500" (change)="calculateForm5500()">
-          <option *ngFor="let item of form5500List" [value]="item" [selected]="item === rpsClient.Form5500">{{item}}</option>
-      </select>
-      </div>
-      <label class="col-md-2 col-form-label">8955</label>
-      <div class="col-md-2">
-        <select class="form-control" formControlName="Form8955" (change)="calculateForm8955()">
-          <option *ngFor="let item of form8955List" [value]="item" [selected]="item === rpsClient.Form8955">{{item}}</option>
-        </select>
-      </div>
-    </div>
-
-    <h3>Special Fees</h3>
-    <div class="form-group row border-bottom">
-      <label class="col-md-3 col-form-label">Amendments prepared, if any, describe as will be on invoice</label>
-      <div class="col-md-6">
-        <textarea class="form-control" formControlName="SpecialFeesText"></textarea>
-      </div>
-      <label class="col-md-1 col-form-label">$</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="SpecialFeesDollars" (keyup)="calculateSpecialFees()">
-      </div>
-    </div>
-    <div class="form-group row border-bottom">
-      <label class="col-md-2 col-form-label">Distributions #</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="NumDistributions" (keyup)="calculateDistributionDollars()">
-      </div>
-      <label class="col-md-2 col-form-label">$ per Distribution</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="DollarsPerDistribution" (keyup)="calculateDistributionDollars()">
-      </div>
-      <label class="col-md-2 col-form-label">Total Amount $</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="DistributionDollars" readonly>
-      </div>
-    </div>
-    <div class="form-group row border-bottom">
-      <label class="col-md-2 col-form-label">Assets</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="Assets" (keyup)="calculateBasisPointFee()">
-      </div>
-      <label class="col-md-2 col-form-label">Basis Point</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="BasisPoint" (keyup)="calculateBasisPointFee()">
-      </div>
-      <label class="col-md-2 col-form-label">Basis Point Fee $</label>
-      <div class="col-md-2">
-        <input class="form-control" type="number" formControlName="BasisPointFee" readonly>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 offset-md-8">
-        <table class="table table-sm">
-          <tbody>
-            <tr>
-              <th scope="row">Invoice Total:</th>
-              <td>{{invoiceSubtotal | currency: 'USD':true}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-
+<!-- <div class="row" style="margin-bottom: 30px">
     <div class="row">
       <div class="col-md-3">
         <button class="btn btn-success btn-block" type="submit" [disabled]="rpsForm.invalid">Submit</button>
@@ -117,4 +6,119 @@
     </div>
   </form>
   </div>
-</div>
+</div> -->
+<mat-card>
+  <mat-card-content>
+    <form novalidate (ngSubmit)="onSubmit(rpsForm.value)" [formGroup]="rpsForm">
+      <mat-form-field>
+        <input matInput placeholder="Maintenance Fee" disabled value="{{rpsClient.MaintenanceFees | currency: 'USD':true: '.2-2'}}">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Year" disabled value="{{rpsClient.Year}}">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Quarter" disabled value="{{rpsClient.Quarter}}">
+      </mat-form-field>
+      <section fxLayout="column" fxLayoutAlign="space-between">
+        <h3>Annual Participant Count</h3>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="33">
+            <input matInput type="number" placeholder="# Participants" formControlName="NumParticipants" (keyup)="calculateParticipantDollars()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="$ per Participant" formControlName="DollarPerParticipant" (keyup)="calculateParticipantDollars()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Total Amount" formControlName="ParticipantDollars" disabled>
+          </mat-form-field>
+        </div>
+      </section>
+      <section fxLayout="column" fxLayoutAlign="space-between">
+        <h3>Number of Loans</h3>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="33">
+            <input matInput type="number" placeholder="Total Loans" formControlName="NumLoans" (keyup)="calculateLoanDollars()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="$ per Loan" formControlName="DollarsPerLoan" (keyup)="calculateLoanDollars()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Total Amount" formControlName="LoanDollars" disabled>
+          </mat-form-field>
+        </div>
+      </section>
+      <section fxLayout="column" fxLayoutAlign="space-between">
+        <h3>Forms 5500/8955, etc</h3>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="33">
+            <mat-select placeholder="5500" formControlName="Form5500" name="5500" (change)="calculateForm5500()">
+              <mat-option *ngFor="let item of form5500List" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <mat-select placeholder="8955" formControlName="Form8955" name="8955" (change)="calculateForm8955()">
+              <mat-option *ngFor="let item of form8955List" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </section>
+      <section fxLayout="column" fxLayoutAlign="space-between">
+        <h3>Special Fees</h3>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="66">
+            <textarea matInput placeholder="Amendments prepared, if any, describe as will be on invoice" matTextareaAutosize matAutosizeMinRows="1"
+              matAutosizeMaxRows="5" formControlName="SpecialFeesText"></textarea>
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Amendment Amount" formControlName="SpecialFeesDollars" (keyup)="calculateSpecialFees()">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="33">
+            <input matInput type="number" placeholder="Distributions #" formControlName="NumDistributions" (keyup)="calculateDistributionDollars()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="$ per Distribution" formControlName="DollarsPerDistribution" (keyup)="calculateDistributionDollars()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Total Amount" formControlName="DistributionDollars" disabled>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="33">
+            <input matInput type="number" placeholder="Assets" formControlName="Assets" (keyup)="calculateBasisPointFee()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Basis Point" formControlName="BasisPoint" (keyup)="calculateBasisPointFee()">
+          </mat-form-field>
+          <mat-form-field fxFlex="33">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Total Amount" formControlName="BasisPointFee" disabled>
+          </mat-form-field>
+        </div>
+      </section>
+      <section fxLayout="column" fxLayoutAlign="space-between">
+        <div fxLayout="row" fxLayoutAlign="end start">
+          <h4>Invoice Total: {{invoiceSubtotal | currency: 'USD':true}}</h4>
+        </div>
+      </section>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" type="submit" [disabled]="rpsForm.invalid">
+      Update Invoice
+    </button>
+  </mat-card-actions>
+</mat-card>

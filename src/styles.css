@@ -7,3 +7,6 @@ body {
   margin: 10px 200px;
 }
 
+.mat-button .mat-primary .active {
+  background-color: #8cc1ff;
+}
