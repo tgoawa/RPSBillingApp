@@ -1,16 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-
-import { ToastrService, ToastConfig } from 'ngx-toastr';
-
+import { MatSnackBar } from '@angular/material';
 import { RpsClient, RpsCurrentBill } from 'app/client';
 import { RpsService } from '../services/rps.service';
-import { DISABLED } from '@angular/forms/src/model';
-
-const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
-                                    timeOut: 10000,
-                                    closeButton: true };
 
 @Component({
   selector: 'app-rps-form',
@@ -20,7 +13,6 @@ const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
 export class RpsFormComponent implements OnInit {
   @Input() rpsClient: RpsClient;
   @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   rpsForm: FormGroup;
   invoiceSubtotal = 0;
   invoiceTotal = 0;
@@ -33,7 +25,7 @@ export class RpsFormComponent implements OnInit {
   private calculatedForm5500 = 0;
   private calculatedForm8955 = 0;
 
-  constructor(private fb: FormBuilder, private rpsService: RpsService, private toastrService: ToastrService) { }
+  constructor(public snackBar: MatSnackBar, private fb: FormBuilder, private rpsService: RpsService) { }
 
   ngOnInit() {
     this.createForm();
@@ -140,7 +132,15 @@ export class RpsFormComponent implements OnInit {
     const distributionDollars = this.rpsForm.get('DistributionDollars').value;
     const basisPointFee = this.rpsForm.get('BasisPointFee').value;
 
-    this.invoiceSubtotal = this.rpsClient.MaintenanceFees + participantDollars + loanDollars + form5500 + form8955 + specialFees + distributionDollars + basisPointFee;
+    this.invoiceSubtotal =
+      this.rpsClient.MaintenanceFees +
+      participantDollars +
+      loanDollars +
+      form5500 +
+      form8955 +
+      specialFees +
+      distributionDollars +
+      basisPointFee;
   }
 
   calculateCredit() {
@@ -164,9 +164,7 @@ export class RpsFormComponent implements OnInit {
   }
 
   onSubmit(formValue) {
-    this.mapFormToCurrentBill(formValue);
-    console.log(this.currentBill);
-    console.log(this.rpsForm.value);
+    console.log(formValue);
     this.saveInvoice();
   }
 
@@ -194,47 +192,25 @@ export class RpsFormComponent implements OnInit {
     });
   }
 
-  mapFormToCurrentBill(formvalue) {
-    this.currentBill.Assets = formvalue.Assets;
-    this.currentBill.AssetBasePoint = formvalue.BasisPoint;
-    this.currentBill.BasisPointFee = formvalue.BasisPointFee;
-    this.currentBill.ClientId = this.rpsClient.ClientId;
-    this.currentBill.DistributionDollars = formvalue.DistributionDollars;
-    this.currentBill.DollarPerParticipant = formvalue.DollarPerParticipant;
-    this.currentBill.DollarsPerLoan = formvalue.DollarsPerLoan;
-    this.currentBill.DollarsPerDistribution = formvalue.DollarsPerDistribution;
-    this.currentBill.Form5500 = formvalue.Form5500;
-    this.currentBill.Form8955 = formvalue.Form8955;
-    this.currentBill.Id = this.rpsClient.Id;
-    this.currentBill.LoanDollars = formvalue.LoanDollars;
-    this.currentBill.MaintenanceFees = this.rpsClient.MaintenanceFees;
-    this.currentBill.NumDistributions = formvalue.NumDistributions;
-    this.currentBill.NumLoans = formvalue.NumLoans;
-    this.currentBill.NumParticipants = formvalue.NumParticipants;
-    this.currentBill.ParticipantDollars = formvalue.ParticipantDollars;
-    this.currentBill.Quarter = this.rpsClient.Quarter;
-    this.currentBill.SpecialFeesDollars = formvalue.SpecialFeesDollars;
-    this.currentBill.SpecialFeesText = formvalue.SpecialFeesText;
-    this.currentBill.Year = this.rpsClient.Year;
-  }
-
   saveInvoice() {
     this.rpsService.saveRPSInvoice(this.currentBill)
       .subscribe(data => {
+        this.openSnackBar('Invoice updated successfully!', '');
         this.formIsSaved();
       }, error => {
         console.log(error);
-        this.showFailedSave();
+        this.openSnackBar('Issue updating invoice!', '');
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   formIsSaved() {
     this.isSaved.emit(true);
   }
 
-  showFailedSave() {
-    this.toastrService.error('Error trying to save, please try again or contact help desk if issue persists',
-    'Error saving invoice!',
-    toastConfig);
-  }
 }

@@ -105,11 +105,9 @@
           <h4>Invoice Total: {{invoiceSubtotal | currency: 'USD':true}}</h4>
         </div>
       </section>
+      <button mat-raised-button color="accent" type="submit" [disabled]="rpsForm.invalid">
+        Update Invoice
+      </button>
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="accent" type="submit" [disabled]="rpsForm.invalid">
-      Update Invoice
-    </button>
-  </mat-card-actions>
 </mat-card>

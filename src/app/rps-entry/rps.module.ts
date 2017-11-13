@@ -6,7 +6,8 @@ import { MatButtonModule,
   MatCardModule,
   MatInputModule,
   MatFormFieldModule,
-  MatSelectModule } from '@angular/material';
+  MatSelectModule,
+  MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ModalModule } from 'ngx-bootstrap';
 
@@ -31,6 +32,7 @@ import { RpsService } from 'app/rps-entry/invoice-entry/services/rps.service';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSnackBarModule,
     ModalModule.forRoot()
   ],
   declarations: [
