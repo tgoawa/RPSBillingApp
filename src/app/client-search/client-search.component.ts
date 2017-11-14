@@ -17,6 +17,7 @@ export class ClientSearchComponent implements OnInit {
   clients: Client[];
   clientListControl: FormControl = new FormControl();
   filteredClients: Observable<Client[]>;
+  isLoading: boolean;
 
   constructor(private fb: FormBuilder,
   private clientSearchService: ClientSearchService) { }
@@ -27,6 +28,7 @@ export class ClientSearchComponent implements OnInit {
 
   clear() {
     this.clientListControl.setValue('');
+    this.rpsBillClient.emit(this.clientListControl.value);
   }
 
   displayName(client: Client) {
@@ -38,11 +40,13 @@ export class ClientSearchComponent implements OnInit {
   }
 
   private getClients() {
+      this.isLoading = true;
       this.clientSearchService.getClients()
       .subscribe(data => {
           this.clients = data;
           this.addIdToName(this.clients);
           this.setClientAutoComplete();
+          this.isLoading = false;
       },
       error => {
         console.log(error);

@@ -8,7 +8,8 @@ import { MatAutocompleteModule,
 MatButtonModule,
 MatCardModule,
 MatIconModule,
-MatInputModule } from '@angular/material';
+MatInputModule,
+MatProgressSpinnerModule } from '@angular/material';
 
 import { ClientSearchComponent } from './client-search.component';
 import { ClientSearchService } from './services/client-search.service';
@@ -23,7 +24,8 @@ import { ClientSearchService } from './services/client-search.service';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     ClientSearchComponent

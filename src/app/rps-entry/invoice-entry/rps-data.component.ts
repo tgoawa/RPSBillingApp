@@ -14,26 +14,23 @@ export class RPSDataComponent implements OnInit {
   @ViewChild('confirmModal') public confirmModal: ModalDirective;
   rpsClient: RpsClient;
   isLoading = false;
-  private client: Client;
 
   constructor(private rpsService: RpsService) { }
 
   ngOnInit() {
   }
 
-  clientSearch(event) {
-    this.rpsClient = undefined;
-    this.client = event;
-    if (this.rpsClient !== undefined) {
-      this.showConfirmModal();
+  clientSearch(event: Client) {
+    if (this.isSearchEmpty(event)) {
+      this.rpsClient = undefined;
     } else {
-    this.getRPSCurrentBill();
+      this.getRPSCurrentBill(event);
     }
   }
 
-  getRPSCurrentBill() {
+  getRPSCurrentBill(client: Client) {
     this.isLoading = true;
-    this.rpsService.getRPSCurrentBill(this.client.ClientId)
+    this.rpsService.getRPSCurrentBill(client.ClientId)
       .subscribe(data => {
         this.isLoading = false;
         this.rpsClient = data;
@@ -49,5 +46,12 @@ export class RPSDataComponent implements OnInit {
 
   showConfirmModal() {
     this.confirmModal.show();
+  }
+
+  private isSearchEmpty(val) {
+    if (val === '') {
+      return true;
+    }
+    return false;
   }
 }
