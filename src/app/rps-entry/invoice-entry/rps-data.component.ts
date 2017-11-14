@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ModalDirective } from 'ngx-bootstrap';
-
 import { RpsService } from './services/rps.service';
 import { RpsClient, Client } from 'app/client';
 
@@ -11,7 +9,6 @@ import { RpsClient, Client } from 'app/client';
   styleUrls: ['./rps-data.component.css']
 })
 export class RPSDataComponent implements OnInit {
-  @ViewChild('confirmModal') public confirmModal: ModalDirective;
   rpsClient: RpsClient;
   isLoading = false;
 
@@ -42,10 +39,6 @@ export class RPSDataComponent implements OnInit {
 
   destroyClient(event) {
     this.rpsClient = undefined;
-  }
-
-  showConfirmModal() {
-    this.confirmModal.show();
   }
 
   private isSearchEmpty(val) {
