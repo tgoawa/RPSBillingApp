@@ -9,7 +9,6 @@ import { MatButtonModule,
   MatSelectModule,
   MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ModalModule } from 'ngx-bootstrap';
 
 import { RpsRoutingModule } from './rps-routing.module';
 import { RpsComponent } from './rps.component';
@@ -32,8 +31,7 @@ import { RpsService } from 'app/rps-entry/invoice-entry/services/rps.service';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatSnackBarModule,
-    ModalModule.forRoot()
+    MatSnackBarModule
   ],
   declarations: [
     RpsComponent,

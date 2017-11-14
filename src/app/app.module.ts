@@ -12,9 +12,6 @@ import { MatButtonModule,
   MatInputModule,
   MatSnackBarModule } from '@angular/material';
 
-import { CollapseModule, ModalModule } from 'ngx-bootstrap';
-import { ToastrModule } from 'ngx-toastr';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
@@ -52,10 +49,7 @@ import { DuplicateListDialogComponent } from './client-credit-import/duplicate-l
     MatSnackBarModule,
     RpsModule,
     ReactiveFormsModule,
-    MaintenanceModule,
-    ToastrModule.forRoot(),
-    CollapseModule.forRoot(),
-    ModalModule.forRoot()
+    MaintenanceModule
   ],
   entryComponents: [
         ErrorListDialogComponent,
