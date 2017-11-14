@@ -21,7 +21,6 @@ export class RpsFormComponent implements OnInit {
   form5500List = [0, 375, 750, 1000];
   form8955List = [0, 75];
 
-  private currentBill = new RpsCurrentBill();
   private calculatedForm5500 = 0;
   private calculatedForm8955 = 0;
 
@@ -165,35 +164,37 @@ export class RpsFormComponent implements OnInit {
 
   onSubmit(formValue) {
     console.log(formValue);
-    this.saveInvoice();
+    this.saveInvoice(formValue);
   }
 
   createForm() {
       this.rpsForm = this.fb.group({
+      Id: [this.rpsClient.Id],
+      ClientId: [this.rpsClient.ClientId],
       MaintenanceFees: [{value: this.rpsClient.MaintenanceFees, disabled: true}],
       Year: [{value: this.rpsClient.Year, disabled: true}],
       Quarter: [{value: this.rpsClient.Quarter, disabled: true}],
       NumParticipants: [this.rpsClient.NumParticipants, [Validators.required, CustomValidators.number]],
       DollarPerParticipant: [this.rpsClient.DollarPerParticipant, [Validators.required, CustomValidators.number]],
-      ParticipantDollars: [this.rpsClient.ParticipantDollars, [Validators.required, CustomValidators.number]],
+      ParticipantDollars: [{value: this.rpsClient.ParticipantDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       NumLoans: [this.rpsClient.NumLoans, [Validators.required, CustomValidators.number]],
       DollarsPerLoan: [this.rpsClient.DollarsPerLoan, [Validators.required, CustomValidators.number]],
-      LoanDollars: [this.rpsClient.LoanDollars, [Validators.required, CustomValidators.number]],
+      LoanDollars: [{value: this.rpsClient.LoanDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       Form5500: [this.rpsClient.Form5500, Validators.required],
       Form8955: [this.rpsClient.Form8955, Validators.required],
       SpecialFeesText: [this.rpsClient.SpecialFeesText],
       SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars, [Validators.required, CustomValidators.number]],
       NumDistributions: [this.rpsClient.NumDistributions , [Validators.required, CustomValidators.number]],
       DollarsPerDistribution: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
-      DistributionDollars: [this.rpsClient.DistributionDollars, [Validators.required, CustomValidators.number]],
+      DistributionDollars: [{value: this.rpsClient.DistributionDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       Assets: [this.rpsClient.Assets, [Validators.required, CustomValidators.number]],
       BasisPoint: [this.rpsClient.AssetBasePoint],
       BasisPointFee: [this.rpsClient.BasisPointFee, [Validators.required, CustomValidators.number]]
     });
   }
 
-  saveInvoice() {
-    this.rpsService.saveRPSInvoice(this.currentBill)
+  saveInvoice(formVal) {
+    this.rpsService.saveRPSInvoice(formVal)
       .subscribe(data => {
         this.openSnackBar('Invoice updated successfully!', '');
         this.formIsSaved();
