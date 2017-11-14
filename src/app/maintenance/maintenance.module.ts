@@ -2,6 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatSnackBarModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MaintenanceRoutingModule } from './maintenance-routing.module';
 import { MaintenanceComponent } from './maintenance.component';
 import { MaintenanceEntryComponent } from './maintenance-entry/maintenance-entry.component';
@@ -14,6 +23,14 @@ import { MaintenanceFormComponent } from './maintenance-entry/maintenance-form/m
     CommonModule,
     MaintenanceRoutingModule,
     ClientSearchModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSnackBarModule,
     ReactiveFormsModule
   ],
   declarations: [MaintenanceComponent,
