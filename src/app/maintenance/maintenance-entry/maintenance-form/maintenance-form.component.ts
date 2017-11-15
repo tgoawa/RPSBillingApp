@@ -1,14 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { ToastrService, ToastConfig } from 'ngx-toastr';
-
+import { MatSnackBar } from '@angular/material';
 import { MaintenanceFeeService } from '../services/maintenance-fee.service';
 import { RpsClientFee } from 'app/client';
 
-const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
-                                    timeOut: 10000,
-                                    closeButton: true };
 
 @Component({
   selector: 'app-maintenance-form',
@@ -21,7 +16,7 @@ export class MaintenanceFormComponent implements OnInit {
 
   maintenanceForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private feeService: MaintenanceFeeService, private toastrService: ToastrService) { }
+  constructor(public snackBar: MatSnackBar, private fb: FormBuilder, private feeService: MaintenanceFeeService) { }
 
   ngOnInit() {
     this.createForm();
@@ -44,9 +39,10 @@ export class MaintenanceFormComponent implements OnInit {
     this.feeService.updateRPSFee(value)
     .subscribe(data => {
       this.formIsSaved();
+      this.openSnackBar('Update Successful!', '');
     }, error => {
       console.log(error);
-      this.showFailedSave();
+      this.openSnackBar('Error trying to update, please try again or contact help desk if issue persists', '');
     });
   }
 
@@ -54,9 +50,9 @@ export class MaintenanceFormComponent implements OnInit {
     this.isSaved.emit(true);
   }
 
-  showFailedSave() {
-    this.toastrService.error('Error trying to update, please try again or contact help desk if issue persists',
-    'Error updating Maintenance Fee!',
-    toastConfig);
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }

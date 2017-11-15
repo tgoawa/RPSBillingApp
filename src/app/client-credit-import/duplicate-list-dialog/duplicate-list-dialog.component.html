@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>CSV Duplicate Clients</h2>
+<mat-dialog-content>
+  <p>The following clients are duplicates.</p>
+  <ul>
+    <li *ngFor="let item of data">{{item.ClientId}}</li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button mat-raised-button color="warn" (click)="close()">Ok</button>
+</mat-dialog-actions>

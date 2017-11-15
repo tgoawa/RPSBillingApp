@@ -1,29 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-.row {
-    margin-top: 12px;
-}
+@import '~https://fonts.googleapis.com/css?family=Roboto:300,400,500';
 
-.border-bottom {
-    border-bottom: 1px solid #00AFED;
-}
-
-.btn {
-    font-size: 14px;
-    font-weight: 700 !important;
-}
-
-.btn-schenck {
-    background-color: #00AFED;
-    color: #fff;
-}
-.btn-schenck:hover {
-    background-color: #007EBA
-}
-
-.client-name {
-    color: #00AFED;
-}
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 
 body {
-    font-size: 1.2rem;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 10px 200px;
+}
+
+.mat-button .mat-primary .active {
+  background-color: #8cc1ff;
 }

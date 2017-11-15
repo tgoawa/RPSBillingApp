@@ -1,25 +1,20 @@
-<div class="row">
-  <div class="col-md-12">
-    <h4 class="client-name">{{rpsClientFee.ClientName}}</h4>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
+<mat-card>
+  <mat-card-content>
     <form novalidate class="form" (ngSubmit)="onSubmit(maintenanceForm.value)" [formGroup]="maintenanceForm">
-      <div class="form-check">
-        <label class="custom-control custom-checkbox">
-          <input class="custom-control-input" type="checkbox" formControlName="IsDeleted">
-          <span class="custom-control-indicator"></span>
-          <span class="custom-control-description"></span> Delete RPS Client?
-        </label>
-      </div>
-      <div class="form-group row">
-        <label class="col-md-2">Maintenance Fee:</label>
-        <div class="col-md-2">
-          <input type="number" class="form-control" formControlName="Fee">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-schenck">Submit</button>
+      <section>
+        <mat-checkbox formControlName="IsDeleted">Delete RPS Client?</mat-checkbox>
+      </section>
+      <section>
+        <p>
+          <mat-form-field>
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Maintenance Fee" formControlName="Fee">
+          </mat-form-field>
+        </p>
+      </section>
+      <section>
+        <button mat-raised-button color="accent" type="submit">Update Client</button>
+      </section>
     </form>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

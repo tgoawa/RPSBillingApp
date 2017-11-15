@@ -1,0 +1,7 @@
+.transparent-bg {
+  background-color: transparent;
+}
+
+.mat-toolbar {
+  padding: 0 !important;
+}

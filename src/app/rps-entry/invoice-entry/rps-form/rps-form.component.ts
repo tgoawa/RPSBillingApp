@@ -1,15 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-
-import { ToastrService, ToastConfig } from 'ngx-toastr';
-
+import { MatSnackBar } from '@angular/material';
 import { RpsClient, RpsCurrentBill } from 'app/client';
 import { RpsService } from '../services/rps.service';
-
-const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
-                                    timeOut: 10000,
-                                    closeButton: true };
 
 @Component({
   selector: 'app-rps-form',
@@ -19,7 +13,6 @@ const toastConfig: ToastConfig = { positionClass: 'toast-center-center',
 export class RpsFormComponent implements OnInit {
   @Input() rpsClient: RpsClient;
   @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   rpsForm: FormGroup;
   invoiceSubtotal = 0;
   invoiceTotal = 0;
@@ -28,11 +21,10 @@ export class RpsFormComponent implements OnInit {
   form5500List = [0, 375, 750, 1000];
   form8955List = [0, 75];
 
-  private currentBill = new RpsCurrentBill();
   private calculatedForm5500 = 0;
   private calculatedForm8955 = 0;
 
-  constructor(private fb: FormBuilder, private rpsService: RpsService, private toastrService: ToastrService) { }
+  constructor(public snackBar: MatSnackBar, private fb: FormBuilder, private rpsService: RpsService) { }
 
   ngOnInit() {
     this.createForm();
@@ -139,7 +131,15 @@ export class RpsFormComponent implements OnInit {
     const distributionDollars = this.rpsForm.get('DistributionDollars').value;
     const basisPointFee = this.rpsForm.get('BasisPointFee').value;
 
-    this.invoiceSubtotal = this.rpsClient.MaintenanceFees + participantDollars + loanDollars + form5500 + form8955 + specialFees + distributionDollars + basisPointFee;
+    this.invoiceSubtotal =
+      this.rpsClient.MaintenanceFees +
+      participantDollars +
+      loanDollars +
+      form5500 +
+      form8955 +
+      specialFees +
+      distributionDollars +
+      basisPointFee;
   }
 
   calculateCredit() {
@@ -163,74 +163,55 @@ export class RpsFormComponent implements OnInit {
   }
 
   onSubmit(formValue) {
-    this.mapFormToCurrentBill(formValue);
-    console.log(this.currentBill);
-    console.log(this.rpsForm.value);
-    this.saveInvoice();
+    console.log(formValue);
+    this.saveInvoice(formValue);
   }
 
   createForm() {
       this.rpsForm = this.fb.group({
+      Id: [this.rpsClient.Id],
+      ClientId: [this.rpsClient.ClientId],
+      MaintenanceFees: [{value: this.rpsClient.MaintenanceFees, disabled: true}],
+      Year: [{value: this.rpsClient.Year, disabled: true}],
+      Quarter: [{value: this.rpsClient.Quarter, disabled: true}],
       NumParticipants: [this.rpsClient.NumParticipants, [Validators.required, CustomValidators.number]],
       DollarPerParticipant: [this.rpsClient.DollarPerParticipant, [Validators.required, CustomValidators.number]],
-      ParticipantDollars: [this.rpsClient.ParticipantDollars, [Validators.required, CustomValidators.number]],
+      ParticipantDollars: [{value: this.rpsClient.ParticipantDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       NumLoans: [this.rpsClient.NumLoans, [Validators.required, CustomValidators.number]],
       DollarsPerLoan: [this.rpsClient.DollarsPerLoan, [Validators.required, CustomValidators.number]],
-      LoanDollars: [this.rpsClient.LoanDollars, [Validators.required, CustomValidators.number]],
+      LoanDollars: [{value: this.rpsClient.LoanDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       Form5500: [this.rpsClient.Form5500, Validators.required],
       Form8955: [this.rpsClient.Form8955, Validators.required],
       SpecialFeesText: [this.rpsClient.SpecialFeesText],
       SpecialFeesDollars: [this.rpsClient.SpecialFeesDollars, [Validators.required, CustomValidators.number]],
       NumDistributions: [this.rpsClient.NumDistributions , [Validators.required, CustomValidators.number]],
       DollarsPerDistribution: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
-      DistributionDollars: [this.rpsClient.DistributionDollars, [Validators.required, CustomValidators.number]],
+      DistributionDollars: [{value: this.rpsClient.DistributionDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       Assets: [this.rpsClient.Assets, [Validators.required, CustomValidators.number]],
       BasisPoint: [this.rpsClient.AssetBasePoint],
       BasisPointFee: [this.rpsClient.BasisPointFee, [Validators.required, CustomValidators.number]]
     });
   }
 
-  mapFormToCurrentBill(formvalue) {
-    this.currentBill.Assets = formvalue.Assets;
-    this.currentBill.AssetBasePoint = formvalue.BasisPoint;
-    this.currentBill.BasisPointFee = formvalue.BasisPointFee;
-    this.currentBill.ClientId = this.rpsClient.ClientId;
-    this.currentBill.DistributionDollars = formvalue.DistributionDollars;
-    this.currentBill.DollarPerParticipant = formvalue.DollarPerParticipant;
-    this.currentBill.DollarsPerLoan = formvalue.DollarsPerLoan;
-    this.currentBill.DollarsPerDistribution = formvalue.DollarsPerDistribution;
-    this.currentBill.Form5500 = formvalue.Form5500;
-    this.currentBill.Form8955 = formvalue.Form8955;
-    this.currentBill.Id = this.rpsClient.Id;
-    this.currentBill.LoanDollars = formvalue.LoanDollars;
-    this.currentBill.MaintenanceFees = this.rpsClient.MaintenanceFees;
-    this.currentBill.NumDistributions = formvalue.NumDistributions;
-    this.currentBill.NumLoans = formvalue.NumLoans;
-    this.currentBill.NumParticipants = formvalue.NumParticipants;
-    this.currentBill.ParticipantDollars = formvalue.ParticipantDollars;
-    this.currentBill.Quarter = this.rpsClient.Quarter;
-    this.currentBill.SpecialFeesDollars = formvalue.SpecialFeesDollars;
-    this.currentBill.SpecialFeesText = formvalue.SpecialFeesText;
-    this.currentBill.Year = this.rpsClient.Year;
-  }
-
-  saveInvoice() {
-    this.rpsService.saveRPSInvoice(this.currentBill)
+  saveInvoice(formVal) {
+    this.rpsService.saveRPSInvoice(formVal)
       .subscribe(data => {
+        this.openSnackBar('Invoice updated successfully!', '');
         this.formIsSaved();
       }, error => {
         console.log(error);
-        this.showFailedSave();
+        this.openSnackBar('Issue updating invoice!', '');
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   formIsSaved() {
     this.isSaved.emit(true);
   }
 
-  showFailedSave() {
-    this.toastrService.error('Error trying to save, please try again or contact help desk if issue persists',
-    'Error saving invoice!',
-    toastConfig);
-  }
 }

@@ -1,4 +1,3 @@
-import { ArrayOfRPSCreditModel, RPSCreditModel } from '../../../home/client-credit';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -6,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../../environments/environment';
 import { RpsClient, RpsCurrentBill } from '../../../client';
+import { RPSCreditModel } from '../../../client-credit-import/client-credit';
 
 const api = environment.envApi;
 @Injectable()

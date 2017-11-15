@@ -1,30 +1,22 @@
-<div class="row">
-  <div class="col-md-12">
-    <h3>
-      Client search
-    </h3>
+<ng-container *ngIf="!isLoading">
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <div fxFlex="30">
+      <h2>Client Search</h2>
+      <mat-form-field fxFill>
+        <input matInput placeholder="Client Name" [matAutocomplete]="auto" [formControl]="clientListControl">
+        <button mat-button *ngIf="clientListControl" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint>Search by Client Name or Id. Minimum 3 characters required.</mat-hint>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName" (optionSelected)="getClientInvoice()">
+          <mat-option *ngFor="let client of filteredClients | async" [value]="client">
+            {{client.ClientName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
-    <button type="button" class="btn btn-schenck" (click)="toggleSearchType()">Toggle Search By Type</button>
-  </div>
-</div>
-<div class="row" [hidden]="searchById">
-  <div class="col-md-6">
-    <form class="form-inline" novalidate (ngSubmit)="onSubmitIdSearch(clientIdSearch.value)" [formGroup]="clientIdSearch">
-      <input class="form-control" formControlName="ClientId" [typeahead]="clients" typeaheadOptionsLimit="7" typeaheadOptionField="ClientId" typeaheadMinLength="3"
-        placeholder="Search by Client Id" class="form-control">
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
-  </div>
-</div>
-<div class="row" [hidden]="!searchById">
-  <div class="col-md-6">
-    <form class="form-inline" novalidate (ngSubmit)="onSubmitNameSearch(clientNameSearch.value)" [formGroup]="clientNameSearch">
-      <input class="form-control" formControlName="ClientName" [typeahead]="clients" typeaheadOptionsLimit="7" typeaheadOptionField="ClientName" typeaheadMinLength="3"
-        placeholder="Search by Client Name" class="form-control">
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
-  </div>
-</div>
+</ng-container>
+<section *ngIf="isLoading" fxLayout="column" fxLayoutAlign="center center">
+  <mat-spinner></mat-spinner>
+</section>
