@@ -3,7 +3,7 @@
     <h3>Import Client Credit CSV</h3>
     <form [formGroup]="csvImport" (ngSubmit)="onSubmit()" novalidate>
       <mat-form-field>
-        <app-input-file formControlName="requiredfile" placeholder="Required input" valuePlaceholder="No file selected" required></app-input-file>
+        <app-input-file formControlName="requiredfile" placeholder="Required input" valuePlaceholder="No file selected" required (change)="this.onCsvImport(csvImport.value)"></app-input-file>
         <mat-icon matSuffix>folder</mat-icon>
         <mat-error *ngIf="csvImport.get('requiredfile').hasError('required')">
           Please select a file

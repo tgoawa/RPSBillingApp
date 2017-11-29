@@ -43,7 +43,6 @@ export class ClientCreditImportComponent implements OnInit {
   }
 
   onSubmit() {
-    this.onCsvImport(this.csvImport.value);
     this.rpsService.saveCSV(this.CreditData)
       .subscribe(data => {
         if (data.length < 1) {

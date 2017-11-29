@@ -26,8 +26,8 @@ export class RpsService {
   }
 
   saveCSV(credit: RPSCreditModel[]) {
-    const ArrayOfRPSCreditModel = credit;
-    return this.http.post(api + 'LoadCredits/', ArrayOfRPSCreditModel)
+    console.log(credit);
+    return this.http.post(api + 'LoadCredits/', credit)
     .map(response => response.json(), error => console.log(error));
   }
 }
