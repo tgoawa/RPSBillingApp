@@ -2,6 +2,7 @@
   <mat-card-content>
     <form novalidate (ngSubmit)="onSubmit(rpsForm.getRawValue())" [formGroup]="rpsForm">
       <mat-form-field>
+        <span matPrefix>$</span>
         <input matInput placeholder="Maintenance Fee" formControlName="MaintenanceFees">
       </mat-form-field>
       <mat-form-field>
@@ -13,14 +14,14 @@
       <section fxLayout="column" fxLayoutAlign="space-between">
         <h3>Annual Participant Count</h3>
         <div fxLayout="row" fxLayoutGap="10px">
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <input matInput type="number" placeholder="# Participants" formControlName="NumParticipants" (keyup)="calculateParticipantDollars()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="$ per Participant" formControlName="DollarPerParticipant" (keyup)="calculateParticipantDollars()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="Total Amount" formControlName="ParticipantDollars">
           </mat-form-field>
@@ -29,14 +30,14 @@
       <section fxLayout="column" fxLayoutAlign="space-between">
         <h3>Number of Loans</h3>
         <div fxLayout="row" fxLayoutGap="10px">
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <input matInput type="number" placeholder="Total Loans" formControlName="NumLoans" (keyup)="calculateLoanDollars()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="$ per Loan" formControlName="DollarsPerLoan" (keyup)="calculateLoanDollars()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="Total Amount" formControlName="LoanDollars">
           </mat-form-field>
@@ -45,14 +46,14 @@
       <section fxLayout="column" fxLayoutAlign="space-between">
         <h3>Forms 5500/8955, etc</h3>
         <div fxLayout="row" fxLayoutGap="10px">
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <mat-select placeholder="5500" formControlName="Form5500" name="5500" (change)="calculateForm5500()">
               <mat-option *ngFor="let item of form5500List" [value]="item">
                 {{item}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <mat-select placeholder="8955" formControlName="Form8955" name="8955" (change)="calculateForm8955()">
               <mat-option *ngFor="let item of form8955List" [value]="item">
                 {{item}}
@@ -64,48 +65,48 @@
       <section fxLayout="column" fxLayoutAlign="space-between">
         <h3>Special Fees</h3>
         <div fxLayout="row" fxLayoutGap="10px">
-          <mat-form-field fxFlex="67">
+          <mat-form-field fxFlex="33">
             <textarea matInput placeholder="Amendments prepared, if any, describe as will be on invoice" matTextareaAutosize matAutosizeMinRows="1"
               matAutosizeMaxRows="5" formControlName="SpecialFeesText"></textarea>
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="Amendment Amount" formControlName="SpecialFeesDollars" (keyup)="calculateSpecialFees()">
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10px">
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <input matInput type="number" placeholder="Distributions #" formControlName="NumDistributions" (keyup)="calculateDistributionDollars()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="$ per Distribution" formControlName="DollarsPerDistribution" (keyup)="calculateDistributionDollars()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="Total Amount" formControlName="DistributionDollars">
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10px">
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <input matInput type="number" placeholder="Assets" formControlName="Assets" (keyup)="calculateBasisPointFee()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="Basis Point" formControlName="BasisPoint" (keyup)="calculateBasisPointFee()">
           </mat-form-field>
-          <mat-form-field fxFlex="33">
+          <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
             <input matInput type="number" placeholder="Total Amount" formControlName="BasisPointFee">
           </mat-form-field>
         </div>
       </section>
       <section fxLayout="column" fxLayoutAlign="space-between">
-        <div fxLayout="row" fxLayoutAlign="end start">
+        <div fxLayout="row" fxLayoutAlign="start start">
           <h4>Invoice Total: {{invoiceSubtotal | currency: 'USD':true}}</h4>
         </div>
       </section>
-      <section fxLayout="row" fxLayoutAlign="end">
+      <section fxLayout="row" fxLayoutAlign="start">
         <button mat-raised-button color="accent" type="submit" [disabled]="rpsForm.invalid">
           Update Invoice
         </button>
