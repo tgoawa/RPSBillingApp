@@ -5,5 +5,8 @@
     <ng-container *ngIf="rpsClient">
       <app-rps-form fxFill [rpsClient]="rpsClient" (isSaved)="destroyClient($event)"></app-rps-form>
     </ng-container>
+    <section *ngIf="isLoading" fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner></mat-spinner>
+    </section>
   </div>
 </div>

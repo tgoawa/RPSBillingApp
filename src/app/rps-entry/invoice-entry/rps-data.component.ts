@@ -21,12 +21,12 @@ export class RPSDataComponent implements OnInit {
     if (this.isSearchEmpty(event)) {
       this.rpsClient = undefined;
     } else {
+      this.isLoading = true;
       this.getRPSCurrentBill(event);
     }
   }
 
   getRPSCurrentBill(client: Client) {
-    this.isLoading = true;
     this.rpsService.getRPSCurrentBill(client.ClientId)
       .subscribe(data => {
         this.isLoading = false;
