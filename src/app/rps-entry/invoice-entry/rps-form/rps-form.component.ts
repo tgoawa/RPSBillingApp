@@ -189,7 +189,7 @@ export class RpsFormComponent implements OnInit {
       DistributionDollars: [{value: this.rpsClient.DistributionDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       Assets: [this.rpsClient.Assets, [Validators.required, CustomValidators.number]],
       BasisPoint: [this.rpsClient.AssetBasePoint],
-      BasisPointFee: [this.rpsClient.BasisPointFee, [Validators.required, CustomValidators.number]]
+      BasisPointFee: [{value: this.rpsClient.BasisPointFee, disabled: true}, [Validators.required, CustomValidators.number]]
     });
   }
 
