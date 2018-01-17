@@ -103,7 +103,7 @@
       </section>
       <section fxLayout="column" fxLayoutAlign="space-between">
         <div fxLayout="row" fxLayoutAlign="start start">
-          <h4>Invoice Total: {{invoiceSubtotal | currency: 'USD':true}}</h4>
+          <h4>Invoice Total: {{invoiceSubtotal | currency: 'USD':"symbol"}}</h4>
         </div>
       </section>
       <section fxLayout="row" fxLayoutAlign="start">

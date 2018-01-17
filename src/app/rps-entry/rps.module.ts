@@ -7,7 +7,8 @@ import { MatButtonModule,
   MatInputModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatSnackBarModule } from '@angular/material';
+  MatSnackBarModule,
+  MatProgressSpinnerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { RpsRoutingModule } from './rps-routing.module';
@@ -30,6 +31,7 @@ import { RpsService } from 'app/rps-entry/invoice-entry/services/rps.service';
     MatCardModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatSnackBarModule
   ],
