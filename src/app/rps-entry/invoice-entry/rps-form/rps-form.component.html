@@ -89,6 +89,19 @@
         </div>
         <div fxLayout="row" fxLayoutGap="10px">
           <mat-form-field fxFlex="8">
+            <input matInput type="number" placeholder="Distributions #" formControlName="NumDistributions1" (keyup)="calculateDistributionDollars1()">
+          </mat-form-field>
+          <mat-form-field fxFlex="8">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="$ per Distribution" formControlName="DollarsPerDistribution1" (keyup)="calculateDistributionDollars1()">
+          </mat-form-field>
+          <mat-form-field fxFlex="8">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Total Amount" formControlName="DistributionDollars1">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="8">
             <input matInput type="number" placeholder="Assets" formControlName="Assets" (keyup)="calculateBasisPointFee()">
           </mat-form-field>
           <mat-form-field fxFlex="8">

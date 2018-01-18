@@ -73,6 +73,20 @@ export class RpsFormComponent implements OnInit {
     }
   }
 
+  calculateDistributionDollars1() {
+    const numberOfDistributions = this.rpsForm.get('NumDistributions1');
+    const dollars = this.rpsForm.get('DollarsPerDistribution1');
+    let calculatedDistributionDollars = 0;
+
+    if (numberOfDistributions !== undefined && dollars !== undefined) {
+      calculatedDistributionDollars = numberOfDistributions.value * dollars.value;
+      this.rpsForm.patchValue({
+        DistributionDollars1: calculatedDistributionDollars
+      });
+      this.calculateSubTotal();
+    }
+  }
+
   calculateBasisPointFee() {
     const assets = this.rpsForm.get('Assets');
     const points = this.rpsForm.get('BasisPoint').value / 10000;
@@ -187,6 +201,9 @@ export class RpsFormComponent implements OnInit {
       NumDistributions: [this.rpsClient.NumDistributions , [Validators.required, CustomValidators.number]],
       DollarsPerDistribution: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
       DistributionDollars: [{value: this.rpsClient.DistributionDollars, disabled: true}, [Validators.required, CustomValidators.number]],
+      NumDistributions1: [this.rpsClient.NumDistributions , [Validators.required, CustomValidators.number]],
+      DollarsPerDistribution1: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
+      DistributionDollars1: [{value: this.rpsClient.DistributionDollars, disabled: true}, [Validators.required, CustomValidators.number]],
       Assets: [this.rpsClient.Assets, [Validators.required, CustomValidators.number]],
       BasisPoint: [this.rpsClient.AssetBasePoint],
       BasisPointFee: [{value: this.rpsClient.BasisPointFee, disabled: true}, [Validators.required, CustomValidators.number]]
