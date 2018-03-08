@@ -7,7 +7,7 @@
         <button mat-icon-button color="warn" *ngIf="clientListControl" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
           <mat-icon>close</mat-icon>
         </button>
-        <mat-hint>Search by Client Name or Id. Minimum 3 characters required.</mat-hint>
+        <mat-hint fxFill>Search by Client Name or Id. Minimum 3 characters required.</mat-hint>
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName" (optionSelected)="getClientInvoice()">
           <mat-option *ngFor="let client of filteredClients | async" [value]="client">
             {{client.ClientName}}
