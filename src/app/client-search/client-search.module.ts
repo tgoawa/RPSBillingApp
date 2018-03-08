@@ -9,7 +9,8 @@ MatButtonModule,
 MatCardModule,
 MatIconModule,
 MatInputModule,
-MatProgressSpinnerModule } from '@angular/material';
+MatProgressSpinnerModule,
+MatTooltipModule } from '@angular/material';
 
 import { ClientSearchComponent } from './client-search.component';
 import { ClientSearchService } from './services/client-search.service';
@@ -25,7 +26,8 @@ import { ClientSearchService } from './services/client-search.service';
     MatCardModule,
     MatIconModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   exports: [
     ClientSearchComponent
