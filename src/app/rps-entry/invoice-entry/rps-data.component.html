@@ -1,9 +1,9 @@
 <div fxLayout="column" fxLayoutAlign="space-between start">
   <h1>RPS Invoice Entry</h1>
   <div fxFill>
-    <app-client-search (rpsBillClient)="clientSearch($event)"></app-client-search>
+    <app-client-search (rpsBillClient)="clientSearch($event)" [formIsDirty]="isDirty"></app-client-search>
     <ng-container *ngIf="rpsClient">
-      <app-rps-form fxFill [rpsClient]="rpsClient" (isSaved)="destroyClient($event)"></app-rps-form>
+      <app-rps-form fxFill [rpsClient]="rpsClient" (isSaved)="destroyClient($event)" (isDirty)="formIsDirty($event)"></app-rps-form>
     </ng-container>
     <section *ngIf="isLoading" fxLayout="column" fxLayoutAlign="center center">
       <mat-spinner></mat-spinner>

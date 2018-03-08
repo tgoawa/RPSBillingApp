@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>You have unsaved changes!</h1>
+<mat-dialog-content>
+  It appears you have unsaved changes to the current goal. Do you wish to continue working on this goal, or ignore the changes
+  you have made?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button type="button" mat-dialog-close>Keep Working</button>
+  <button mat-button tybpe="button" (click)="onIgnoreChanges()">Ignore Changes</button>
+</mat-dialog-actions>

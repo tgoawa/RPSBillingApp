@@ -1,10 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { ClientSearchService } from './services/client-search.service';
 
 import { Client } from '../client';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ConfirmationDialogComponent } from '../core/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-client-search',
@@ -12,15 +14,18 @@ import { Client } from '../client';
   styleUrls: ['./client-search.component.css']
 })
 export class ClientSearchComponent implements OnInit {
+  @Input() formIsDirty: boolean;
   @Output() rpsBillClient: EventEmitter<Client> = new EventEmitter<Client>();
   @ViewChild('auto') auto: ElementRef;
+  confirmationDialogRef: MatDialogRef<ConfirmationDialogComponent>;
   clients: Client[];
   clientListControl: FormControl = new FormControl();
   filteredClients: Observable<Client[]>;
   isLoading: boolean;
 
   constructor(private fb: FormBuilder,
-  private clientSearchService: ClientSearchService) { }
+  private clientSearchService: ClientSearchService,
+  private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getClients();
@@ -29,7 +34,16 @@ export class ClientSearchComponent implements OnInit {
   clear() {
     this.clientListControl.setValue('');
     this.rpsBillClient.emit(this.clientListControl.value);
+    this.formIsDirty = false;
   }
+
+  onClearClient() {
+    if (this.formIsDirty) {
+      this.openConfirmationDialog();
+    } else {
+      this.clear();
+    }
+  };
 
   displayName(client: Client) {
     return client ? client.ClientName : client;
@@ -62,6 +76,16 @@ export class ClientSearchComponent implements OnInit {
     private filterClients(name: string): Client[] {
       return this.clients.filter(client =>
         client.ClientName.toLowerCase().includes(name.toLowerCase()));
+    }
+
+    private openConfirmationDialog() {
+      this.confirmationDialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+      this.confirmationDialogRef.afterClosed().subscribe(ignoreChanges => {
+        if (ignoreChanges) {
+          this.clear();
+        }
+      })
     }
 
     private setClientAutoComplete() {

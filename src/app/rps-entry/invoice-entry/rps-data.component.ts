@@ -10,6 +10,7 @@ import { RpsClient, Client } from 'app/client';
 })
 export class RPSDataComponent implements OnInit {
   rpsClient: RpsClient;
+  isDirty: boolean;
   isLoading = false;
 
   constructor(private rpsService: RpsService) { }
@@ -39,6 +40,10 @@ export class RPSDataComponent implements OnInit {
 
   destroyClient(event) {
     this.rpsClient = undefined;
+  }
+
+  formIsDirty(event) {
+    this.isDirty = event;
   }
 
   private isSearchEmpty(val) {

@@ -4,7 +4,7 @@
       <h2>Client Search</h2>
       <mat-form-field fxFill>
         <input matInput placeholder="Client Name" [matAutocomplete]="auto" [formControl]="clientListControl">
-        <button mat-icon-button color="warn" *ngIf="clientListControl" matSuffix mat-icon-button aria-label="Clear" (click)="clear()" matTooltip="Clear client search">
+        <button mat-icon-button color="warn" *ngIf="clientListControl" matSuffix mat-icon-button aria-label="Clear" (click)="onClearClient()" matTooltip="Clear client search">
           <mat-icon>close</mat-icon>
           <span style="font-size: small">Clear client search</span>
         </button>

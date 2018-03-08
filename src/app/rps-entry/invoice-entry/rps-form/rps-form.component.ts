@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { MatSnackBar } from '@angular/material';
@@ -8,11 +8,13 @@ import { RpsService } from '../services/rps.service';
 @Component({
   selector: 'app-rps-form',
   templateUrl: './rps-form.component.html',
-  styleUrls: ['./rps-form.component.css']
+  styleUrls: ['./rps-form.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RpsFormComponent implements OnInit {
+export class RpsFormComponent implements OnInit, OnChanges {
   @Input() rpsClient: RpsClient;
   @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() isDirty: EventEmitter<boolean> = new EventEmitter<boolean>();
   rpsForm: FormGroup;
   invoiceSubtotal = 0;
   invoiceTotal = 0;
@@ -27,8 +29,14 @@ export class RpsFormComponent implements OnInit {
   constructor(public snackBar: MatSnackBar, private fb: FormBuilder, private rpsService: RpsService) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
     this.createForm();
     this.calculateSubTotal();
+    this.rpsForm.valueChanges.subscribe(form => {
+      this.isDirty.emit(this.rpsForm.dirty);
+    })
   }
 
   calculateParticipantDollars() {
