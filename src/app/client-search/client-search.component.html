@@ -1,10 +1,10 @@
 <ng-container *ngIf="!isLoading">
   <div fxLayout="row" fxLayoutAlign="start start">
-    <div fxFlex="30">
+    <div fxFlex="40">
       <h2>Client Search</h2>
       <mat-form-field fxFill>
         <input matInput placeholder="Client Name" [matAutocomplete]="auto" [formControl]="clientListControl">
-        <button mat-button *ngIf="clientListControl" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+        <button mat-icon-button color="warn" *ngIf="clientListControl" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
           <mat-icon>close</mat-icon>
         </button>
         <mat-hint>Search by Client Name or Id. Minimum 3 characters required.</mat-hint>
