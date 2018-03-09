@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MaintenanceFeeService } from './services/maintenance-fee.service';
 import { Client, RpsClientFee } from 'app/client';
+import { ClientSearchService } from '../../core/services/client-search.service';
 
 @Component({
   selector: 'app-maintenance-entry',
@@ -9,12 +10,13 @@ import { Client, RpsClientFee } from 'app/client';
   styleUrls: ['./maintenance-entry.component.css']
 })
 export class MaintenanceEntryComponent implements OnInit {
+  clients: Client[];
   rpsClientFee: RpsClientFee;
-  isLoading = false;
 
-  constructor(private feeService: MaintenanceFeeService) { }
+  constructor(private feeService: MaintenanceFeeService, private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
+    this.getClients();
   }
 
   clientFeeSearch(event) {
@@ -26,19 +28,25 @@ export class MaintenanceEntryComponent implements OnInit {
   }
 
   getRPSFee(client: Client) {
-    this.isLoading = true;
     this.feeService.getRPSFee(client.ClientId)
     .subscribe(data => {
-      this.isLoading = false;
       this.rpsClientFee = data;
     }, error => {
-      this.isLoading = false;
       console.log(error);
     });
   }
 
   destroyForm(event) {
     this.rpsClientFee = undefined;
+  }
+
+  private getClients() {
+    this.clientSearchService.getClients()
+      .subscribe(data => {
+        this.clients = data;
+      }, error => {
+        console.error(error);
+      })
   }
 
   private isSearchEmpty(val) {
