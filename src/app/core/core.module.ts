@@ -10,6 +10,7 @@ import { throwIfAlreadyLoaded } from 'app/core/module-import.guard';
 import { LoggerService } from 'app/core/services/logger.service';
 import { HeaderComponent } from './header/header.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ClientSearchService } from './services/client-search.service';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
   declarations: [ HeaderComponent, ConfirmationDialogComponent ],
   entryComponents: [ ConfirmationDialogComponent ],
   providers: [
-    LoggerService
+    LoggerService,
+    ClientSearchService
   ]
 })
 export class CoreModule {

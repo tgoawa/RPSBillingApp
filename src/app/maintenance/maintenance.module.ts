@@ -7,6 +7,7 @@ import { MatButtonModule,
   MatCheckboxModule,
   MatInputModule,
   MatFormFieldModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -17,18 +18,21 @@ import { MaintenanceEntryComponent } from './maintenance-entry/maintenance-entry
 import { ClientSearchModule } from 'app/client-search/client-search.module';
 import { MaintenanceFeeService } from './maintenance-entry/services/maintenance-fee.service';
 import { MaintenanceFormComponent } from './maintenance-entry/maintenance-form/maintenance-form.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MaintenanceRoutingModule,
     ClientSearchModule,
+    CoreModule,
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatSnackBarModule,
     ReactiveFormsModule

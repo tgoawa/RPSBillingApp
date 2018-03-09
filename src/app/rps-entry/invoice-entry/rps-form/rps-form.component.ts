@@ -4,6 +4,7 @@ import { CustomValidators } from 'ng2-validation';
 import { MatSnackBar } from '@angular/material';
 import { RpsClient, RpsCurrentBill } from 'app/client';
 import { RpsService } from '../services/rps.service';
+import { ClientSearchService } from '../../../core/services/client-search.service';
 
 @Component({
   selector: 'app-rps-form',
@@ -14,7 +15,6 @@ import { RpsService } from '../services/rps.service';
 export class RpsFormComponent implements OnInit, OnChanges {
   @Input() rpsClient: RpsClient;
   @Output() isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() isDirty: EventEmitter<boolean> = new EventEmitter<boolean>();
   rpsForm: FormGroup;
   invoiceSubtotal = 0;
   invoiceTotal = 0;
@@ -26,7 +26,10 @@ export class RpsFormComponent implements OnInit, OnChanges {
   private calculatedForm5500 = 0;
   private calculatedForm8955 = 0;
 
-  constructor(public snackBar: MatSnackBar, private fb: FormBuilder, private rpsService: RpsService) { }
+  constructor(public snackBar: MatSnackBar,
+    private fb: FormBuilder,
+    private rpsService: RpsService,
+    private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
   }
@@ -34,9 +37,6 @@ export class RpsFormComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.createForm();
     this.calculateSubTotal();
-    this.rpsForm.valueChanges.subscribe(form => {
-      this.isDirty.emit(this.rpsForm.dirty);
-    })
   }
 
   calculateParticipantDollars() {
@@ -49,6 +49,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       this.rpsForm.patchValue({
         ParticipantDollars: calculatedParticipantDollars
       });
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
   }
@@ -63,6 +64,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       this.rpsForm.patchValue({
         LoanDollars: calculatedLoanDollars
       });
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
   }
@@ -77,6 +79,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       this.rpsForm.patchValue({
         DistributionDollars: calculatedDistributionDollars
       });
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
   }
@@ -91,6 +94,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       this.rpsForm.patchValue({
         DistributionDollars1: calculatedDistributionDollars
       });
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
   }
@@ -107,6 +111,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       this.rpsForm.patchValue({
         BasisPointFee: calculatedBasisPointFee
       });
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
 
@@ -119,6 +124,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       this.rpsForm.patchValue({
         Form5500: +form5500.value
       });
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
   }
@@ -130,6 +136,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       this.rpsForm.patchValue({
         Form8955: +form8955.value
       });
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
   }
@@ -140,6 +147,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
 
     if (specFee !== undefined) {
       specialFees = specFee.value;
+      this.setFormDirtyState(true)
       this.calculateSubTotal();
     }
   }
@@ -237,6 +245,10 @@ export class RpsFormComponent implements OnInit, OnChanges {
 
   formIsSaved() {
     this.isSaved.emit(true);
+  }
+
+  private setFormDirtyState(value: boolean) {
+    this.clientSearchService.setFormDirtyState(value);
   }
 
 }

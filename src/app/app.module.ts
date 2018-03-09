@@ -15,7 +15,6 @@ import { MatButtonModule,
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientSearchComponent } from './client-search/client-search.component';
-import { ClientSearchService } from './client-search/services/client-search.service';
 import { RpsModule } from './rps-entry/rps.module';
 import { HomeComponent } from './home/home.component';
 import { MaintenanceModule } from './maintenance/maintenance.module';
@@ -56,7 +55,6 @@ import { DuplicateListDialogComponent } from './client-credit-import/duplicate-l
         DuplicateListDialogComponent
   ],
   providers: [
-    ClientSearchService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]

@@ -13,7 +13,6 @@ MatProgressSpinnerModule,
 MatTooltipModule } from '@angular/material';
 
 import { ClientSearchComponent } from './client-search.component';
-import { ClientSearchService } from './services/client-search.service';
 
 @NgModule({
   imports: [
@@ -34,7 +33,6 @@ import { ClientSearchService } from './services/client-search.service';
   ],
   declarations: [
     ClientSearchComponent
-  ],
-  providers: [ ClientSearchService ]
+  ]
 })
 export class ClientSearchModule { }
