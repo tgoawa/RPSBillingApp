@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { RpsService } from './services/rps.service';
 import { RpsClient, Client } from 'app/client';
+import { ClientSearchService } from '../../core/services/client-search.service';
 
 @Component({
   selector: 'app-rps-data',
@@ -9,20 +10,19 @@ import { RpsClient, Client } from 'app/client';
   styleUrls: ['./rps-data.component.css']
 })
 export class RPSDataComponent implements OnInit {
+  clients: Client[];
   rpsClient: RpsClient;
-  isDirty: boolean;
-  isLoading = false;
 
-  constructor(private rpsService: RpsService) { }
+  constructor(private rpsService: RpsService, private clientSearchService: ClientSearchService) { }
 
   ngOnInit() {
+    this.getClients();
   }
 
   clientSearch(event: Client) {
     if (this.isSearchEmpty(event)) {
       this.rpsClient = undefined;
     } else {
-      this.isLoading = true;
       this.getRPSCurrentBill(event);
     }
   }
@@ -30,11 +30,9 @@ export class RPSDataComponent implements OnInit {
   getRPSCurrentBill(client: Client) {
     this.rpsService.getRPSCurrentBill(client.ClientId)
       .subscribe(data => {
-        this.isLoading = false;
         this.rpsClient = data;
       }, error => {
         console.log(error);
-        this.isLoading = false;
       });
   }
 
@@ -42,8 +40,13 @@ export class RPSDataComponent implements OnInit {
     this.rpsClient = undefined;
   }
 
-  formIsDirty(event) {
-    this.isDirty = event;
+  private getClients() {
+    this.clientSearchService.getClients()
+      .subscribe(data => {
+        this.clients = data;
+      }, error => {
+        console.error(error);
+      })
   }
 
   private isSearchEmpty(val) {

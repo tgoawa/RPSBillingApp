@@ -1,12 +1,12 @@
 <div fxLayout="column" fxLayoutAlign="space-between start">
   <h1>RPS Invoice Entry</h1>
-  <div fxFill>
-    <app-client-search (rpsBillClient)="clientSearch($event)" [formIsDirty]="isDirty"></app-client-search>
-    <ng-container *ngIf="rpsClient">
-      <app-rps-form fxFill [rpsClient]="rpsClient" (isSaved)="destroyClient($event)" (isDirty)="formIsDirty($event)"></app-rps-form>
-    </ng-container>
-    <section *ngIf="isLoading" fxLayout="column" fxLayoutAlign="center center">
-      <mat-spinner></mat-spinner>
-    </section>
+  <div fxFill *ngIf="clients; else isLoading">
+    <app-client-search (rpsBillClient)="clientSearch($event)" [clients]="clients"></app-client-search>
+    <app-rps-form fxFill *ngIf="rpsClient" [rpsClient]="rpsClient" (isSaved)="destroyClient($event)"></app-rps-form>
+    <ng-template #isLoading>
+      <section fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner></mat-spinner>
+      </section>
+    </ng-template>
   </div>
 </div>
