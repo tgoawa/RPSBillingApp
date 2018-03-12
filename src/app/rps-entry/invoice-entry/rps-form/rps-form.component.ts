@@ -159,6 +159,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
     const form8955 = parseInt(this.rpsForm.get('Form8955').value, 10);
     const specialFees = this.rpsForm.get('SpecialFeesDollars').value;
     const distributionDollars = this.rpsForm.get('DistributionDollars').value;
+    const distributionDollars1 = this.rpsForm.get('DistributionDollars1').value;
     const basisPointFee = this.rpsForm.get('BasisPointFee').value;
 
     this.invoiceSubtotal =
@@ -169,6 +170,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       form8955 +
       specialFees +
       distributionDollars +
+      distributionDollars1 +
       basisPointFee;
   }
 
