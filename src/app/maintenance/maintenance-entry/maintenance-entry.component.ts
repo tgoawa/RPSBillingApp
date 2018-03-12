@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { MaintenanceFeeService } from './services/maintenance-fee.service';
 import { Client, RpsClientFee } from 'app/client';
@@ -10,6 +10,7 @@ import { ClientSearchService } from '../../core/services/client-search.service';
   styleUrls: ['./maintenance-entry.component.css']
 })
 export class MaintenanceEntryComponent implements OnInit {
+  @ViewChild('isLoading') isLoading: ElementRef;
   clients: Client[];
   rpsClientFee: RpsClientFee;
 
