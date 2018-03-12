@@ -231,6 +231,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
       .subscribe(data => {
         this.openSnackBar('Invoice updated successfully!', '');
         this.formIsSaved();
+        this.clientSearchService.setFormDirtyState(false);
       }, error => {
         console.log(error);
         this.openSnackBar('Issue updating invoice!', '');
