@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-content>
+  <mat-card-content *ngIf="rpsClient; else isLoading">
     <form novalidate (ngSubmit)="onSubmit(rpsForm.getRawValue())" [formGroup]="rpsForm">
       <mat-form-field>
         <span matPrefix>$</span>
@@ -126,4 +126,9 @@
       </section>
     </form>
   </mat-card-content>
+  <ng-template #isLoading>
+    <section fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner></mat-spinner>
+    </section>
+  </ng-template>
 </mat-card>
