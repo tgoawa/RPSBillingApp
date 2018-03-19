@@ -10,7 +10,7 @@ import { ClientSearchService } from '../../core/services/client-search.service';
   styleUrls: ['./rps-data.component.css']
 })
 export class RPSDataComponent implements OnInit {
-  // @ViewChild('isLoading') isLoading: ElementRef;
+  @ViewChild('isLoading') isLoading: ElementRef;
   clients: Client[];
   rpsClient: RpsClient;
 
