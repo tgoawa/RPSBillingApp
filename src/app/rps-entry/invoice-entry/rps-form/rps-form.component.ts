@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { MatSnackBar } from '@angular/material';
-import { RpsClient, RpsCurrentBill } from 'app/client';
+import { RpsClient } from 'app/client';
 import { RpsService } from '../services/rps.service';
 import { ClientSearchService } from '../../../core/services/client-search.service';
 
@@ -219,9 +219,9 @@ export class RpsFormComponent implements OnInit, OnChanges {
       NumDistributions: [this.rpsClient.NumDistributions , [Validators.required, CustomValidators.number]],
       DollarsPerDistribution: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
       DistributionDollars: [{value: this.rpsClient.DistributionDollars, disabled: true}, [Validators.required, CustomValidators.number]],
-      NumDistributions1: [this.rpsClient.NumDistributions , [Validators.required, CustomValidators.number]],
-      DollarsPerDistribution1: [this.rpsClient.DollarsPerDistribution, [Validators.required, CustomValidators.number]],
-      DistributionDollars1: [{value: this.rpsClient.DistributionDollars, disabled: true}, [Validators.required, CustomValidators.number]],
+      NumDistributions1: [this.rpsClient.NumDistributions1 , [Validators.required, CustomValidators.number]],
+      DollarsPerDistribution1: [this.rpsClient.DollarsPerDistribution1, [Validators.required, CustomValidators.number]],
+      DistributionDollars1: [{value: this.rpsClient.DistributionDollars1, disabled: true}, [Validators.required, CustomValidators.number]],
       Assets: [this.rpsClient.Assets, [Validators.required, CustomValidators.number]],
       BasisPoint: [this.rpsClient.AssetBasePoint],
       BasisPointFee: [{value: this.rpsClient.BasisPointFee, disabled: true}, [Validators.required, CustomValidators.number]]

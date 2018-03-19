@@ -22,6 +22,9 @@ export class RpsClient {
     NumDistributions: number;
     DollarsPerDistribution: number;
     DistributionDollars: number;
+    NumDistributions1: number;
+    DollarsPerDistribution1: number;
+    DistributionDollars1: number;
     Assets: number;
     AssetBasePoint: number;
     BasisPointFee: number;
