@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-content *ngIf="rpsClient; else isLoading">
+  <mat-card-content *ngIf="!isLoading">
     <form novalidate (ngSubmit)="onSubmit(rpsForm.getRawValue())" [formGroup]="rpsForm">
       <mat-form-field>
         <span matPrefix>$</span>
@@ -105,7 +105,7 @@
             <input matInput type="number" placeholder="Assets" formControlName="Assets" (keyup)="calculateBasisPointFee()">
           </mat-form-field>
           <mat-form-field fxFlex="8">
-            <input matInput type="number" placeholder="Basis Point" formControlName="BasisPoint" (keyup)="calculateBasisPointFee()">
+            <input matInput type="number" placeholder="Basis Point Fee" formControlName="BasisPoint" (keyup)="calculateBasisPointFee()">
           </mat-form-field>
           <mat-form-field fxFlex="8">
             <span matPrefix>$</span>
@@ -125,7 +125,7 @@
       </section>
     </form>
   </mat-card-content>
-  <ng-template #isLoading>
+  <ng-template *ngIf="isLoading">
     <section fxLayout="column" fxLayoutAlign="center center">
       <mat-spinner></mat-spinner>
     </section>

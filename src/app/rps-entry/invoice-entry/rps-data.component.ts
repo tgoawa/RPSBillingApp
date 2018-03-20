@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { RpsService } from './services/rps.service';
 import { RpsClient, Client } from 'app/client';
@@ -10,8 +10,8 @@ import { ClientSearchService } from '../../core/services/client-search.service';
   styleUrls: ['./rps-data.component.css']
 })
 export class RPSDataComponent implements OnInit {
-  @ViewChild('isLoading') isLoading: ElementRef;
   clients: Client[];
+  isLoading: boolean;
   rpsClient: RpsClient;
 
   constructor(private rpsService: RpsService, private clientSearchService: ClientSearchService) { }
@@ -42,10 +42,13 @@ export class RPSDataComponent implements OnInit {
   }
 
   private getClients() {
+    this.isLoading = true;
     this.clientSearchService.getClients()
       .subscribe(data => {
+        this.isLoading = false;
         this.clients = data;
       }, error => {
+        this.isLoading = false;
         console.error(error);
       })
   }

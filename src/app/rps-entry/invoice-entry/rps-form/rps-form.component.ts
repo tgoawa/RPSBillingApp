@@ -18,6 +18,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
   rpsForm: FormGroup;
   invoiceSubtotal = 0;
   invoiceTotal = 0;
+  isLoading: boolean;
   creditDifference: number;
   adjustedCredit = 0;
   form5500List = [0, 375, 750, 1000];
@@ -35,7 +36,7 @@ export class RpsFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.createForm();
+    this.rpsForm = this.createForm();
     this.calculateSubTotal();
   }
 
@@ -200,7 +201,8 @@ export class RpsFormComponent implements OnInit, OnChanges {
   }
 
   createForm() {
-      this.rpsForm = this.fb.group({
+    this.isLoading = true;
+      const formGroup = this.fb.group({
       Id: [this.rpsClient.Id],
       ClientId: [this.rpsClient.ClientId],
       MaintenanceFees: [{value: this.rpsClient.MaintenanceFees, disabled: true}],
@@ -226,6 +228,9 @@ export class RpsFormComponent implements OnInit, OnChanges {
       BasisPoint: [this.rpsClient.AssetBasePoint],
       BasisPointFee: [{value: this.rpsClient.BasisPointFee, disabled: true}, [Validators.required, CustomValidators.number]]
     });
+
+    this.isLoading = false;
+    return formGroup;
   }
 
   saveInvoice(formVal) {

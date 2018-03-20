@@ -1,9 +1,9 @@
 <div fxLayout="column" fxLayoutAlign="space-between start">
   <h1>RPS Invoice Entry</h1>
-  <div fxFill *ngIf="clients; else isLoading">
+  <div fxFill *ngIf="!isLoading">
     <app-client-search (rpsBillClient)="clientSearch($event)" [clients]="clients"></app-client-search>
     <app-rps-form fxFill *ngIf="rpsClient" [rpsClient]="rpsClient" (isSaved)="destroyClient($event)"></app-rps-form>
-    <ng-template #isLoading>
+    <ng-template *ngIf="isLoading">
       <section fxLayout="column" fxLayoutAlign="center center">
         <mat-spinner></mat-spinner>
       </section>
