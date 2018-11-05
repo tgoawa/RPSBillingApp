@@ -30,7 +30,7 @@ export class RPSDataComponent implements OnInit {
 
   getRPSCurrentBill(client: Client) {
     this.rpsService.getRPSCurrentBill(client.ClientId)
-      .subscribe(data => {
+      .subscribe((data: RpsClient) => {
         this.rpsClient = data;
       }, error => {
         console.log(error);

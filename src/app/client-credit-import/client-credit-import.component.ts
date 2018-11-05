@@ -44,7 +44,7 @@ export class ClientCreditImportComponent implements OnInit {
 
   onSubmit() {
     this.rpsService.saveCSV(this.CreditData)
-      .subscribe(data => {
+      .subscribe((data: RPSCreditModel[]) => {
         if (data.length < 1) {
           this.openSnackBar('CSV Data uploaded successfully!');
           this.resetState();

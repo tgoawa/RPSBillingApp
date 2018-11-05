@@ -1,26 +1,47 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/operator/map';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { RpsClientFee } from '../../../client';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { retry, catchError } from 'rxjs/operators';
 
 const api = environment.envApi;
 
 @Injectable()
 export class MaintenanceFeeService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getRPSFee(clientId: number) {
-    return this.http.get(api + 'GetRPSFee/' + clientId)
-    .map(response => response.json(), error => console.log(error));
+    return this.http.get<RpsClientFee>(api + 'GetRPSFee/' + clientId)
+    .pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
   }
 
   updateRPSFee(rpsClientFee: RpsClientFee) {
     return this.http.put(api + 'updateRPSFee/', rpsClientFee)
-    .map(response => response.json(), error => console.log(error));
+    .pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
   }
 
 }

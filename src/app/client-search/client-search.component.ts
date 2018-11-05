@@ -16,13 +16,12 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-
-import { Observable } from 'rxjs/Observable';
-
+import { map } from 'rxjs/operators';
 import { Client } from '../client';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmationDialogComponent } from '../core/confirmation-dialog/confirmation-dialog.component';
 import { ClientSearchService } from '../core/services/client-search.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-client-search',
@@ -100,18 +99,17 @@ export class ClientSearchComponent implements OnInit, OnChanges {
     });
   }
 
-  private setClientAutoComplete() {
-    this.filteredClients = this.clientListControl.valueChanges
-      .map(
-        client =>
-          client && typeof client === 'object' ? client.ClientName : client
-      )
-      .map(val => {
-        if (val.length > 2) {
-          return this.filterClients(val);
-        } else {
-          return;
-        }
-      });
-  }
+    private setClientAutoComplete() {
+      this.filteredClients = this.clientListControl.valueChanges
+        .pipe(
+          map(client => client && typeof client === 'object' ? client.ClientName : client),
+          map(val => {
+                  if (val.length > 2) {
+                    return this.filterClients(val);
+                  } else {
+                    return;
+                  }
+                })
+        );
+    }
 }

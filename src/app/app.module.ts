@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout'
 
 import { MatButtonModule,
@@ -14,7 +14,6 @@ import { MatButtonModule,
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientSearchComponent } from './client-search/client-search.component';
 import { RpsModule } from './rps-entry/rps.module';
 import { HomeComponent } from './home/home.component';
 import { MaintenanceModule } from './maintenance/maintenance.module';
@@ -38,7 +37,7 @@ import { DuplicateListDialogComponent } from './client-credit-import/duplicate-l
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     FlexLayoutModule,
     MatButtonModule,

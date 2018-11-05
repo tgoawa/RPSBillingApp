@@ -1,10 +1,11 @@
-import { Subject } from 'rxjs/Subject';
+
 import { Component, OnInit, Input, ElementRef, OnDestroy, HostBinding, Renderer2, HostListener } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FileInput } from './file-input.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-input-file',
@@ -15,8 +16,10 @@ import { FileInput } from './file-input.model';
   ]
 })
 export class InputFileComponent implements MatFormFieldControl<FileInput>, ControlValueAccessor, OnInit, OnDestroy {
+  shouldLabelFloat = true;
+  autofilled?: boolean;
 
-  static nextId = 0;
+  nextId = 0;
 
   stateChanges = new Subject<void>();
   focused = false;
@@ -28,7 +31,7 @@ export class InputFileComponent implements MatFormFieldControl<FileInput>, Contr
   @Input() valuePlaceholder: string;
   @Input() multiple: boolean;
 
-  @HostBinding() id = `app-input-file-${InputFileComponent.nextId++}`;
+  @HostBinding() id = `app-input-file-${this.nextId++}`;
   @HostBinding('attr.aria-describedby') describedBy = '';
 
   @Input() get value(): FileInput | null {
@@ -98,7 +101,7 @@ export class InputFileComponent implements MatFormFieldControl<FileInput>, Contr
     private fm: FocusMonitor, private _elementRef: ElementRef, private _renderer: Renderer2) {
 
     ngControl.valueAccessor = this;
-    fm.monitor(_elementRef.nativeElement, _renderer, true).subscribe(origin => {
+    fm.monitor(_elementRef.nativeElement, true).subscribe(origin => {
       this.focused = !!origin;
       this.stateChanges.next();
     });

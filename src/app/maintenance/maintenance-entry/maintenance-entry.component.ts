@@ -30,7 +30,7 @@ export class MaintenanceEntryComponent implements OnInit {
 
   getRPSFee(client: Client) {
     this.feeService.getRPSFee(client.ClientId)
-    .subscribe(data => {
+    .subscribe((data: RpsClientFee) => {
       this.rpsClientFee = data;
     }, error => {
       console.log(error);
@@ -43,7 +43,7 @@ export class MaintenanceEntryComponent implements OnInit {
 
   private getClients() {
     this.clientSearchService.getClients()
-      .subscribe(data => {
+      .subscribe((data: Client[]) => {
         this.clients = data;
       }, error => {
         console.error(error);
