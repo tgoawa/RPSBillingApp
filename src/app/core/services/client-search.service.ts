@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Client } from 'app/client';
 
-const api = environment.envApi;
+const api = environment.envGateway;
 @Injectable()
 export class ClientSearchService {
   isFormDirty$: Observable<boolean>

@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  envApi: 'http://gateway.schencksolutions.com/RPSBillingService/',
+  envApi: 'http://webservicesprod.schencksolutions.com:1018/',
+  envGateway: 'http://gateway.schencksolutions.com/RPSBillingService/'
 };
