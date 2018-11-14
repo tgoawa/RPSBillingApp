@@ -14,7 +14,7 @@ export class RpsService {
   constructor(private http: HttpClient) { }
 
   getRPSCurrentBill(clientId: number) {
-    return this.http.get<RpsClient>(api + 'GetRPSCurrentBill/' + clientId)
+    return this.http.get<RpsClient>(api + 'GetCurrentInvoice/' + clientId)
     .pipe(
       retry(3),
       catchError(this.handleError)
